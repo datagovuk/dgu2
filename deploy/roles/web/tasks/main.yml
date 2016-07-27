@@ -1,3 +1,6 @@
+- name: set timezone to Europe/London
+  template: src=files/timezone dest=/etc/timezone owner=root group=root mode=0644
+  sudo: yes
 
 - name: fetch node setup script
   shell: "curl -sL https://deb.nodesource.com/setup_6.x | bash - && touch /tmp/node-setup"
@@ -20,6 +23,9 @@
     - erlang
     - elixir
     - postgresql-client-common
+    - inotify-tools
+    - ntp
+    - ntpdate
 
 - name: Install "elm" node.js package globally.
   npm: name=elm global=yes

@@ -1,3 +1,7 @@
+- name: set timezone to Europe/London
+  template: src=files/timezone dest=/etc/timezone owner=root group=root mode=0644
+  sudo: yes
+
 - name: Add ElasticSearch key
   apt_key: id=D88E42B4 url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
 

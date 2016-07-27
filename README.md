@@ -32,3 +32,8 @@ Once the environment is up and running, you can connect to the box with
 ```
 vagrant ssh
 ```
+
+NOTE: Temporarily you should run 
+```
+sudo dpkg-reconfigure tzdata
+```

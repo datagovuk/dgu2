@@ -5,4 +5,4 @@ import Html exposing (..)
 
 
 main =
-  Html.text "Hello from DGU"
+  Html.text "Bienvenue  DGU!!!!"

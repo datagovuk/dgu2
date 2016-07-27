@@ -7256,7 +7256,7 @@ var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
 var _user$project$App$main = {
-	main: _elm_lang$html$Html$text('Hello from DGU')
+	main: _elm_lang$html$Html$text('Bienvenue  DGU!!!!')
 };
 
 var Elm = {};

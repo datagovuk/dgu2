@@ -1,4 +1,6 @@
-
+- name: set timezone to Europe/London
+  template: src=files/timezone dest=/etc/timezone owner=root group=root mode=0644
+  sudo: yes
 
 - name: Install Database Packages
   apt: name={{ item }} state=present update_cache=yes cache_valid_time=3600
