@@ -19,7 +19,6 @@ defmodule DGUWeb.Router do
     get "/", PageController, :index
 
     resources "/publishers", PublisherController
-
   end
 
   # Other scopes may use custom stacks.
