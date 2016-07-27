@@ -1,0 +1,3 @@
+
+- name: restart ElasticSearch
+  service: name=uwsgi state=restarted

@@ -1,0 +1,30 @@
+<h2>Listing publishers</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Url</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for publisher <- @publishers do %>
+    <tr>
+      <td><%= publisher.name %></td>
+      <td><%= publisher.title %></td>
+      <td><%= publisher.url %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: publisher_path(@conn, :show, publisher), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: publisher_path(@conn, :edit, publisher), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: publisher_path(@conn, :delete, publisher), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New publisher", to: publisher_path(@conn, :new) %>
