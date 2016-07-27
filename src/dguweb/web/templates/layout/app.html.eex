@@ -43,13 +43,11 @@
       <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
       <nav id="proposition-menu">
         <a href="/" id="proposition-name"></a>
-        <!--
+
         <ul id="proposition-links">
+          <li><a href="<%= publisher_path(@conn, :index) %>">Publishers</a></li>
           <li><a href="/"></a></li>
-          <li><a href="/"></a></li>
-          <li><a href="/">Feedback</a></li>
         </ul>
-        -->
       </nav>
     </div>
   </div>

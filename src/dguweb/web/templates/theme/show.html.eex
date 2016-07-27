@@ -1,0 +1,8 @@
+<h2>Show theme</h2>
+
+<ul>
+
+</ul>
+
+<%= link "Edit", to: theme_path(@conn, :edit, @theme) %>
+<%= link "Back", to: theme_path(@conn, :index) %>
