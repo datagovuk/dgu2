@@ -4,8 +4,8 @@
 To build the development environment, you will need to have the following 
 software installed:
 
-* Virtualbox (recent)
-* Vagrant (vagrantup.com) v1.8.4+
+* Virtualbox (recent) v5.0.26
+* Vagrant (vagrantup.com) v1.8.5+
 * Ansible (pip install ansible) v2.1+
 
 To install the development environment you should run the following command:

@@ -8,11 +8,15 @@
 - name: Add ElasticSearch repo
   apt_repository: repo='deb http://packages.elastic.co/elasticsearch/2.x/debian stable main' state=present
 
+
 - name: Install Search Packages
   apt: name={{ item }} state=present update_cache=yes cache_valid_time=3600
   with_items:
     - elasticsearch
     - openjdk-8-jre
+
+- name: Allow everyone to connect to elastic
+  template: src=files/elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml owner=root group=root mode=0644
 
 - name: Start Search Services
   service: name={{ item }} state=started

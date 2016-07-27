@@ -39,5 +39,5 @@ config :dguweb, DGUWeb.Repo,
   username: "dgu",
   password: "pass",
   database: "dguweb_dev",
-  hostname: "localhost",
+  hostname: "192.168.100.100",
   pool_size: 10

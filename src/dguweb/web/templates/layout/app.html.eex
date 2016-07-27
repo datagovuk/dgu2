@@ -75,6 +75,5 @@
 
 </body>
   <script src="<%= static_path(@conn, "/js/app.js") %>" type="text/javascript"></script>
-
 </html>
 

@@ -1,6 +1,5 @@
 - name: python2
   hosts:
-    - web
     - database
     - search
   gather_facts: no
@@ -23,11 +22,4 @@
   hosts: search
   roles:
     - elasticsearch
-
-- name: install web
-  sudo: yes
-  user: vagrant
-  hosts: web
-  roles:
-    - web
 

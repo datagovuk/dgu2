@@ -35,7 +35,7 @@
     role_attr_flags=CREATEDB,NOSUPERUSER
 
 - name: Create the database
-  postgresql_db: name=dguweb
+  postgresql_db: name=dguweb_dev
                encoding='UTF-8'
                template='template_postgis'
                owner=dgu

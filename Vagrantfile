@@ -26,7 +26,6 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "8192"]
     vb.customize ["modifyvm", :id, "--cpus", "4"]
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
-    config.vm.synced_folder ".", "/vagrant"
   end
 
 
