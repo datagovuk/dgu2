@@ -20,6 +20,7 @@ defmodule DGUWeb.Router do
 
     resources "/publishers", PublisherController
     resources "/themes", ThemeController
+    resources "/datasets", DatasetController
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,6 @@
+<h2>New dataset</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: dataset_path(@conn, :create) %>
+
+<%= link "Back", to: dataset_path(@conn, :index) %>

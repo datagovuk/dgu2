@@ -1,11 +1,10 @@
-defmodule DGUWeb.Publisher do
+defmodule DGUWeb.Dataset do
   use DGUWeb.Web, :model
 
-  schema "publishers" do
+  schema "datasets" do
     field :name, :string
     field :title, :string
-    field :url, :string
-    has_many :datasets, DGUWeb.Dataset
+    belongs_to :publisher, DGUWeb.Publisher
 
     timestamps()
   end
@@ -15,7 +14,7 @@ defmodule DGUWeb.Publisher do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :title, :url])
-    |> validate_required([:name, :title, :url])
+    |> cast(params, [:name, :title])
+    |> validate_required([:name, :title])
   end
 end

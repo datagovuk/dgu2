@@ -1,0 +1,18 @@
+<h2>Show dataset</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @dataset.name %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @dataset.title %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: dataset_path(@conn, :edit, @dataset) %>
+<%= link "Back", to: dataset_path(@conn, :index) %>
