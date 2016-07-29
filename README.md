@@ -1,6 +1,14 @@
 
 ## Developer Setup
 
+Currently only Postgres and ElasticSearch are installed inside the VM - this is 
+due to issues with virtualbox noticing file changes.  Because it doesn't notice
+file changes, live reloading during development doesn't work, and we like 
+live-reloading. For now to develop on the host this means there are two stages.
+
+
+### Virtual Machine Setup
+
 To build the development environment, you will need to have the following 
 software installed:
 
@@ -33,7 +41,49 @@ Once the environment is up and running, you can connect to the box with
 vagrant ssh
 ```
 
-NOTE: Temporarily you should run 
+
+### Local machine setup
+
+On your local machine you need to have the following installed:
+
+* Erlang 19.x
+* Elixir 1.3.1
+* Elm 
+* Node/NPM 
+
+#### OSX 
+
+If you are using homebrew you should get all the deps that you need with the following:
+
+```bash
+brew update
+brew install elixir # Want v1.3.x
+brew install nodejs 
+brew install npm 
+npm install -g elm # Want v0.17 or greater 
 ```
-sudo dpkg-reconfigure tzdata
+
+#### Initialising 
+
+Once you have all of the dependencies installed you should be able to do the following (assuming the VM is running):
+
+```bash
+cd src/dguweb/
+npm install 
+mix local.hex # If this is your first elixir app
+mix local.rebar # If this is your first elixir app
+mix deps.get 
+mix deps.compile 
+mix ecto.create
+mix ecto.migrate 
 ```
+
+## Running the server 
+
+For development, you can run the backend server with the following command:
+
+```bash
+mix phoenix.server 
+```
+
+As live-reloading is enabled, any changes you make to ```src/dguweb/web/static/{css,js}``` or ```src/dguweb/web/elm/*.elm``` or ```src/dguweb/web/templates/*.eex``` should be reflected in the browser without reloading or restarting anything.  
