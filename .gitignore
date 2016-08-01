@@ -2,19 +2,18 @@
 .DS_Store
 .vagrant/
 ubuntu-xenial-16.04-cloudimg-console.log
-src/dguweb/web/elm/elm-stuff/
-src/dguweb/node_modules/
 
 _build
 db
 deps
 *.ez
-*.elmo
+*.pyc
 
 # Generated on crash by the VM
 erl_crash.dump
 
 # Static artifacts
+elm-stuff
 node_modules
 
 # Since we are building assets from web/static,
