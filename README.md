@@ -60,7 +60,6 @@ brew update
 brew install elixir # Want v1.3.x
 brew install nodejs
 brew install npm
-npm install -g elm # Want v0.17 or greater
 ```
 
 #### Initialising
@@ -86,4 +85,4 @@ For development, you can run the backend server with the following command:
 mix phoenix.server
 ```
 
-As live-reloading is enabled, any changes you make to ```src/dguweb/web/static/{css,js}``` or ```src/dguweb/web/elm/*.elm``` or ```src/dguweb/web/templates/*.eex``` should be reflected in the browser without reloading or restarting anything.
+As live-reloading is enabled, any changes you make to ```src/dguweb/web/static/{css,js}``` or ```src/dguweb/web/templates/*.eex``` should be reflected in the browser without reloading or restarting anything.
