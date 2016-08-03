@@ -71,7 +71,7 @@
       </div>
       <div class='header-proposition'>
         <div class='content'>
-          <a href='/govuk_template/' id='proposition-name'>data.gov.uk</a>
+          <a href='<% page_path(@conn, :index)%>' id='proposition-name'>data.gov.uk</a>
         </div>
       </div>
     </div>
