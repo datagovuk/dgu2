@@ -18,9 +18,9 @@
       <td><%= publisher.url %></td>
 
       <td class="text-right">
-        <%= link "Show", to: publisher_path(@conn, :show, publisher), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: publisher_path(@conn, :edit, publisher), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: publisher_path(@conn, :delete, publisher), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Show", to: publisher_path(@conn, :show, publisher.name), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: publisher_path(@conn, :edit, publisher.name), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: publisher_path(@conn, :delete, publisher.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>

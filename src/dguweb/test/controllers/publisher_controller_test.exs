@@ -27,8 +27,8 @@ defmodule DGUWeb.PublisherControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    publisher = Repo.insert! %Publisher{}
-    conn = get conn, publisher_path(conn, :show, publisher)
+    publisher = Repo.insert! %Publisher{name: "test"}
+    conn = get conn, publisher_path(conn, :show, publisher.name)
     assert html_response(conn, 200) =~ "Show publisher"
   end
 
@@ -39,28 +39,28 @@ defmodule DGUWeb.PublisherControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    publisher = Repo.insert! %Publisher{}
-    conn = get conn, publisher_path(conn, :edit, publisher)
+    publisher = Repo.insert! %Publisher{name: "test"}
+    conn = get conn, publisher_path(conn, :edit, publisher.name)
     assert html_response(conn, 200) =~ "Edit publisher"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    publisher = Repo.insert! %Publisher{}
-    conn = put conn, publisher_path(conn, :update, publisher), publisher: @valid_attrs
-    assert redirected_to(conn) == publisher_path(conn, :show, publisher)
+    publisher = Repo.insert! (Map.merge(%Publisher{}, @valid_attrs))
+    conn = put conn, publisher_path(conn, :update, publisher.name), publisher: @valid_attr#s
+    assert redirected_to(conn) == publisher_path(conn, :show, publisher.name)
     assert Repo.get_by(Publisher, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    publisher = Repo.insert! %Publisher{}
-    conn = put conn, publisher_path(conn, :update, publisher), publisher: @invalid_attrs
+    publisher = Repo.insert! %Publisher{name: "test"}
+    conn = put conn, publisher_path(conn, :update, publisher.name), publisher: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit publisher"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    publisher = Repo.insert! %Publisher{}
-    conn = delete conn, publisher_path(conn, :delete, publisher)
+    publisher = Repo.insert! %Publisher{name: "test"}
+    conn = delete conn, publisher_path(conn, :delete, publisher.name)
     assert redirected_to(conn) == publisher_path(conn, :index)
-    refute Repo.get(Publisher, publisher.id)
+    refute Repo.get_by(Publisher, name: publisher.name)
   end
 end
