@@ -45,7 +45,7 @@ defmodule DGUWeb.ThemeController do
       {:ok, theme} ->
         conn
         |> put_flash(:info, "Theme updated successfully.")
-        |> redirect(to: theme_path(conn, :show, theme))
+        |> redirect(to: theme_path(conn, :show, theme.name))
       {:error, changeset} ->
         render(conn, "edit.html", theme: theme, changeset: changeset)
     end
