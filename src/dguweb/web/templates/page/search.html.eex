@@ -1,0 +1,22 @@
+
+
+<div class="grid-row">
+
+    <div class="column-two-thirds">
+        <h1 class="heading-large">Search</h1>
+
+        <form action="/search" method="GET">
+          <fieldset class="inline">
+            <input id="q" name="q" type="text" value="<%= @query %>" placeholder="Search for data"
+            class="form-control search">
+          </fieldset>
+        </form>
+
+
+    </div>
+    <div class="column-one-third">
+    </div>
+
+</div>
+
+
