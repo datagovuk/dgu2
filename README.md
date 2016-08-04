@@ -75,6 +75,7 @@ mix deps.compile
 mix ecto.create
 mix ecto.migrate
 npm install
+mix run priv/repo/seeds.exs  # Load seed data
 ```
 
 ## Running the server

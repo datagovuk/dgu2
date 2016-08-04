@@ -1,7 +1,9 @@
 defmodule DGUWeb.PageController do
   use DGUWeb.Web, :controller
-
+  alias DGUWeb.Theme 
+  
   def index(conn, _params) do
-    render conn, "index.html"
+    themes = Repo.all(Theme)
+    render conn, "index.html", themes: themes 
   end
 end

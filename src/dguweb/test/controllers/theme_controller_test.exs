@@ -2,7 +2,7 @@ defmodule DGUWeb.ThemeControllerTest do
   use DGUWeb.ConnCase
 
   alias DGUWeb.Theme
-  @valid_attrs %{}
+  @valid_attrs %{name: "test", title: "test", description: "Description"}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
@@ -27,9 +27,9 @@ defmodule DGUWeb.ThemeControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    theme = Repo.insert! %Theme{}
-    conn = get conn, theme_path(conn, :show, theme)
-    assert html_response(conn, 200) =~ "Show theme"
+    theme = Repo.insert! %Theme{name: "scr_test", title: "Test Theme"}
+    conn = get conn, theme_path(conn, :show, theme.name)
+    assert html_response(conn, 200) =~ "Test Theme"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -39,27 +39,27 @@ defmodule DGUWeb.ThemeControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    theme = Repo.insert! %Theme{}
-    conn = get conn, theme_path(conn, :edit, theme)
+    theme = Repo.insert! %Theme{name: "trf_test"}
+    conn = get conn, theme_path(conn, :edit, theme.name)
     assert html_response(conn, 200) =~ "Edit theme"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    theme = Repo.insert! %Theme{}
-    conn = put conn, theme_path(conn, :update, theme), theme: @valid_attrs
-    assert redirected_to(conn) == theme_path(conn, :show, theme)
+    theme = Repo.insert! (%Theme{} |> Map.merge(@valid_attrs))
+    conn = put conn, theme_path(conn, :update, theme.name), theme: @valid_attrs
+    assert redirected_to(conn) == theme_path(conn, :show, theme.name)
     assert Repo.get_by(Theme, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    theme = Repo.insert! %Theme{}
-    conn = put conn, theme_path(conn, :update, theme), theme: @invalid_attrs
+    theme = Repo.insert! %Theme{name: "dnu_test"}
+    conn = put conn, theme_path(conn, :update, theme.name), theme: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit theme"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    theme = Repo.insert! %Theme{}
-    conn = delete conn, theme_path(conn, :delete, theme)
+    theme = Repo.insert! %Theme{name: "dcr_test"}
+    conn = delete conn, theme_path(conn, :delete, theme.name)
     assert redirected_to(conn) == theme_path(conn, :index)
     refute Repo.get(Theme, theme.id)
   end
