@@ -1,8 +1,5 @@
-<h2>Show theme</h2>
 
-<ul>
+<h1 class='heading-xlarge'><%= @theme.title %></h1>
 
-</ul>
-
-<%= link "Edit", to: theme_path(@conn, :edit, @theme) %>
+<%= link "Edit", to: theme_path(@conn, :edit, @theme.name) %>
 <%= link "Back", to: theme_path(@conn, :index) %>
