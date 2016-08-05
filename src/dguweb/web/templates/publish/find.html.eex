@@ -1,0 +1,49 @@
+
+
+
+<div class="grid-row">
+  <div class="column-two-thirds"
+    <h1>
+      Where would you like to put this data?
+    </h1>
+
+    <form>
+      <fieldset>
+        <legend class="visuallyhidden">Where would you like to add these files</legend>
+        <div class="form-group">
+          <label class="block-label" for="id_organogram">
+            <input id="id_organogram" type="radio" name="add_to" value="organogram">
+            The <a href="" target="_blank">Organogram dataset</a> for ...
+          </label>
+          <label class="block-label" for="id_spend_data">
+            <input id="id_spend_data" type="radio" name="add_to" value="spend_data">
+            The <a href="" target="_blank">Spend Data dataset</a> for ...
+          </label>
+          <label class="block-label" for="id_existing">
+            <input id="id_existing" type="radio" name="add_to" value="existing">
+            An existing dataset
+          </label>
+          <label class="block-label" for="id_new">
+            <input id="id_new" type="radio" name="add_to" value="new">
+            A new dataset
+          </label>
+        </div>
+      </fieldset>
+
+
+      <p>One or more of the files you upload suggest that the data might belong to 
+        one of the following datasets.</p>
+      <div class="form-group">
+        <label class="block-label" for="id_magic">
+          <input id="id_magic" type="radio" name="add_to" value="magic">
+          The <a href="" target="_blank">2015 Business Rates</a> dataset.
+        </label>
+      </div>
+      <div class="form-group">
+          <input type="submit" class="button" value="Next">
+      </div>
+    </form>
+  </div>
+  <div class="column-one-third">
+    <%= render "filelist.html", current_files: @current_files %>
+  </div>

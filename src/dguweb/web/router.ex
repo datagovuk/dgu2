@@ -18,10 +18,15 @@ defmodule DGUWeb.Router do
 
     get "/", PageController, :index
     get "/search", PageController, :search
+    
+    get "/publish", PublishController, :index
+    post "/publish", PublishController, :add_file
+    get "/publish/find", PublishController, :find
 
     resources "/publishers", PublisherController
     resources "/themes", ThemeController
     resources "/datasets", DatasetController
+
   end
 
   # Other scopes may use custom stacks.
