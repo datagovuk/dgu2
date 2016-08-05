@@ -46,7 +46,7 @@ defmodule DGUWeb.PublisherControllerTest do
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
     publisher = Repo.insert! (Map.merge(%Publisher{}, @valid_attrs))
-    conn = put conn, publisher_path(conn, :update, publisher.name), publisher: @valid_attr#s
+    conn = put conn, publisher_path(conn, :update, publisher.name), publisher: @valid_attrs
     assert redirected_to(conn) == publisher_path(conn, :show, publisher.name)
     assert Repo.get_by(Publisher, @valid_attrs)
   end
