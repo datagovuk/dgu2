@@ -1,0 +1,31 @@
+$dgu-green: #8bc658;
+
+#global-header {
+  background: $dgu-green;
+  #logo {
+    background: none;
+  }
+}
+
+#global-header .header-wrapper {
+  background: $dgu-green;
+}
+
+.phase-banner-alpha {
+  margin-bottom: 60px;
+}
+
+#footer {
+  .footer-wrapper {
+    padding-top: 0;
+  }
+  .footer-meta {
+    .footer-meta-inner {
+      vertical-align: top;
+      margin-top: 15px;
+    }
+    .copyright a {
+      padding-top: 50px;
+    }
+  }
+}
