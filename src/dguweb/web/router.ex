@@ -27,7 +27,6 @@ defmodule DGUWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
->>>>>>> master
   end
 
   # Other scopes may use custom stacks.
