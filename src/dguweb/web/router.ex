@@ -9,10 +9,6 @@ defmodule DGUWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", DGUWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -23,10 +19,15 @@ defmodule DGUWeb.Router do
     post "/publish", PublishController, :add_file
     get "/publish/find", PublishController, :find
 
-    resources "/publishers", PublisherController
-    resources "/themes", ThemeController
-    resources "/datasets", DatasetController
+    resources "/publisher", PublisherController
+    resources "/theme", ThemeController
+    resources "/dataset", DatasetController
+  end
 
+
+  pipeline :api do
+    plug :accepts, ["json"]
+>>>>>>> master
   end
 
   # Other scopes may use custom stacks.

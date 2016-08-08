@@ -13,11 +13,65 @@
   </li>
 
   <li>
+    <strong>Abbreviation:</strong>
+    <%= @publisher.abbreviation %>
+  </li>
+
+
+  <li>
+    <strong>Description:</strong>
+    <%= @publisher.description %>
+  </li>
+
+
+  <li>
     <strong>Url:</strong>
     <%= @publisher.url %>
   </li>
 
+
+  <li>
+    <strong>Category:</strong>
+    <%= @publisher.category %>
+  </li>
+
+<li>
+    <strong>Is Closed:</strong>
+    <%= @publisher.closed %>
+  </li>
+
+  <li>
+    <strong>FOI Name:</strong>
+    <%= @publisher.foi_name %>
+  </li>
+  <li>
+    <strong>FOI Email:</strong>
+    <%= @publisher.foi_email %>
+  </li>  
+  <li>
+    <strong>FOI Phone:</strong>
+    <%= @publisher.foi_phone %>
+  </li>
+  <li>
+    <strong>FOI Web:</strong>
+    <%= @publisher.foi_web %>
+  </li>  
+
+  <li>
+    <strong>Contact name:</strong>
+    <%= @publisher.contact_name %>
+  </li>
+  <li>
+    <strong>Contact email:</strong>
+    <%= @publisher.contact_email %>
+  </li>
+    <li>
+    <strong>Phone:</strong>
+    <%= @publisher.contact_phone %>
+  </li>
+
+
 </ul>
 
-<%= link "Edit", to: publisher_path(@conn, :edit, @publisher) %>
+<%= link "Edit", to: publisher_path(@conn, :edit, @publisher.name) %>
 <%= link "Back", to: publisher_path(@conn, :index) %>
