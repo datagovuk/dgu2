@@ -1,4 +1,7 @@
 
+<%= if @error do %>
+  ERROR: <%= @error  %>
+<% end %>
 
 <div class="grid-row">
   <div class="column-two-thirds">
@@ -24,10 +27,7 @@
     </form>
   </div>
   <div class="column-one-third">
-    <%= render "filelist.html", current_files: @current_files %>  
+    <p></p>
   </div>
 </div>
 
-<div class="grid-row">
-  <a class="button right" href="/publish/find">Continue ></a>
-</div>
