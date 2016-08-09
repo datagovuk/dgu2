@@ -52,6 +52,7 @@ defmodule DGUWeb.Web do
       import DGUWeb.Router.Helpers
       import DGUWeb.ErrorHelpers
       import DGUWeb.Gettext
+      import DGUWeb.Session, only: [current_user: 1, logged_in?: 1]
     end
   end
 

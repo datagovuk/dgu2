@@ -81,6 +81,13 @@
     </p>
 </div>
 
+<%= if logged_in?(@conn) do %>
+  <li><%= current_user(@conn).username %></li>
+  <li><%= link "Sign out", to: session_path(@conn, :logout) %></li>
+<% else %>
+  <li><%= link "Sign in",  to: session_path(@conn, :login_view) %></li>
+  <li><%= link "Register", to: session_path(@conn, :new) %></li>
+<% end %>
 
  <%= render @view_module, @view_template, assigns %>
 

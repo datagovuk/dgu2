@@ -18,4 +18,6 @@ config :dguweb, DGUWeb.Repo,
   hostname: System.get_env("DB_HOST") || "192.168.100.100",
   pool: Ecto.Adapters.SQL.Sandbox
 
-
+# Reduce rounds for bcrypt during tests
+config :comeonin, :bcrypt_log_rounds, 4
+config :comeonin, :pbkdf2_rounds, 1
