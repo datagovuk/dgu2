@@ -5,7 +5,7 @@ defmodule DGUWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    #plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -14,6 +14,10 @@ defmodule DGUWeb.Router do
 
     get "/", PageController, :index
     get "/search", PageController, :search
+    
+    get "/publish", PublishController, :index
+    post "/publish", PublishController, :add_file
+    get "/publish/find", PublishController, :find
 
     resources "/publisher", PublisherController
     resources "/theme", ThemeController

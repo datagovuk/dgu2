@@ -1,0 +1,8 @@
+
+
+<h1 class="heading-small">Current files</h1>
+<%= for f <- @current_files do %>
+  <div>
+    <%= f.filename %> <a style="font-size:small;" href="">delete</a>
+  </div>
+<% end %>
