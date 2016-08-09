@@ -12,10 +12,10 @@ config :logger, level: :warn
 # Configure your database
 config :dguweb, DGUWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "dgu",
-  password: "pass",
+  username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "dgu",
+  password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "pass",
   database: "dguweb_test",
-  hostname: "192.168.100.100",
+  hostname: System.get_env("DB_HOST") || "192.168.100.100",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # Reduce rounds for bcrypt during tests
