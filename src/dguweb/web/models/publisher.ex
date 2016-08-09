@@ -30,6 +30,6 @@ defmodule DGUWeb.Publisher do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :title, :url, :description, :abbreviation, :category, :closed])
-    |> validate_required([:name, :title, :url])
+    |> validate_required([:name, :title, :url, :id])
   end
 end

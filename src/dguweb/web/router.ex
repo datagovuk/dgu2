@@ -1,5 +1,11 @@
 defmodule DGUWeb.Router do
   use DGUWeb.Web, :router
+  use ExAdmin.Router
+
+  scope "/admin", ExAdmin do
+    pipe_through :browser
+    admin_routes
+  end
 
   pipeline :browser do
     plug :accepts, ["html"]
