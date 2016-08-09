@@ -15,5 +15,5 @@ config :dguweb, DGUWeb.Repo,
   username: "dgu",
   password: "pass",
   database: "dguweb_test",
-  hostname: "192.168.100.100",
+  hostname: System.get_env("DB_HOST") || "192.168.100.100",
   pool: Ecto.Adapters.SQL.Sandbox
