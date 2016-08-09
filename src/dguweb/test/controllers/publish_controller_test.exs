@@ -1,8 +1,9 @@
 defmodule DGUWeb.PublishControllerTest do
   use DGUWeb.ConnCase
 
-  @valid_attrs_upload %{file: %Plug.Upload{content_type: "text/csv", filename: "test-file.csv", path: ""}, url: ""}
-  @valid_attrs_url %{url: "https://localhost/"}  
+  
+  @valid_attrs_upload %{file: %Plug.Upload{content_type: "text/csv", filename: "test-file.csv", path: File.cwd! <> "/test/data/small-data.csv"}, url: ""}
+  @valid_attrs_url %{url: "http://servercode.co.uk/gold.csv"}  
 
   @invalid_attrs_missing %{file: :nil, url: :nil}
   @invalid_attrs_both %{file: :nil, url: :nil}  

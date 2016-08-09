@@ -1,6 +1,8 @@
 defmodule DGUWeb.PublishController do
   use DGUWeb.Web, :controller
+
   alias DGUWeb.Upload.Info, as: UploadInfo
+  alias DGUWeb.Upload.Tasks
 
   def index(conn, _params) do
     conn
@@ -25,14 +27,20 @@ defmodule DGUWeb.PublishController do
 
   defp add_file_internal(conn, {:nil, :nil}), do: failed_add_file(conn, "Please supply a URL or a file upload.")
   defp add_file_internal(conn, {upload, ""}) do 
-    # We have to move this file before the request completes
-    info = %UploadInfo{filename: upload.filename}
+    info = UploadInfo.from_upload(upload)
+    spawn(fn-> Tasks.run_tasks(info, Tasks.file_tasks) end )
     progress_add_file(conn, info)
   end 
 
   defp add_file_internal(conn, {:nil, "http" <> url}) do 
-    info = %UploadInfo{filename: "http" <> url}
-    progress_add_file(conn, info)
+    info = UploadInfo.from_url("http" <> url)
+    |>  Tasks.run_tasks(Tasks.url_tasks)
+
+    case info.errors do 
+      [] -> progress_add_file(conn, info)
+      [x] -> failed_add_file(conn, x)
+    end 
+    
   end 
 
   defp add_file_internal(conn, {:nil, _url}), do: failed_add_file(conn, "URL does not appear to be valid")
