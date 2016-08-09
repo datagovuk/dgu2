@@ -1,0 +1,15 @@
+
+<h1 class="heading-medium">My publishers</h1>
+
+<%= if @publishers == [] do %>
+    <p>You are not a member of any publisher</p>
+<% end %>
+
+<ul>
+<%= for {pub, role} <- @publishers do %>
+    <li>
+    <%= link pub.title, to: publisher_path(@conn, :show, pub.name) %>
+    (<%= role %>)
+    </li>
+<% end %>
+</ul>

@@ -22,7 +22,7 @@ defmodule DGUWeb.SessionControllerTest do
     assert redirected_to(conn) == "/"
 
     conn = post conn, session_path(conn, :login), session: %{username: "bob", password: "Password"}
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == "/user"
 
     conn = get conn, "/"
     assert html_response(conn, 200) =~ "Sign out"
@@ -46,7 +46,7 @@ defmodule DGUWeb.SessionControllerTest do
     assert redirected_to(conn) == "/"
 
     conn = post conn, session_path(conn, :login), session: %{username: "bob", password: "Password"}
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == "/user"
 
     conn = get conn, session_path(conn, :logout)
     assert redirected_to(conn) == "/"
