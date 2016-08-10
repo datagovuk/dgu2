@@ -6,11 +6,15 @@ config :dguweb, DGUWeb.Endpoint,
   http: [port: 4001],
   server: false
 
+config :tirexs, :uri, System.get_env("ELASTIC_URI") || "http://192.168.100.100:9200"
+config :dguweb, DGUWeb.Repo,
+    index: "dgu_test"
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
 # Configure your database
-config :dguweb, DGUWeb.Repo,
+config :dguweb, DGUWeb.EctoRepo,
   adapter: Ecto.Adapters.Postgres,
   username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "dgu",
   password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "pass",

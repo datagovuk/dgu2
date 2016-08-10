@@ -11,7 +11,7 @@ defmodule DGUWeb.SessionController do
     changeset = User.changeset(%User{}, user_params)
 
     case DGUWeb.Registration.create(changeset, DGUWeb.Repo) do
-      {:ok, changeset} ->
+      {:ok, _changeset} ->
         conn
         |> put_flash(:info, "Your account was created")
         |> redirect(to: "/")

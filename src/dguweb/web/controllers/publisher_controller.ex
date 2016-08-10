@@ -1,6 +1,7 @@
 defmodule DGUWeb.PublisherController do
   use DGUWeb.Web, :controller
 
+  alias DGUWeb.Repo
   alias DGUWeb.Publisher
 
   def index(conn, _params) do
