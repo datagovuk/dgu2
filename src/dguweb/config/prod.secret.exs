@@ -20,5 +20,4 @@ config :dguweb, DGUWeb.EctoRepo,
   pool_size: 20
 
 config :tirexs, :uri, "http://127.0.0.1:9200"
-config :dguweb, DGUWeb.Repo,
-    index: "dgu"
+config :dguweb, index: "dgu"
