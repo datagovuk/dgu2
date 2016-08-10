@@ -1,3 +1,4 @@
 
 <h1 class='heading-xlarge'><%= @theme.title %></h1>
+<p><%= @theme.description %></p>
 
