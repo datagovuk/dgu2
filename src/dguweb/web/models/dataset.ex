@@ -16,7 +16,7 @@ defmodule DGUWeb.Dataset do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :title])
+    |> cast(params, [:name, :title, :publisher_id])
     |> validate_required(@required_fields)
   end
 end
