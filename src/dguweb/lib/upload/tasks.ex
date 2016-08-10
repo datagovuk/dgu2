@@ -1,32 +1,32 @@
-defmodule DGUWeb.Upload.Tasks do 
+defmodule DGUWeb.Upload.Tasks do
   @moduledoc """
   Tasks for processing urls and uploaded files
   """
 
-  alias DGUWeb.Upload.Info 
+  alias DGUWeb.Upload.Info
 
   # The list of tasks that should be run against urls that are provided
-  def url_tasks do 
+  def url_tasks do
     [
       {__MODULE__, :info_from_headers},
       {__MODULE__, :print}
     ]
-  end 
+  end
 
-  # The list of tasks that should be run against files that are uploaded.  
-  def file_tasks do 
+  # The list of tasks that should be run against files that are uploaded.
+  def file_tasks do
     [
       {__MODULE__, :print}
     ]
-  end 
+  end
 
   @doc """
-  Runs all of the tasks for the upload type making sure that each one 
-  returns an Info (either updated or not). If at any stage errors are 
+  Runs all of the tasks for the upload type making sure that each one
+  returns an Info (either updated or not). If at any stage errors are
   added to the Info then no further processing will happen.
   """
-  def run_tasks(info, tasks) do 
-    Enum.reduce(tasks, info, fn ({m, f}, acc)-> 
+  def run_tasks(info, tasks) do
+    Enum.reduce(tasks, info, fn ({m, f}, acc)->
       apply_func(m, f, acc, length(acc.errors))
     end)
   end
@@ -37,36 +37,36 @@ defmodule DGUWeb.Upload.Tasks do
   @doc """
   Just for debugging, prints out the current Info struct.
   """
-  def print(info) do 
+  def print(info) do
     IO.inspect info
-  end 
+  end
 
   @doc """
-  Retrieves from information, if possible, from a HEAD request to the URL of the 
-  resource.  
+  Retrieves from information, if possible, from a HEAD request to the URL of the
+  resource.
   """
-  def info_from_headers(info) do 
+  def info_from_headers(info) do
     case HTTPoison.head(info.filename) do
       {:ok, %HTTPoison.Response{status_code: 200, headers: headers}} ->
         headermap = Enum.into(headers, %{})
-        %Info{info | 
+        %Info{info |
           size: Map.get(headermap, "Content-Length"),
           content_type: Map.get(headermap, "Content-Type")
         }
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-        %Info{info | 
+        %Info{info |
           errors: ["URL was not found" | info.errors],
         }
       {:error, %HTTPoison.Error{reason: reason}} ->
-        %Info{info | 
+        %Info{info |
           warnings: [reason | info.warnings],
         }
-      x ->
-        %Info{info | 
+      _ ->
+        %Info{info |
           warnings: ["Request failed" | info.warnings],
         }
     end
-  end 
+  end
 
 
 end
