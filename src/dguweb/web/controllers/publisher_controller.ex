@@ -29,6 +29,8 @@ defmodule DGUWeb.PublisherController do
 
   def show(conn, %{"id" => id}) do
     publisher = Repo.get_by!(Publisher, name: id)
+    |> Repo.preload(:datasets)
+
     render(conn, "show.html", publisher: publisher)
   end
 

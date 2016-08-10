@@ -1,28 +1,33 @@
-<h2>Listing datasets</h2>
+<h1 class="heading-xlarge">Datasets</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Title</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for dataset <- @datasets do %>
-    <tr>
-      <td><%= dataset.name %></td>
-      <td><%= dataset.title %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: dataset_path(@conn, :show, dataset), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: dataset_path(@conn, :edit, dataset), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: dataset_path(@conn, :delete, dataset), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<%= link "New dataset", to: dataset_path(@conn, :new) %>
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for dataset <- @datasets do %>
+        <tr>
+          <td>
+            <%= dataset.title %> <br/>
+            <small><%= dataset.publisher.title %></small>
+            
+          </td>
+          <td>
+            <%= link "Show", to: dataset_path(@conn, :show, dataset.name), class: "btn btn-default btn-xs" %>
+            <%= link "Edit", to: dataset_path(@conn, :edit, dataset.name), class: "btn btn-default btn-xs" %>
+            <%= link "Delete", to: dataset_path(@conn, :delete, dataset.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="column-one-third">
+  &nbsp;
+  </div>
+</div>

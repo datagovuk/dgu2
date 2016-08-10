@@ -30,6 +30,7 @@ config :ex_admin,
     DGUWeb.ExAdmin.Dashboard,
     DGUWeb.ExAdmin.Publisher,
     DGUWeb.ExAdmin.Dataset,
+    DGUWeb.ExAdmin.DataFile,
   ]
 
 # Import environment specific config. This must remain at the bottom
