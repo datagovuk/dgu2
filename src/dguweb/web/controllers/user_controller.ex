@@ -1,8 +1,6 @@
 defmodule DGUWeb.UserController do
   use DGUWeb.Web, :controller
   
-  alias DGUWeb.User
-
   def index(conn, _params) do
     user = conn |> DGUWeb.Session.current_user     
     do_index(conn, user)

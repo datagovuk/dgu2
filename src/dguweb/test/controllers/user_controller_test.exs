@@ -19,7 +19,7 @@ defmodule DGUWeb.UserControllerTest do
         name: "cabinet-office", title: "Cabinet Office", url: "http://..."
     })
 
-    {:ok, pu} = Repo.insert(%PublisherUser{user_id: user.id, publisher_id: publisher.id, role: "admin"})
+    {:ok, _} = Repo.insert(%PublisherUser{user_id: user.id, publisher_id: publisher.id, role: "admin"})
     
     # Login and then check that our newly added org is on the page
     conn = post conn, session_path(conn, :login), session: @valid_attrs

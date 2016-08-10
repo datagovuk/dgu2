@@ -7,9 +7,5 @@ defmodule DGUWeb.PageController do
     render conn, "index.html", themes: themes 
   end
 
-  def search(conn, params) do
-    query = params |> Map.get("q")
-    render conn, "search.html", query: query
-  end
 
 end

@@ -1,6 +1,7 @@
 defmodule DGUWeb.DatasetController do
   use DGUWeb.Web, :controller
 
+  alias DGUWeb.Repo
   alias DGUWeb.Dataset
 
   def index(conn, _params) do

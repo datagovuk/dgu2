@@ -24,7 +24,7 @@ defmodule DGUWeb.Mixfile do
     [
       mod: {DGUWeb, []},
       applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                     :phoenix_ecto, :postgrex, :httpoison, :comeonin]
+                     :phoenix_ecto, :postgrex, :httpoison, :comeonin, :tirexs]
     ]
   end
 
@@ -47,7 +47,8 @@ defmodule DGUWeb.Mixfile do
      {:httpoison, "~> 0.9.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
      {:comeonin, "~> 2.5"},
-     {:csv, "~> 1.4.0"}
+     {:tirexs, "~> 0.8"},
+     {:csv, "~> 1.4.0"},
     ]
   end
 

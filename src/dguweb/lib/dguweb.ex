@@ -9,7 +9,7 @@ defmodule DGUWeb do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(DGUWeb.Repo, []),
+      supervisor(DGUWeb.EctoRepo, []),
       # Start the endpoint when the application starts
       supervisor(DGUWeb.Endpoint, []),
       # Start your own worker by calling: DGUWeb.Worker.start_link(arg1, arg2, arg3)

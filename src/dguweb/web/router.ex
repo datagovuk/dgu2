@@ -19,7 +19,8 @@ defmodule DGUWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/search", PageController, :search
+
+    get "/search", SearchController, :search
     
     get "/publish", PublishController, :index
     post "/publish", PublishController, :add_file

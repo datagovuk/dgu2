@@ -12,9 +12,13 @@ config :dguweb, DGUWeb.Endpoint,
   secret_key_base: "U28NhDPtq3piAYGOkQ6xufnsXY4X2ozzCf+ZUJqqDujEtkZIPvS0TnLCBcxjFZYF"
 
 # Configure your database
-config :dguweb, DGUWeb.Repo,
+config :dguweb, DGUWeb.EctoRepo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "dguweb_prod",
   pool_size: 20
+
+config :tirexs, :uri, "http://127.0.0.1:9200"
+config :dguweb, DGUWeb.Repo,
+    index: "dgu"
