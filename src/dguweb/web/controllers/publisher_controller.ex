@@ -5,6 +5,7 @@ defmodule DGUWeb.PublisherController do
 
   def index(conn, _params) do
     publishers = Repo.all(Publisher)
+
     render(conn, "index.html", publishers: publishers)
   end
 

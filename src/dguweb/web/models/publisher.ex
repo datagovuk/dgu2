@@ -21,6 +21,8 @@ defmodule DGUWeb.Publisher do
     field :contact_email, :string
     field :contact_phone, :string
 
+    many_to_many :users, DGUWeb.User, join_through: DGUWeb.PublisherUser
+
     timestamps()
   end
 
