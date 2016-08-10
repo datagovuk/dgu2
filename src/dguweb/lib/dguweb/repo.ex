@@ -80,6 +80,14 @@ defmodule DGUWeb.Repo do
 
   defp index_name, do: Application.get_env(:dguweb, :index)
 
+  def search(q) do 
+    case Search.get("/#{index_name}/datasets/_search?q=#{q}") do 
+      {:ok, _status, result } ->
+        result 
+      _ -> nil
+    end
+  end
+
   defp model_to_kw(%Dataset{} = model) do 
     model 
     |> Map.take([:name, :title, :description])

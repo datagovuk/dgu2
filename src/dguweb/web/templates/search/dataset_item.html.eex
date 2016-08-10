@@ -1,0 +1,2 @@
+
+<a href="<%= dataset_path(@conn, :show, @dataset.name) %>"><%= @dataset.title %></a>
