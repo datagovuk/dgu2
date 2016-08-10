@@ -20,7 +20,6 @@ defmodule DGUWeb.UserControllerTest do
     })
 
     {:ok, pu} = Repo.insert(%PublisherUser{user_id: user.id, publisher_id: publisher.id, role: "admin"})
-    IO.inspect pu 
     
     # Login and then check that our newly added org is on the page
     conn = post conn, session_path(conn, :login), session: @valid_attrs
@@ -30,6 +29,5 @@ defmodule DGUWeb.UserControllerTest do
     assert html_response(conn, 200) =~ "Cabinet Office" 
     assert html_response(conn, 200) =~ "admin" 
   end 
-
 
 end 

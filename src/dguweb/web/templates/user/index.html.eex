@@ -1,5 +1,5 @@
 
-<h1 class="heading-medium">My publishers</h1>
+<h1 class="heading-xlarge">My publishers</h1>
 
 <%= if @publishers == [] do %>
     <p>You are not a member of any publisher</p>
