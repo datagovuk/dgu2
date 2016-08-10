@@ -5,7 +5,7 @@ defmodule DGUWeb.Dataset do
     field :name, :string
     field :title, :string
     belongs_to :publisher, DGUWeb.Publisher
-
+    has_many :datafiles, DGUWeb.DataFile
     timestamps()
   end
 

@@ -1,7 +1,13 @@
-<h2>Show dataset</h2>
+<h1 class="heading-xlarge">
+    <%= @dataset.title %>
+</h1>
+
+<%= if @dataset.publisher do  %>
+    <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.publisher.name) %>"><%= @dataset.publisher.title %></a></div>
+<hr/> 
+<% end %>
 
 <ul>
-
   <li>
     <strong>Name:</strong>
     <%= @dataset.name %>
@@ -11,8 +17,38 @@
     <strong>Title:</strong>
     <%= @dataset.title %>
   </li>
-
 </ul>
 
-<%= link "Edit", to: dataset_path(@conn, :edit, @dataset) %>
-<%= link "Back", to: dataset_path(@conn, :index) %>
+<hr/>
+
+<div class="grid-row">
+
+<h1 class="heading-large">Files</h1>
+
+
+<%= for file <- @dataset.datafiles do %>
+<div class="column-one-half" style="border: solid 2px #eee; overflow-x: scroll;">
+        <table>
+            <tr>
+                <th>Name:</th>
+                <td><%= file.name %></td>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td><%= file.description %></td>
+            </tr>            
+            <tr>
+                <th>URL:</th>
+                <td><%= file.url %></td>
+            </tr>      
+            <tr>
+                <th>Format:</th>
+                <td><%= file.format %></td>                
+            </tr>                  
+            
+        </table>
+</div>
+<% end %>
+
+
+</div>

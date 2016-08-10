@@ -69,9 +69,30 @@
     <strong>Phone:</strong>
     <%= @publisher.contact_phone %>
   </li>
-
-
 </ul>
 
-<%= link "Edit", to: publisher_path(@conn, :edit, @publisher.name) %>
-<%= link "Back", to: publisher_path(@conn, :index) %>
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for dataset <- @publisher.datasets do %>
+        <tr>
+          <td>
+            <a href="<%= dataset_path(@conn, :show, dataset.name) %>">
+            <%= dataset.title %> <br/>
+            </a>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="column-one-third">
+  &nbsp;
+  </div>
+</div>
