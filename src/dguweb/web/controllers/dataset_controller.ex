@@ -66,4 +66,22 @@ defmodule DGUWeb.DatasetController do
     |> put_flash(:info, "Dataset deleted successfully.")
     |> redirect(to: dataset_path(conn, :index))
   end
+
+  ### Temporary actions for generated test csvs ###############################
+
+  def fakecsv(conn, _params) do
+   conn
+    |> put_resp_content_type("text/csv")
+    |> put_resp_header("Content-Disposition",
+                       "attachment; filename=\"fake.csv\"")
+    |> send_resp(200, csv_content)
+  end
+
+  defp csv_content do
+    [['header1', 'header2'],['row1', 'data'],['row2', 'data']]
+    |> CSV.encode
+    |> Enum.to_list
+    |> to_string
+  end
+
 end

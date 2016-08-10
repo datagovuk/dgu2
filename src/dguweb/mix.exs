@@ -47,7 +47,8 @@ defmodule DGUWeb.Mixfile do
      {:httpoison, "~> 0.9.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
      {:comeonin, "~> 2.5"},
-     {:tirexs, "~> 0.8"}
+     {:tirexs, "~> 0.8"},
+     {:csv, "~> 1.4.0"},
     ]
   end
 

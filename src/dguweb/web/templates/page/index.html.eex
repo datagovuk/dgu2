@@ -25,7 +25,7 @@
   <div class="grid-row">
   <%= for theme <- row do %>
   <div class="column-one-third">
-    <h1 class="heading-small"><a href="/themes/<%= theme.name %>"><%= theme.title %></a></h1>
+    <h1 class="heading-small"><a href="<%= theme_path(@conn, :show, theme.name) %>"><%= theme.title %></a></h1>
     <p><%= theme.description %></p>
   </div>
   <% end %>

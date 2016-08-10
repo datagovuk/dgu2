@@ -34,8 +34,9 @@ defmodule DGUWeb.Router do
     get    "/login",  SessionController, :login_view
     post   "/login",  SessionController, :login
     get "/logout", SessionController, :logout
-
     get "/user", UserController, :index
+
+    get "/fakecsv", DatasetController, :fakecsv
   end
 
 
