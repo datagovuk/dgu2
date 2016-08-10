@@ -1,2 +1,9 @@
 
-<a href="<%= dataset_path(@conn, :show, @dataset.name) %>"><%= @dataset.title %></a>
+<div style="padding: 12px;">
+<a href="<%= dataset_path(@conn, :show, @dataset.name) %>"><%= @dataset.title %></a><br/>
+<%= if Map.get(@dataset, :publisher_name) do %>
+Published by: 
+<a href="<%= publisher_path(@conn, :show, @dataset.publisher_name) %>"><%= @dataset.publisher_title %></a>
+<% end %>
+
+</div>

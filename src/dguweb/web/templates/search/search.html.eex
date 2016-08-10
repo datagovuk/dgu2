@@ -22,11 +22,9 @@
 <%= if @total > 0 do %>
     <p>Search returned <%= @total %> results</p>
     <%= for result <- @results do %>
-        <div class="column-one-third">
             <%= if result._type == "datasets" do %>
                 <%= render "dataset_item.html", dataset: result._source, conn: @conn %>
             <% end %>
-        </div>
     <% end %>
 <% else %>
     <p>Search returned 0 results</p>

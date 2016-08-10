@@ -88,19 +88,13 @@ defmodule DGUWeb.Repo do
     end
   end
 
-  defp model_to_kw(%Dataset{} = model) do 
-    model 
-    |> Map.take([:name, :title, :description])
-    |> Enum.into([])
-  end 
-
   defp model_event(%Dataset{} = model, :insert) do
-    Search.put("#{index_name}/datasets/#{model.id}", model_to_kw(model))
+    Search.put("#{index_name}/datasets/#{model.id}", Dataset.fields_for_search(model))
     IO.inspect "Indexed"
     model 
   end
   defp model_event(%Dataset{} = model, :update) do
-    Search.put("#{index_name}/datasets/#{model.id}", model_to_kw(model))
+    Search.put("#{index_name}/datasets/#{model.id}", Dataset.fields_for_search(model))
     IO.inspect "Updated"
     model 
   end
