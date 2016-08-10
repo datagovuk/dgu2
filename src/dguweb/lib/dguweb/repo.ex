@@ -103,4 +103,6 @@ defmodule DGUWeb.Repo do
 
   defp model_event(_model, :update), do: :nothing
   defp model_event(_model, :insert), do: :nothing
+  defp model_event(_model, :delete), do: :nothing  
+  defp model_event(_model, :clear), do: :nothing    
 end
