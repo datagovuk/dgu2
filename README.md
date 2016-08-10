@@ -1,3 +1,4 @@
+[![Build Status](https://semaphoreci.com/api/v1/ross/dgu2/branches/master/badge.svg)](https://semaphoreci.com/ross/dgu2)
 
 ## Developer Setup
 

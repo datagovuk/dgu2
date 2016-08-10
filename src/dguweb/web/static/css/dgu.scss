@@ -11,21 +11,27 @@ $dgu-green: #8bc658;
   background: $dgu-green;
 }
 
-.phase-banner-alpha {
-  margin-bottom: 60px;
+.login-bar {
+  margin-bottom: 70px;
+}
+
+.login-info {
+  text-align: right;
+  li {
+    display: inline;
+    margin-left: 1em;
+  }
 }
 
 #footer {
-  .footer-wrapper {
-    padding-top: 0;
+  margin-top: 1em;
+  .footer-links {
+    ul li {
+      display: inline;
+      padding-left: 1em;
+    }
   }
-  .footer-meta {
-    .footer-meta-inner {
-      vertical-align: top;
-      margin-top: 15px;
-    }
-    .copyright a {
-      padding-top: 50px;
-    }
+  .copyright-and-licence {
+    float: right;
   }
 }

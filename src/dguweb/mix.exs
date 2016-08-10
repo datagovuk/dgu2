@@ -21,9 +21,11 @@ defmodule DGUWeb.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {DGUWeb, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpoison]]
+    [
+      mod: {DGUWeb, []},
+      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+                     :phoenix_ecto, :postgrex, :httpoison, :comeonin]
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -44,6 +46,7 @@ defmodule DGUWeb.Mixfile do
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
+     {:comeonin, "~> 2.5"}
     ]
   end
 

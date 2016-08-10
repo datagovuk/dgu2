@@ -81,25 +81,31 @@
     </p>
 </div>
 
+<div class="login-bar">
+  <%= if logged_in?(@conn) do %>
+    <ul class="login-info">
+      <li>Logged in as <%= current_user(@conn).username %></li>
+      <li><%= link "Sign out", to: session_path(@conn, :logout) %></li>
+    </ul>
+  <% end %>
+</div>
 
- <%= render @view_module, @view_template, assigns %>
+<%= render @view_module, @view_template, assigns %>
 
 </main>
 
-<footer class="group js-footer" id="footer" role="contentinfo">
-  <div class="footer-wrapper">
-    <div class="footer-meta">
-      <div class="footer-meta-inner">
-        <div class="open-government-licence">
-          <p class="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
-        </div>
+<footer id="footer" role="contentinfo">
+      <div class="footer-links">
+        <%= if not logged_in?(@conn) do %>
+          <ul>
+            <li><%= link "Sign in",  to: session_path(@conn, :login_view) %></li>
+            <li><%= link "Register", to: session_path(@conn, :new) %></li>
+          </ul>
+        <% end %>
       </div>
-
-      <div class="copyright">
-        <a href="http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/"></a>
+      <div class="copyright-and-licence">
+        <a href="http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/"><img src="<%= static_path(@conn, "/govuk_template/assets/stylesheets/images/open-government-licence.png") %>" alt="Crown Copyright"></a><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license"><img src="<%= static_path(@conn, "/govuk_template/assets/stylesheets/images/govuk-crest.png") %>" alt="Open Government Licence"></a>
       </div>
-    </div>
-  </div>
 </footer>
 
 </body>

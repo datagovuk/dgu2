@@ -28,6 +28,11 @@ defmodule DGUWeb.Router do
     resources "/publisher", PublisherController
     resources "/theme", ThemeController
     resources "/dataset", DatasetController
+
+    resources "/session", SessionController, only: [:new, :create]
+    get    "/login",  SessionController, :login_view
+    post   "/login",  SessionController, :login
+    get "/logout", SessionController, :logout
   end
 
 
