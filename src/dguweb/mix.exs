@@ -45,6 +45,7 @@ defmodule DGUWeb.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
+     {:ex_admin, github: "smpallen99/ex_admin"},
      {:comeonin, "~> 2.5"}
     ]
   end

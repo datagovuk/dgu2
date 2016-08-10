@@ -9,12 +9,14 @@ defmodule DGUWeb.Dataset do
     timestamps()
   end
 
+  @required_fields [:name, :title, :publisher_id]
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :title])
-    |> validate_required([:name, :title])
+    |> cast(params, [:name, :title, :publisher_id])
+    |> validate_required(@required_fields)
   end
 end

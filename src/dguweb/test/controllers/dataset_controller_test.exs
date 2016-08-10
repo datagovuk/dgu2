@@ -2,7 +2,9 @@ defmodule DGUWeb.DatasetControllerTest do
   use DGUWeb.ConnCase
 
   alias DGUWeb.Dataset
-  @valid_attrs %{name: "some content", title: "some content"}
+  alias DGUWeb.Publisher 
+
+  @publisher %Publisher{name: "some content", title: "some content", url: "some content"}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
@@ -16,9 +18,10 @@ defmodule DGUWeb.DatasetControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, dataset_path(conn, :create), dataset: @valid_attrs
+    pub = Repo.insert! @publisher 
+    conn = post conn, dataset_path(conn, :create), dataset:   %{name: "some content", title: "some content", publisher_id: pub.id}
     assert redirected_to(conn) == dataset_path(conn, :index)
-    assert Repo.get_by(Dataset, @valid_attrs)
+    assert Repo.get_by(Dataset, name: "some content")
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -45,10 +48,11 @@ defmodule DGUWeb.DatasetControllerTest do
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    dataset = Repo.insert! %Dataset{}
-    conn = put conn, dataset_path(conn, :update, dataset), dataset: @valid_attrs
+    pub = Repo.insert! @publisher 
+    dataset = Repo.insert! %Dataset{name: "some content", title: "some content", publisher_id: pub.id}
+    conn = put conn, dataset_path(conn, :update, dataset), dataset: %{name: "some content", title: "some content", publisher_id: pub.id}
     assert redirected_to(conn) == dataset_path(conn, :show, dataset)
-    assert Repo.get_by(Dataset, @valid_attrs)
+    assert Repo.get_by(Dataset, name: "some content")
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
