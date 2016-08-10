@@ -27,8 +27,7 @@ config :dguweb, DGUWeb.Endpoint,
   ]
 
 config :tirexs, :uri, System.get_env("ELASTIC_URI") || "http://192.168.100.100:9200"
-config :dguweb, DGUWeb.Repo,
-    index: "dgu_dev"
+config :dguweb, index: "dgu_dev"
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

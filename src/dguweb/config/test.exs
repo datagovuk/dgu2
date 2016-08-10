@@ -7,8 +7,7 @@ config :dguweb, DGUWeb.Endpoint,
   server: false
 
 config :tirexs, :uri, System.get_env("ELASTIC_URI") || "http://192.168.100.100:9200"
-config :dguweb, DGUWeb.Repo,
-    index: "dgu_test"
+config :dguweb, index: "dgu_test"
 
 # Print only warnings and errors during test
 config :logger, level: :warn

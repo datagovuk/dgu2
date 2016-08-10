@@ -6,7 +6,10 @@ end
 
 defmodule DGUWeb.Repo do
   alias DGUWeb.EctoRepo
-  alias DGUWeb.{Dataset, Publisher}
+  alias DGUWeb.Dataset
+  alias DGUWeb.Publisher
+
+  alias Tirexs.HTTP, as: Search 
 
   ### Delegated to Repo 
   defdelegate __adapter__, to: EctoRepo
@@ -63,8 +66,7 @@ defmodule DGUWeb.Repo do
   end
 
   def delete_all(queryable, opts \\ []) do
-    EctoRepo.delete_all(queryable, opts)
-    model_event(queryable, :clear)
+    handle_repo_return EctoRepo.delete_all(queryable, opts), :clear
   end
 
   defp handle_repo_return(return, type) do
@@ -76,30 +78,34 @@ defmodule DGUWeb.Repo do
     end
   end
 
-  defp model_event(%Dataset{} = model, :insert) do
+  defp index_name, do: Application.get_env(:dguweb, :index)
+
+  defp model_to_kw(%Dataset{} = model) do 
     model 
-  end
-  defp model_event(%Publisher{} = model, :insert) do
+    |> Map.take([:name, :title, :description])
+    |> Enum.into([])
+  end 
+
+  defp model_event(%Dataset{} = model, :insert) do
+    Search.put("#{index_name}/datasets/#{model.id}", model_to_kw(model))
+    IO.inspect "Indexed"
     model 
   end
   defp model_event(%Dataset{} = model, :update) do
-    model 
-  end
-  defp model_event(%Publisher{} = model, :update) do
+    Search.put("#{index_name}/datasets/#{model.id}", model_to_kw(model))
+    IO.inspect "Updated"
     model 
   end
   defp model_event(%Dataset{} = model, :delete) do
+    Search.delete("#{index_name}/datasets/#{model.id}")
+    IO.inspect "Deleted"
     model 
   end
-  defp model_event(%Publisher{} = model, :delete) do
-    model 
-  end  
   defp model_event(%Dataset{} = model, :clear) do
+    Search.delete("#{index_name}/datasets")
+    IO.inspect "Cleared"
     model 
   end
-  defp model_event(%Publisher{} = model, :clear) do
-    model 
-  end  
 
   defp model_event(_model, :update), do: :nothing
   defp model_event(_model, :insert), do: :nothing
