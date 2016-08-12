@@ -1,4 +1,4 @@
-<h2>Show publisher</h2>
+<h1 class="heading-xlarge"><%= @publisher.title %></h1>
 
 <ul>
 
@@ -47,7 +47,7 @@
   <li>
     <strong>FOI Email:</strong>
     <%= @publisher.foi_email %>
-  </li>  
+  </li>
   <li>
     <strong>FOI Phone:</strong>
     <%= @publisher.foi_phone %>
@@ -55,7 +55,7 @@
   <li>
     <strong>FOI Web:</strong>
     <%= @publisher.foi_web %>
-  </li>  
+  </li>
 
   <li>
     <strong>Contact name:</strong>

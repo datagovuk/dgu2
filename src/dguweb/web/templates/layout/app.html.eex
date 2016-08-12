@@ -82,6 +82,12 @@
 </div>
 
 <div class="login-bar">
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/publisher">Publishers</a></li>
+    </ul>
+  </nav>
   <%= if logged_in?(@conn) do %>
     <ul class="login-info">
       <li>Logged in as <%= current_user(@conn).username %></li>
@@ -95,6 +101,7 @@
 </main>
 
 <footer id="footer" role="contentinfo">
+  <div class="footer-wrapper">
       <div class="footer-links">
         <%= if not logged_in?(@conn) do %>
           <ul>
@@ -106,6 +113,7 @@
       <div class="copyright-and-licence">
         <a href="http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/"><img src="<%= static_path(@conn, "/govuk_template/assets/stylesheets/images/open-government-licence.png") %>" alt="Crown Copyright"></a><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license"><img src="<%= static_path(@conn, "/govuk_template/assets/stylesheets/images/govuk-crest.png") %>" alt="Open Government Licence"></a>
       </div>
+    </div>
 </footer>
 
 </body>

@@ -1,30 +1,32 @@
-<h2>Listing publishers</h2>
+<h1 class="heading-xlarge">Publishers</h1>
 
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Title</th>
-      <th>Url</th>
-
-      <th></th>
+      <%= if logged_in?(@conn) do %>
+        <th>Actions</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
-<%= for publisher <- @publishers do %>
-    <tr>
-      <td><%= publisher.name %></td>
-      <td><%= publisher.title %></td>
-      <td><%= publisher.url %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: publisher_path(@conn, :show, publisher.name), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: publisher_path(@conn, :edit, publisher.name), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: publisher_path(@conn, :delete, publisher.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
-<% end %>
+    <%= for publisher <- @publishers do %>
+      <tr>
+        <td><%= publisher.name %></td>
+        <td><a href="<%= publisher.url %>"><%= publisher.title %></a></td>
+        <%= if logged_in?(@conn) do %>
+          <td class="text-right">
+            <%= link "Show", to: publisher_path(@conn, :show, publisher.name), class: "btn btn-default btn-xs" %>
+            <%= link "Edit", to: publisher_path(@conn, :edit, publisher.name), class: "btn btn-default btn-xs" %>
+            <%= link "Delete", to: publisher_path(@conn, :delete, publisher.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<%= link "New publisher", to: publisher_path(@conn, :new) %>
+<%= if logged_in?(@conn) do %>
+  <%= link "Add a publisher", to: publisher_path(@conn, :new) %>
+<% end %>
