@@ -27,7 +27,9 @@
             <% end %>
     <% end %>
 <% else %>
+    <%= if @query != "" do %>
     <p>Search returned 0 results</p>
+    <% end %>
 <% end %>
 </div>
 
