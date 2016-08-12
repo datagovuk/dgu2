@@ -9,9 +9,9 @@ defmodule DGUWeb.Repo do
   alias DGUWeb.Dataset
   alias DGUWeb.Publisher
 
-  alias Tirexs.HTTP, as: Search 
+  alias Tirexs.HTTP, as: Search
 
-  ### Delegated to Repo 
+  ### Delegated to Repo
   defdelegate __adapter__, to: EctoRepo
   defdelegate __pool__, to: EctoRepo
   defdelegate __sql__, to: EctoRepo
@@ -57,8 +57,8 @@ defmodule DGUWeb.Repo do
 
   def delete(queryable, opts \\ []) do
     handle_repo_return EctoRepo.delete(queryable, opts), :delete
-  end 
-  
+  end
+
   def delete!(queryable, opts \\ []) do
     model = EctoRepo.delete!(queryable, opts)
     model_event(model, :delete)
@@ -80,37 +80,57 @@ defmodule DGUWeb.Repo do
 
   defp index_name, do: Application.get_env(:dguweb, :index)
 
-  def search(q) do 
-    case Search.get("/#{index_name}/datasets/_search?q=#{q}") do 
+  def search(q) do
+    case Search.get("/#{index_name}/datasets/_search?q=#{q}") do
       {:ok, _status, result } ->
-        result 
+        result
       _ -> nil
     end
   end
 
+  def create_index do
+    host = Application.get_env(:tirexs, :uri)
+    body = ~s({
+    "settings": {
+        "index": {
+            "number_of_replicas" : 0,
+            "number_of_shards": 1,
+            "analysis" :{
+                "analyzer": {
+                    "default": {
+                        "type" : "snowball",
+                        "language" : "English"
+                    }
+                }
+            }
+    }}})
+    {:ok, response} = HTTPoison.put("#{host}/#{index_name}", body)
+    IO.puts response.body
+  end
+
+  def clear_index do
+    Search.delete("#{index_name}")
+  end
+
   defp model_event(%Dataset{} = model, :insert) do
     Search.put("#{index_name}/datasets/#{model.id}", Dataset.fields_for_search(model))
-    IO.inspect "Indexed"
-    model 
+    model
   end
   defp model_event(%Dataset{} = model, :update) do
     Search.put("#{index_name}/datasets/#{model.id}", Dataset.fields_for_search(model))
-    IO.inspect "Updated"
-    model 
+    model
   end
   defp model_event(%Dataset{} = model, :delete) do
     Search.delete("#{index_name}/datasets/#{model.id}")
-    IO.inspect "Deleted"
-    model 
+    model
   end
   defp model_event(%Dataset{} = model, :clear) do
     Search.delete("#{index_name}/datasets")
-    IO.inspect "Cleared"
-    model 
+    model
   end
 
   defp model_event(_model, :update), do: :nothing
   defp model_event(_model, :insert), do: :nothing
-  defp model_event(_model, :delete), do: :nothing  
-  defp model_event(_model, :clear), do: :nothing    
+  defp model_event(_model, :delete), do: :nothing
+  defp model_event(_model, :clear), do: :nothing
 end
