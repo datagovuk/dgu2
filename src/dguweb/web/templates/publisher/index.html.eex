@@ -28,5 +28,5 @@
 </table>
 
 <%= if logged_in?(@conn) do %>
-  <%= link "New publisher", to: publisher_path(@conn, :new) %>
+  <%= link "Add a publisher", to: publisher_path(@conn, :new) %>
 <% end %>
