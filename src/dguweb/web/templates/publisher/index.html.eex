@@ -5,7 +5,6 @@
     <tr>
       <th>Name</th>
       <th>Title</th>
-      <th>Url</th>
       <%= if logged_in?(@conn) do %>
         <th>Actions</th>
       <% end %>
@@ -15,8 +14,7 @@
     <%= for publisher <- @publishers do %>
       <tr>
         <td><%= publisher.name %></td>
-        <td><%= publisher.title %></td>
-        <td><%= publisher.url %></td>
+        <td><a href="<%= publisher.url %>"><%= publisher.title %></a></td>
         <%= if logged_in?(@conn) do %>
           <td class="text-right">
             <%= link "Show", to: publisher_path(@conn, :show, publisher.name), class: "btn btn-default btn-xs" %>
