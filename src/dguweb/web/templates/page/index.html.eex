@@ -1,6 +1,9 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
+
+    <div id="elm-container"></div>
+
     <form action="/search" method="GET">
       <fieldset class="inline">
         <input id="q" name="q" type="text" value="" placeholder="Search for data"
