@@ -7,7 +7,6 @@ end
 defmodule DGUWeb.Repo do
   alias DGUWeb.EctoRepo
   alias DGUWeb.Dataset
-  alias DGUWeb.Publisher
 
   alias Tirexs.HTTP, as: Search
 
