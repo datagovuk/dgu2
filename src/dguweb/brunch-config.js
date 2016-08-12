@@ -28,7 +28,10 @@ exports.config = {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/web/static/assets". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(web\/static\/assets)/
+    assets: /^(web\/static\/assets)/,
+
+    // Don't compile the js files elm produces as side-effects
+    ignored: [ /^(web\/static\/elm\/elm-stuff)/ ]
   },
 
   // Phoenix paths configuration
@@ -48,6 +51,11 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+    elmBrunch: {
+      mainModules: ["web/static/elm/App.elm"],
+      outputFolder: "priv/static/js",
+      outputFile: "elm.js"
     }
   },
 
@@ -85,5 +93,5 @@ exports.config = {
 //
 // With
 //
-//     
+//
 //
