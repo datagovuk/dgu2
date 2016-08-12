@@ -84,6 +84,7 @@
 <div class="login-bar">
   <nav>
     <ul>
+      <li><a href="/">Home</a></li>
       <li><a href="/publisher">Publishers</a></li>
     </ul>
   </nav>

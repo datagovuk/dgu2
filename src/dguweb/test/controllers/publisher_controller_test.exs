@@ -7,7 +7,7 @@ defmodule DGUWeb.PublisherControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, publisher_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing publishers"
+    assert html_response(conn, 200) =~ "Publishers"
   end
 
   test "renders form for new resources", %{conn: conn} do
