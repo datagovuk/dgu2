@@ -13,6 +13,16 @@ $dgu-green: #8bc658;
 
 .login-bar {
   margin-bottom: 70px;
+  nav {
+    float: left;
+    ul {
+      list-style-type: none;
+      li {
+        display: inline;
+        padding-right: 1em;
+      }
+    }
+  }
 }
 
 .login-info {

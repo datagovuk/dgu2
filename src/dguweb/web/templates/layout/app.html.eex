@@ -82,6 +82,11 @@
 </div>
 
 <div class="login-bar">
+  <nav>
+    <ul>
+      <li><a href="/publisher">Publishers</a></li>
+    </ul>
+  </nav>
   <%= if logged_in?(@conn) do %>
     <ul class="login-info">
       <li>Logged in as <%= current_user(@conn).username %></li>
