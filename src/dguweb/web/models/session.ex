@@ -16,11 +16,6 @@ defmodule DGUWeb.Session do
     end
   end
 
-  def current_user(conn) do
-    id = Plug.Conn.get_session(conn, :current_user)
-    if id, do: DGUWeb.Repo.get(User, id)
-  end
-
-  def logged_in?(conn), do: !!current_user(conn)
+  def logged_in?(conn), do: !!conn.assigns[:current_user]
 
 end

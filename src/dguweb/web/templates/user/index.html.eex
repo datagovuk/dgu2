@@ -6,10 +6,10 @@
 <% end %>
 
 <ul>
-<%= for {pub, role} <- @publishers do %>
+<%= for {name, m} <- @publishers do %>
     <li>
-    <%= link pub.title, to: publisher_path(@conn, :show, pub.name) %>
-    (<%= role %>)
+    <%= link m.title, to: publisher_path(@conn, :show, name) %>
+    (<%= m.role %>)
     </li>
 <% end %>
 </ul>

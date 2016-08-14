@@ -16,26 +16,26 @@ defmodule DGUWeb.User do
   end
 
   @doc """
-  Retrieves the publishers that the given user is a member of. Because we want the role 
-  field in the join table however, we need to also map them separately to the memberships 
-  so we query the join table as well.  One day I hope this is fixed to allow the fields in 
+  Retrieves the publishers that the given user is a member of. Because we want the role
+  field in the join table however, we need to also map them separately to the memberships
+  so we query the join table as well.  One day I hope this is fixed to allow the fields in
   the join table to be retrieved as part of the same call.
   """
-  def publishers(user) do 
+  def publishers(user) do
       publishers = Repo.all assoc(user, :publisher)
       memberships = Repo.all(from(p in PublisherUser, where: p.user_id == ^user.id))
 
-      member_map = memberships 
-      |> Enum.map(fn x ->   
+      member_map = memberships
+      |> Enum.map(fn x ->
           {x.publisher_id, x.role}
       end)
       |> Enum.into(%{})
 
       publishers
-      |> Enum.map( fn p -> 
-        {p, Map.get(member_map, p.id)}
+      |> Enum.map( fn p ->
+        {p.name, %{role: Map.get(member_map, p.id), title: p.title}}
       end)
-  end 
+  end
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -43,8 +43,8 @@ defmodule DGUWeb.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password, :crypted_password])
-    |> validate_required([:username, :email, :password])    
-    |> validate_format(:email, ~r/@/)    
+    |> validate_required([:username, :email, :password])
+    |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
     |> unique_constraint(:username)
   end
