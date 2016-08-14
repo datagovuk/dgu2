@@ -7,6 +7,8 @@ defmodule DGUWeb.Dataset do
     field :name, :string
     field :title, :string
     field :description, :string
+    field :type, :string
+
     belongs_to :publisher, DGUWeb.Publisher
     has_many :datafiles, DGUWeb.DataFile
     timestamps()
@@ -19,7 +21,7 @@ defmodule DGUWeb.Dataset do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :title, :description, :publisher_id])
+    |> cast(params, [:name, :title, :description, :type, :publisher_id])
     |> validate_required(@required_fields)
   end
 
@@ -32,13 +34,13 @@ defmodule DGUWeb.Dataset do
 
   def fields_with_publisher(dataset, nil) do
     dataset
-    |> Map.take([:name, :title, :description])
+    |> Map.take([:name, :title, :description, :type])
     |> Enum.into([])
   end
 
   def fields_with_publisher(dataset, publisher) do
     dataset
-    |> Map.take([:name, :title, :description])
+    |> Map.take([:name, :title, :description, :type])
     |> Map.put(:publisher_name, publisher.name)
     |> Map.put(:publisher_title, publisher.title)
     |> Enum.into([])

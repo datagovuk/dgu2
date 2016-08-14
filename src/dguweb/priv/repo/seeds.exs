@@ -143,7 +143,8 @@ co_organogram = R.insert!(%D{
     name: "co-organogram",
     title: "Organogram",
     description: "The organogram for the Cabinet Office that explains the structure of the organisation",
-    publisher_id: cabinet_office.id
+    publisher_id: cabinet_office.id,
+    type: "organogram"
 })
 
 R.insert!(%DF{
@@ -158,7 +159,8 @@ defra_organogram = R.insert!(%D{
     name: "defra-organogram",
     title: "Organogram",
     description: "The organogram for Defra that explains the structure of the organisation",
-    publisher_id: defra.id
+    publisher_id: defra.id,
+    type: "organogram"
 })
 
 R.insert!(%DF{
@@ -173,7 +175,8 @@ dft_organogram = R.insert!(%D{
     name: "dft-organogram",
     title: "Organogram",
     description: "The organogram that explains the structure of the organisation",
-    publisher_id: dft.id
+    publisher_id: dft.id,
+    type: "organogram"
 })
 
 R.insert!(%DF{
@@ -188,7 +191,8 @@ co_spending = R.insert!(%D{
     name: "co-spending",
     title: "Spending",
     description: "This is the Cabinet Office spending data which records all of the organisation's spending greater than £500.",
-    publisher_id: cabinet_office.id
+    publisher_id: cabinet_office.id,
+    type: "spending"
 })
 
 R.insert!(%DF{
@@ -203,7 +207,8 @@ defra_spending = R.insert!(%D{
     name: "defra-spending",
     title: "Spending",
     description: "This is the Defra spending data which records all of the organisation's spending greater than £500.",
-    publisher_id: defra.id
+    publisher_id: defra.id,
+    type: "spending"
 })
 
 R.insert!(%DF{
@@ -218,7 +223,8 @@ dft_spending = R.insert!(%D{
     name: "dft-spending",
     title: "Spending",
     description: "This is the Department for Transport spending data which records all of the organisation's spending greater than £500.",
-    publisher_id: dft.id
+    publisher_id: dft.id,
+    type: "spending"
 })
 
 R.insert!(%DF{
