@@ -1,31 +1,32 @@
 
 
+<h1 class="heading-xlarge">
+  Where would you like to put this data?
+</h1>
 
 <div class="grid-row">
-  <div class="column-two-thirds"
-    <h1>
-      Where would you like to put this data?
-    </h1>
+  <div class="column-two-thirds">
 
-    <form>
+    <form action="<%= upload_path(@conn, :put, @upload.id) %>" method="POST">
       <fieldset>
         <legend class="visuallyhidden">Where would you like to add these files</legend>
         <div class="form-group">
+
+          <%= for {dataset_name, dataset_title} <- @datasets do %>
           <label class="block-label" for="id_organogram">
-            <input id="id_organogram" type="radio" name="add_to" value="organogram">
-            The <a href="" target="_blank">Organogram dataset</a> for ...
+            <input type="radio" name="add_to" value="dataset:<%= dataset_name %>">
+            The <a href="<%= dataset_path(@conn, :show, dataset_name) %>" target="_blank"><%= dataset_title %> dataset</a> for <%= @publisher.title %>
           </label>
-          <label class="block-label" for="id_spend_data">
-            <input id="id_spend_data" type="radio" name="add_to" value="spend_data">
-            The <a href="" target="_blank">Spend Data dataset</a> for ...
-          </label>
+
+          <% end %>
+
           <label class="block-label" for="id_existing">
             <input id="id_existing" type="radio" name="add_to" value="existing">
-            An existing dataset
+            An existing dataset within <%= @publisher.title %>
           </label>
           <label class="block-label" for="id_new">
             <input id="id_new" type="radio" name="add_to" value="new">
-            A new dataset
+            A new <%= @publisher.title %> dataset
           </label>
         </div>
       </fieldset>
@@ -36,7 +37,7 @@
       <div class="form-group">
         <label class="block-label" for="id_magic">
           <input id="id_magic" type="radio" name="add_to" value="magic">
-          The <a href="" target="_blank">2015 Business Rates</a> dataset.
+          The <%= @publisher.title %> <a href="" target="_blank">2015 Business Rates</a> dataset.
         </label>
       </div>
       <div class="form-group">

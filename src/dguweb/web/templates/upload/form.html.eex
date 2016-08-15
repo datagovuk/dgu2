@@ -6,6 +6,22 @@
   <% end %>
 
   <div class="form-group">
+    <label>Name</label>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <%= textarea f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div class="form-group">
+    <hr/>
+  </div>
+
+  <div class="form-group">
     <label>Upload a file</label>
     <%= file_input f, :file, class: "form-control" %>
     <%= error_tag f, :file %>

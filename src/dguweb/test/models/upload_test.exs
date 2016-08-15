@@ -3,7 +3,11 @@ defmodule DGUWeb.UploadTest do
 
   alias DGUWeb.Upload
 
-  @valid_attrs %{content_type: "some content", dataset: "some content", errors: [], path: "some content", publisher: "some content", url: "some content", warnings: []}
+  @valid_attrs %{name: "simple", description: "A description",
+    content_type: "some content", dataset: "some content",
+    errors: [], path: "some content", publisher: "some content",
+    url: "some content", warnings: []
+  }
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

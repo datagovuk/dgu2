@@ -2,6 +2,8 @@ defmodule DGUWeb.Upload do
   use DGUWeb.Web, :model
 
   schema "uploads" do
+    field :name, :string
+    field :description, :string
     field :url, :string
     field :dataset, :string
     field :publisher, :string
@@ -19,8 +21,9 @@ defmodule DGUWeb.Upload do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:url, :dataset, :publisher, :content_type, :path, :warnings, :errors, :file])
+    |> cast(params, [:name, :description, :url, :dataset, :publisher, :content_type, :path, :warnings, :errors, :file])
     |> validate_url_or_file
+    |> validate_required([:name, :description])
     |> process_uploaded_file
   end
 

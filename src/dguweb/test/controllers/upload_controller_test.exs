@@ -4,7 +4,10 @@ defmodule DGUWeb.UploadControllerTest do
   alias DGUWeb.Upload
   alias DGUWeb.{Dataset, Publisher}
 
-  @valid_attrs %{content_type: "some content", dataset: "test-dataset", errors: [], path: "some content", publisher: "some content", url: "some content", warnings: []}
+  @valid_attrs %{name: "simple", description: "A description", content_type: "some content",
+    dataset: nil, errors: [], path: "some content", publisher: "testpub",
+    url: "some content", warnings: []
+  }
   @invalid_attrs %{}
 
   test "renders form for new resources", %{conn: conn} do
@@ -13,16 +16,9 @@ defmodule DGUWeb.UploadControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    pub = Repo.insert! %Publisher{name: "some content", title: "some content",description: "Description", url: "some content"}
-    Repo.insert! %Dataset{
-      name: "test-dataset",
-      title: "Testing",
-      description: "A test Dataset",
-      publisher_id: pub.id
-    }
-
+    pub = Repo.insert! %Publisher{name: "testpub", title: "some content",description: "Description", url: "some content"}
     post conn, upload_path(conn, :create), upload: @valid_attrs
-    assert Repo.get_by(Upload, @valid_attrs)
+    assert Repo.get_by(Upload, description: "A description" )
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -31,8 +27,12 @@ defmodule DGUWeb.UploadControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    upload = Repo.insert! %Upload{}
-    conn = get conn, upload_path(conn, :show, upload)
+    pub = Repo.insert! %Publisher{name: "testpub", title: "some content",description: "Description", url: "some content"}
+
+    cs = Upload.changeset(%Upload{}, @valid_attrs)
+    upload = Repo.insert!(cs)
+
+    conn = get conn, upload_path(conn, :show, upload.id)
     assert html_response(conn, 200) =~ "Where would you like to add these files"
   end
 

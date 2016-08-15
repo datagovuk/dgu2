@@ -33,14 +33,19 @@ defmodule DGUWeb.UploadController do
     end
   end
 
-  def get_redirect(conn, %Upload{dataset: dataset_name}=params) do
+
+  # If we are uploading data and we already know the dataset, then we will add the data file
+  # and then redirect to the dataset itself.
+  def get_redirect(conn, %Upload{dataset: dataset_name}=params) when not is_nil(dataset_name) do
     dataset = Repo.get_by(Dataset, name: dataset_name)
+    upload = Repo.get(Upload, params.id )
 
     # Create a new data_file for the dataset
     changeset = DataFile.changeset_from_upload(params, dataset.id)
     case Repo.insert(changeset) do
       {:ok, _datafile} ->
-        # Delete the upload once we are happy the data_file is added
+        Repo.delete upload
+
         conn
         |> put_flash(:info, "Datafile created successfully.")
         |> redirect(to: dataset_path(conn, :show, dataset.name))
@@ -50,16 +55,74 @@ defmodule DGUWeb.UploadController do
         render(conn, "new.html", changeset: changeset, dataset: dataset, publisher: publisher)
     end
 
-
   end
 
+  # If we have a publisher, but no dataset then redirect to the chooser
   def get_redirect(conn, %{publisher: _publisher_name}=params) do
     redirect(conn, to: upload_path(conn, :show, params.id) )
   end
 
+  # Allows the user to choose where they intend to put the data that they
+  # just uploaded. This data will be posted to :put
   def show(conn, %{"id" => id}) do
     upload = Repo.get!(Upload, id)
-    render(conn, "show.html", upload: upload)
+    publisher = Repo.get_by(Publisher, name: upload.publisher)
+
+    # Get the typed datasets for the publisher
+    datasets = Repo.all(from d in Dataset,
+      where: d.publisher_id == ^publisher.id and d.type in ["organogram", "spending"],
+      select: {d.name, d.title})
+
+    render(conn, "show.html", upload: upload, publisher: publisher, datasets: datasets)
   end
+
+
+  defp add_to_dataset(conn, dataset_name, upload_id) do
+    dataset = Repo.get_by(Dataset, name: dataset_name)
+    upload = Repo.get_by(Upload, id: upload_id)
+
+    changeset = DataFile.changeset_from_upload(upload, dataset.id)
+    case Repo.insert(changeset) do
+      {:ok, _datafile} ->
+        Repo.delete upload
+        conn
+        |> put_flash(:info, "Datafile created successfully.")
+        |> redirect(to: dataset_path(conn, :show, dataset.name))
+    end
+  end
+
+  # This can be an existing dataset, in which case we'll
+  # redirect them to :find, it can be a new dataset, in which case they'll
+  # go to /dataset/new or it can be a typed dataset in which case we'll
+  # just get the redirect and send them there.
+  def put(conn, %{"add_to"=> "dataset:" <> dataset_name, "id"=>upload_id}) do
+    add_to_dataset(conn, dataset_name, upload_id)
+  end
+
+  # Just redirect to dataset new but tell it what the upload id is
+  def put(conn, %{"add_to"=> "new", "id"=>upload_id}) do
+    conn
+    |> redirect(to: dataset_path(conn, :new, upload: upload_id))
+  end
+
+  # Redirect to :find
+  def put(conn, %{"add_to"=> "existing", "id"=>upload_id}) do
+    conn
+    |> redirect(to: upload_path(conn, :find, upload_id))
+  end
+
+  # Allow the user
+  def find(conn, %{"id" => upload_id}) do
+    upload = Repo.get_by(Upload, id: upload_id)
+
+    publisher = Repo.get_by(Publisher, name: upload.publisher)
+    datasets = Repo.all(from d in Dataset,
+              where: d.publisher_id == ^publisher.id and d.type in ["organogram", "spending"],
+              select: {d.name, d.title, d.description})
+
+    conn
+    |> render("find.html", upload: upload, datasets: datasets, publisher: publisher)
+  end
+
 
 end

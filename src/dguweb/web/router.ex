@@ -25,11 +25,14 @@ defmodule DGUWeb.Router do
 
     get "/search", SearchController, :search
 
-    resources "/upload", UploadController, only: [:new, :create, :show]
     resources "/publisher", PublisherController
     resources "/theme", ThemeController
     resources "/dataset", DatasetController
     resources "/session", SessionController, only: [:new, :create]
+
+    resources "/upload", UploadController, only: [:new, :create, :show]
+    post "/upload/:id/put", UploadController, :put
+    get "/upload/:id/find", UploadController, :find
 
     get    "/login",  SessionController, :login_view
     post   "/login",  SessionController, :login

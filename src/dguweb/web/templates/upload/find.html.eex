@@ -1,0 +1,34 @@
+
+
+<h1 class="heading-xlarge">
+  Which dataset would you like to use?
+</h1>
+
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <form action="<%= upload_path(@conn, :put, @upload.id) %>" method="POST">
+      <fieldset>
+        <legend class="visuallyhidden">Where would you like to add these files</legend>
+        <div class="form-group">
+
+
+      <%= for {dataset_name, dataset_title, dataset_description} <- @datasets do %>
+        <label class="block-label" for="id_organogram">
+            <input type="radio" name="add_to" value="dataset:<%= dataset_name %>">
+            <div class="bold"><%= dataset_title %></div>
+            <%= dataset_description %>
+         </label>
+      <% end %>
+        </div>
+      </fieldset>
+
+      <div class="form-group">
+        <a href="<%= upload_path(@conn, :show, @upload.id) %>" class="button" type="submit">Cancel</a>
+        <input class="button" type="submit" value="Save">
+      </div>
+    </form>
+  </div>
+  <div class="column-one-third">
+  &nbsp;
+  </div>
+</div>
