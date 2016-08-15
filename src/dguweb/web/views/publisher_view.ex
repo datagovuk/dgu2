@@ -5,11 +5,12 @@ defmodule DGUWeb.PublisherView do
 
   def user_in_publisher(conn, publisher) do
     publishers = conn.assigns[:user_publishers] || []
-    |> Enum.filter( fn {pub, _role} ->
-      pub.name == publisher
+
+    member_of = Enum.filter(publishers, fn {pub, _publishermap} ->
+      pub == publisher
     end)
 
-    length(publishers) > 0
+    length(member_of) > 0
   end
 
   def publishers_for_user(nil), do: []
