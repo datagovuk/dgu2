@@ -8,7 +8,7 @@ defmodule DGUWeb.Router do
   end
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     #plug :protect_from_forgery
@@ -21,7 +21,7 @@ defmodule DGUWeb.Router do
     get "/", PageController, :index
 
     get "/search", SearchController, :search
-    
+
     get "/publish", PublishController, :index
     post "/publish", PublishController, :add_file
     get "/publish/find", PublishController, :find
@@ -39,13 +39,4 @@ defmodule DGUWeb.Router do
     get "/fakecsv", DatasetController, :fakecsv
   end
 
-
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", DGUWeb do
-  #   pipe_through :api
-  # end
 end
