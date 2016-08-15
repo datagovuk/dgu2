@@ -1,0 +1,50 @@
+
+
+<h1 class="heading-xlarge">
+  Where would you like to put this data?
+</h1>
+
+<div class="grid-row">
+  <div class="column-two-thirds">
+
+    <form action="<%= upload_path(@conn, :put, @upload.id) %>" method="POST">
+      <fieldset>
+        <legend class="visuallyhidden">Where would you like to add these files</legend>
+        <div class="form-group">
+
+          <%= for {dataset_name, dataset_title} <- @datasets do %>
+          <label class="block-label" for="id_organogram">
+            <input type="radio" name="add_to" value="dataset:<%= dataset_name %>">
+            The <a href="<%= dataset_path(@conn, :show, dataset_name) %>" target="_blank"><%= dataset_title %> dataset</a> for <%= @publisher.title %>
+          </label>
+
+          <% end %>
+
+          <label class="block-label" for="id_existing">
+            <input id="id_existing" type="radio" name="add_to" value="existing">
+            An existing dataset within <%= @publisher.title %>
+          </label>
+          <label class="block-label" for="id_new">
+            <input id="id_new" type="radio" name="add_to" value="new">
+            A new <%= @publisher.title %> dataset
+          </label>
+        </div>
+      </fieldset>
+
+
+      <p>One or more of the files you upload suggest that the data might belong to
+        one of the following datasets.</p>
+      <div class="form-group">
+        <label class="block-label" for="id_magic">
+          <input id="id_magic" type="radio" name="add_to" value="magic">
+          The <%= @publisher.title %> <a href="" target="_blank">2015 Business Rates</a> dataset.
+        </label>
+      </div>
+      <div class="form-group">
+          <input type="submit" class="button" value="Next">
+      </div>
+    </form>
+  </div>
+  <div class="column-one-third">
+  &nbsp;
+  </div>

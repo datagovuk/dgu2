@@ -17,6 +17,16 @@ defmodule DGUWeb.DataFile do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :description, :url, :format, :dataset_id])
-    |> validate_required([:name, :description, :url, :format])
+    |> validate_required([:name, :description, :url])
+  end
+
+  def changeset_from_upload(%DGUWeb.Upload{}=upload, dataset_id) do
+    __MODULE__.changeset(%__MODULE__{}, %{
+      name: upload.name,
+      description: upload.description,
+      url: upload.url,
+      format: upload.content_type,
+      dataset_id: dataset_id
+    })
   end
 end

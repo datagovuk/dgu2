@@ -1,0 +1,12 @@
+<h1 class="heading-medium">
+    <%= if @publisher do %>
+      Adding data to a dataset for <%= @publisher.title %>.
+    <% end %>
+    <%= if @dataset do %>
+      Adding data to the '<%= @dataset.title %>' dataset.
+    <% end %>
+</h1>
+
+
+<%= render "form.html", changeset: @changeset, publisher: @publisher, dataset: @dataset,
+                        action: upload_path(@conn, :create) %>

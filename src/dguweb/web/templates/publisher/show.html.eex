@@ -8,7 +8,7 @@
 
     <div class="column-one-third">
        <%= if user_in_publisher(@conn, @publisher.name) do %>
-            <a class="button" href="/publish?publisher=<%= @publisher.name %>">Add Data</a>
+            <a class="button" href="/upload/new?publisher=<%= @publisher.name %>">Add Data</a>
             <br/> <br/>
         <% end %>
     </div>
@@ -32,7 +32,7 @@
             </a>
             <%= dataset.description %>
             <%= if user_in_publisher(@conn, @publisher.name) do %>
-              <a href="/publish?dataset=<%= dataset.name %>">Add data</a>
+              <a href="/upload/new?dataset=<%= dataset.name %>">Add data</a>
             <% end %>
           </td>
         </tr>
