@@ -1,6 +1,6 @@
 <h1 class="heading-xlarge">Sign in</h1>
 
-<%= form_for @conn, session_path(@conn, :login), [name: :session], fn f -> %>
+<%= form_for @conn, session_path(@conn, :login), [as: :session], fn f -> %>
 
   <div class="form-group">
     <label>Username</label>
