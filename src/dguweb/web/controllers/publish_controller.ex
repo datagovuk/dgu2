@@ -6,7 +6,6 @@ defmodule DGUWeb.PublishController do
 
   def index(conn, _params) do
     conn
-    |> clear_session
     |> render("index.html", current_files: [], error: :nil)
   end
 
