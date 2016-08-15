@@ -1,15 +1,30 @@
 
-<h1 class="heading-xlarge">My publishers</h1>
+<h1 class="heading-xlarge"><%= @conn.assigns[:current_user].username %></h1>
 
-<%= if @publishers == [] do %>
-    <p>You are not a member of any publisher</p>
-<% end %>
+<div class="grid-row">
+    <div class="column-one-half">
+        <h1 class="heading-large">Publishers</h1>
 
-<ul>
-<%= for {pubname, pubmap} <- @publishers do %>
-    <li>
-    <%= link pubmap.title, to: publisher_path(@conn, :show, pubname) %>
-    (<%= pubmap.role %>)
-    </li>
-<% end %>
-</ul>
+        <%= if @publishers == [] do %>
+            <p>You are not a member of any publisher</p>
+        <% end %>
+
+        <ul>
+        <%= for {pubname, pubmap} <- @publishers do %>
+            <li>
+            <%= link pubmap.title, to: publisher_path(@conn, :show, pubname) %>
+            (<%= pubmap.role %>)
+            </li>
+        <% end %>
+        </ul>
+    </div>
+
+    <div class="column-one-half">
+        <h1 class="heading-large">Tasks</h1>
+        <ol class="user-tasks">
+        <%= for task <- @tasks do %>
+            <li><%= raw task %></li>
+        <% end %>
+        </ol>
+    </div>
+</div>

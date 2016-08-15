@@ -49,3 +49,10 @@ $dgu-green: #8bc658;
 .bold {
   font-weight: 600;
 }
+
+.user-tasks {
+  list-style-type: decimal;
+}
+.user-tasks li {
+  margin-bottom: 10px;
+}

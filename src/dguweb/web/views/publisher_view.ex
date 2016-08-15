@@ -1,15 +1,11 @@
 defmodule DGUWeb.PublisherView do
   use DGUWeb.Web, :view
 
-  alias DGUWeb.Session
   alias DGUWeb.User
 
-  # FIXME(rdj): Replace when Authz in place.
   def user_in_publisher(conn, publisher) do
-    user = conn.assigns[:current_user]
-
     publishers = conn.assigns[:user_publishers] || []
-    |> Enum.filter( fn {pub, role} ->
+    |> Enum.filter( fn {pub, _role} ->
       pub.name == publisher
     end)
 
