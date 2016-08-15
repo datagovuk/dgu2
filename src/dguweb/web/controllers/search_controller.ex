@@ -1,8 +1,6 @@
 defmodule DGUWeb.SearchController do
   use DGUWeb.Web, :controller
 
-  alias Tirexs.HTTP, as: Search
-
   def index(conn, _params) do
     render conn, :index
   end

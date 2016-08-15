@@ -45,3 +45,10 @@ $dgu-green: #8bc658;
     float: right;
   }
 }
+
+.user-tasks {
+  list-style-type: decimal;
+}
+.user-tasks li {
+  margin-bottom: 10px;
+}
