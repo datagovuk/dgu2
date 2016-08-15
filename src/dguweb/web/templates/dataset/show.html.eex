@@ -2,6 +2,9 @@
     <%= @dataset.title %>
 </h1>
 
+<%= if @dataset.theme do %>
+    <div>Theme: <%= @dataset.theme.title %></div>
+<% end %>
 <%= if @dataset.publisher do  %>
     <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.publisher.name) %>"><%= @dataset.publisher.title %></a></div>
 <hr/>

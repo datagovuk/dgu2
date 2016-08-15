@@ -6,7 +6,7 @@ defmodule DGUWeb.SearchController do
   end
 
   def search(conn, %{"q" => query}) do
-    q = query |> String.replace(" ","+")
+    q = query |> String.replace(" ","+") |> String.replace("-", "%2D")
     result = Repo.search(q)
     render conn, :search, query: query, results: result.hits.hits, total: result.hits.total
   end

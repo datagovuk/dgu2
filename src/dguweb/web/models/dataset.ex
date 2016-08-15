@@ -9,6 +9,7 @@ defmodule DGUWeb.Dataset do
     field :description, :string
     field :type, :string
 
+    belongs_to :theme, DGUWeb.Theme
     belongs_to :publisher, DGUWeb.Publisher
     has_many :datafiles, DGUWeb.DataFile
     timestamps()
@@ -21,15 +22,20 @@ defmodule DGUWeb.Dataset do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :title, :description, :type, :publisher_id])
+    |> cast(params, [:name, :title, :description, :type, :publisher_id, :theme_id])
     |> validate_required(@required_fields)
   end
 
   def fields_for_search(dataset) do
       d = dataset
       |> Repo.preload(:publisher)
+      |> Repo.preload(:theme)
 
-    fields_with_publisher( d, d.publisher )
+    fields = fields_with_publisher( d, d.publisher )
+    if d.theme do
+      fields = Keyword.put(fields, :theme, d.theme.name)
+    end
+    fields
   end
 
   def fields_with_publisher(dataset, nil) do
