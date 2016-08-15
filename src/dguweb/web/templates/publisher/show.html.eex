@@ -1,78 +1,22 @@
 <h1 class="heading-xlarge"><%= @publisher.title %></h1>
 
-<ul>
+<div class="grid-row">
+  <div class="column-two-thirds">
+      <%= @publisher.description %>
+      <a target="_blank" href="<%= @publisher.url %>">More info</a>
+  </div>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @publisher.name %>
-  </li>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @publisher.title %>
-  </li>
-
-  <li>
-    <strong>Abbreviation:</strong>
-    <%= @publisher.abbreviation %>
-  </li>
-
-
-  <li>
-    <strong>Description:</strong>
-    <%= @publisher.description %>
-  </li>
-
-
-  <li>
-    <strong>Url:</strong>
-    <%= @publisher.url %>
-  </li>
-
-
-  <li>
-    <strong>Category:</strong>
-    <%= @publisher.category %>
-  </li>
-
-<li>
-    <strong>Is Closed:</strong>
-    <%= @publisher.closed %>
-  </li>
-
-  <li>
-    <strong>FOI Name:</strong>
-    <%= @publisher.foi_name %>
-  </li>
-  <li>
-    <strong>FOI Email:</strong>
-    <%= @publisher.foi_email %>
-  </li>
-  <li>
-    <strong>FOI Phone:</strong>
-    <%= @publisher.foi_phone %>
-  </li>
-  <li>
-    <strong>FOI Web:</strong>
-    <%= @publisher.foi_web %>
-  </li>
-
-  <li>
-    <strong>Contact name:</strong>
-    <%= @publisher.contact_name %>
-  </li>
-  <li>
-    <strong>Contact email:</strong>
-    <%= @publisher.contact_email %>
-  </li>
-    <li>
-    <strong>Phone:</strong>
-    <%= @publisher.contact_phone %>
-  </li>
-</ul>
+    <div class="column-one-third">
+       <%= if user_in_publisher(@conn, @publisher.name) do %>
+            <a class="button" href="/publish?publisher=<%= @publisher.name %>">Add Data</a>
+            <br/> <br/>
+        <% end %>
+    </div>
+</div>
 
 <div class="grid-row">
   <div class="column-two-thirds">
+    <h1 class="heading-large">Datasets</h1>
     <table>
       <thead>
         <tr>
@@ -86,6 +30,10 @@
             <a href="<%= dataset_path(@conn, :show, dataset.name) %>">
             <%= dataset.title %> <br/>
             </a>
+            <%= dataset.description %>
+            <%= if user_in_publisher(@conn, @publisher.name) do %>
+              <a href="/publish?dataset=<%= dataset.name %>">Add data</a>
+            <% end %>
           </td>
         </tr>
     <% end %>
@@ -93,6 +41,6 @@
     </table>
   </div>
   <div class="column-one-third">
-  &nbsp;
+      &nbsp;
   </div>
 </div>
