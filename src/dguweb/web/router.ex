@@ -2,6 +2,8 @@ defmodule DGUWeb.Router do
   use DGUWeb.Web, :router
   use ExAdmin.Router
 
+  alias DGUWeb.Plugs.Authentication
+
   scope "/admin", ExAdmin do
     pipe_through :browser
     admin_routes
@@ -13,6 +15,7 @@ defmodule DGUWeb.Router do
     plug :fetch_flash
     #plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Authentication
   end
 
   scope "/", DGUWeb do

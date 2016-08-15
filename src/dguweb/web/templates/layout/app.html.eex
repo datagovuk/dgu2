@@ -90,7 +90,7 @@
   </nav>
   <%= if logged_in?(@conn) do %>
     <ul class="login-info">
-      <li>Logged in as <%= current_user(@conn).username %></li>
+      <li>Logged in as <%= @conn.assigns[:current_user].username %></li>
       <li><%= link "Sign out", to: session_path(@conn, :logout) %></li>
     </ul>
   <% end %>
