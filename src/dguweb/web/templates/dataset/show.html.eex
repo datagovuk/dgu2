@@ -1,64 +1,48 @@
-<h1 class="heading-xlarge">
-    <%= @dataset.title %>
-</h1>
-
-<%= if @dataset.theme do %>
-    <div>Theme: <%= @dataset.theme.title %></div>
-<% end %>
-<%= if @dataset.publisher do  %>
-    <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.publisher.name) %>"><%= @dataset.publisher.title %></a></div>
-<hr/>
-<% end %>
-
-<ul>
-  <li>
-    <strong>Name:</strong>
-    <%= @dataset.name %>
-  </li>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @dataset.title %>
-  </li>
+<div class="grid-row">
+    <h1 class="heading-xlarge">
+        <%= @dataset.title %>
+    </h1>
 
 
-  <li>
-    <strong>Description:</strong>
-    <%= @dataset.description %>
-  </li>
+  <div class="column-two-thirds">
+    <%= if @dataset.theme do %>
+        <div>Theme: <%= @dataset.theme.title %></div>
+    <% end %>
 
-</ul>
+    <%= if @dataset.publisher do  %>
+        <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.publisher.name) %>"><%= @dataset.publisher.title %></a></div>
+    <br/>
+    <% end %>
 
-<hr/>
+    <p><%= @dataset.description %></p>
+    </div>
+
+    <div class="column-one-third">
+       <%= if @dataset.publisher && user_in_publisher(@conn, @dataset.publisher.name) do %>
+            <a class="button" href="/upload/new?dataset=<%= @dataset.name %>">Add Data</a>
+            <br/> <br/>
+        <% end %>
+    </div>
+
+    <hr/>
+</div>
+
+
 
 <div class="grid-row">
 
-<h1 class="heading-large">Files</h1>
+    <h1 class="heading-large">Files</h1>
 
+    <%= for file <- @dataset.datafiles do %>
+    <div class="datafile">
 
-<%= for file <- @dataset.datafiles do %>
-<div class="column-one-half" style="border: solid 2px #eee; overflow-x: scroll;">
-        <table>
-            <tr>
-                <th>Name:</th>
-                <td><%= file.name %></td>
-            </tr>
-            <tr>
-                <th>Description:</th>
-                <td><%= file.description %></td>
-            </tr>
-            <tr>
-                <th>URL:</th>
-                <td><%= file.url %></td>
-            </tr>
-            <tr>
-                <th>Format:</th>
-                <td><%= file.format %></td>
-            </tr>
+        <div class="bold"><%= file.name %></small></div>
+        <div><%= file.description %></div>
+        <div>Downloaded <%= :random.uniform(50) %> times</div>
+        <div>
+            <a href="<%= file.url %>">Download <%= file.format %></a>
+        </div>
 
-        </table>
-</div>
-<% end %>
-
-
+    </div>
+    <% end %>
 </div>
