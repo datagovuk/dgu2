@@ -2,6 +2,8 @@ defmodule DGUWeb.Router do
   use DGUWeb.Web, :router
   use ExAdmin.Router
 
+  alias DGUWeb.Plugs.Authentication
+
   scope "/admin", ExAdmin do
     pipe_through :browser
     admin_routes
@@ -13,6 +15,8 @@ defmodule DGUWeb.Router do
     plug :fetch_flash
     #plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    plug Authentication
   end
 
   scope "/", DGUWeb do
@@ -22,15 +26,16 @@ defmodule DGUWeb.Router do
 
     get "/search", SearchController, :search
 
-    get "/publish", PublishController, :index
-    post "/publish", PublishController, :add_file
-    get "/publish/find", PublishController, :find
-
     resources "/publisher", PublisherController
     resources "/theme", ThemeController
     resources "/dataset", DatasetController
-
     resources "/session", SessionController, only: [:new, :create]
+    resources "/upload", UploadController, only: [:new, :create, :show]
+    post "/upload/:id/put", UploadController, :put
+    get "/upload/:id/find", UploadController, :find
+
+    get "/download/:path",  DownloadController, :download
+
     get    "/login",  SessionController, :login_view
     post   "/login",  SessionController, :login
     get "/logout", SessionController, :logout

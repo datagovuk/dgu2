@@ -1,4 +1,18 @@
-
 <h1 class='heading-xlarge'><%= @theme.title %></h1>
 <p><%= @theme.description %></p>
 
+<div class="grid-row">
+    <div class="column">
+        <%= for dataset <- @datasets do %>
+            <div class="column-one-half">
+                <div class="bold"><%= dataset.title %></div>
+                <div><%= dataset.description %>
+                    <a href="<%= dataset_path(@conn, :show, dataset.name) %>">View</a>
+
+                </div>
+            </div>
+        <% end %>
+
+        <div class="clearfix"></div>
+    </div>
+</div>

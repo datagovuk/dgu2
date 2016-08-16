@@ -1,15 +1,12 @@
 defmodule DGUWeb.SearchController do
   use DGUWeb.Web, :controller
 
-  alias Tirexs.HTTP, as: Search
-
   def index(conn, _params) do
     render conn, :index
   end
 
   def search(conn, %{"q" => query}) do
-    q = query |> String.replace(" ","+")
-    result = Repo.search(q)
+    result = URI.encode(query) |> Repo.search
     render conn, :search, query: query, results: result.hits.hits, total: result.hits.total
   end
 

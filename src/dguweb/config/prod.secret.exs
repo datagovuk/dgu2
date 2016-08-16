@@ -21,3 +21,4 @@ config :dguweb, DGUWeb.EctoRepo,
 
 config :tirexs, :uri, "http://127.0.0.1:9200"
 config :dguweb, index: "dgu"
+config :dguweb, upload_path: "/mnt/uploads", host: "http://dguproto1.northeurope.cloudapp.azure.com"

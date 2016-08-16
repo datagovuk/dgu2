@@ -6,10 +6,9 @@
         <h1 class="heading-large">Search</h1>
 
         <form action="/search" method="GET">
-          <fieldset class="inline">
-            <input id="q" name="q" type="text" value="<%= @query %>" placeholder="Search for data"
-            class="form-control search">
-          </fieldset>
+            <fieldset class="inline">
+            <div id="elm-container"></div>
+            </fieldset>
         </form>
 
     </div>

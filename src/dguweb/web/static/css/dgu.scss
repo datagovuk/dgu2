@@ -45,3 +45,38 @@ $dgu-green: #8bc658;
     float: right;
   }
 }
+
+.bold {
+  font-weight: 600;
+}
+
+.user-tasks {
+  list-style-type: decimal;
+}
+.user-tasks li {
+  margin-bottom: 10px;
+}
+
+.datafile {
+  background-color: #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.autocomplete-menu {
+  position: absolute;
+  left: 15px;
+  border: 2px solid #999;
+  margin-left: 5px;
+  padding: 3px;
+  background: white;
+
+  li {
+    a, a:link, a:visited {
+      color: black;
+      text-decoration: none;
+    }
+  }
+
+}

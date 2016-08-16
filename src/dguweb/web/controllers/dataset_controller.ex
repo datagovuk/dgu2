@@ -28,9 +28,10 @@ defmodule DGUWeb.DatasetController do
   end
 
   def show(conn, %{"id" => id}) do
-    dataset = Repo.get_by!(Dataset, name: id) 
+    dataset = Repo.get_by!(Dataset, name: id)
     |> Repo.preload(:publisher)
     |> Repo.preload(:datafiles)
+    |> Repo.preload(:theme)
 
     render(conn, "show.html", dataset: dataset)
   end

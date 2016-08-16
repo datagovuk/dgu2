@@ -49,6 +49,7 @@ defmodule DGUWeb.Mixfile do
      {:comeonin, "~> 2.5"},
      {:tirexs, "~> 0.8"},
      {:csv, "~> 1.4.0"},
+     { :uuid, "~> 1.1" }
     ]
   end
 

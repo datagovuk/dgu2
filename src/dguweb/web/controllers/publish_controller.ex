@@ -3,11 +3,25 @@ defmodule DGUWeb.PublishController do
 
   alias DGUWeb.Upload.Info, as: UploadInfo
   alias DGUWeb.Upload.Tasks
+  alias DGUWeb.{Publisher, Dataset, Repo}
 
-  def index(conn, _params) do
-    conn
-    |> render("index.html", current_files: [], error: :nil)
+  def index(conn, %{"dataset" => dataset_name}) do
+    dataset = Repo.get_by(Dataset, name: dataset_name)
+    do_index(conn, nil, dataset)
   end
+
+  def index(conn, %{"publisher" => publisher_name}) do
+    publisher = Repo.get_by(Publisher, name: publisher_name)
+    do_index(conn, publisher, nil)
+  end
+  def index(conn, %{}), do: redirect(conn, to: "/")
+
+  defp do_index(conn, nil, nil), do: redirect(conn, to: "/")
+  defp do_index(conn, publisher, dataset) do
+    conn
+    |> render("index.html", error: :nil, dataset: dataset, publisher: publisher)
+  end
+
 
   ### Add File, upload or URL ################################################
   #
@@ -55,7 +69,7 @@ defmodule DGUWeb.PublishController do
 
     conn
     |> put_session(:current_files, current)
-    |> redirect(to: publish_path(conn, :find, []))
+    |> redirect(to: '/')
   end
 
   ### Determine what the user wants to do with the uploaded data #############
