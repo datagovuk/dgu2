@@ -17,11 +17,9 @@ defmodule Mix.Tasks.Dgu.Import do
     |> filter
     |> prep
     |> Enum.filter(&(&1))
-
-    if datasets do
-      Repo.insert_all(Dataset, datasets)
-    end
-
+    |> Enum.each(fn dataset->
+      Repo.insert!(dataset)
+    end)
   end
 
   def prep(datasets) do
@@ -35,14 +33,12 @@ defmodule Mix.Tasks.Dgu.Import do
     |> Enum.map(fn dataset->
       publisher = Map.get(pubmap, hd(dataset.groups || [""]))
       if publisher do
-        %{
+        Dataset.changeset(%Dataset{}, %{
           name: dataset.name,
           title: dataset.title,
-          description: dataset.notes,
+          description: dataset.notes || "No description given",
           publisher_id: publisher.id,
-          inserted_at: Ecto.DateTime.from_erl(:erlang.now),
-          updated_at: Ecto.DateTime.from_erl(:erlang.now),
-        }
+        })
       else
         nil
       end
