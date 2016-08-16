@@ -20,7 +20,7 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
-const elmDiv = document.querySelector('#elm-container');
-if (elmDiv) {
-  const elmApp = Elm.App.embed(elmDiv);
+const searchBox = document.querySelector('#search-box');
+if (searchBox) {
+  Elm.SearchBox.embed(searchBox);
 }

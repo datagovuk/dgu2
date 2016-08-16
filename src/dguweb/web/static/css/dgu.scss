@@ -64,19 +64,35 @@ $dgu-green: #8bc658;
   padding: 10px;
 }
 
+#search-box {
+  position: relative;
+}
+
 .autocomplete-menu {
   position: absolute;
-  left: 15px;
+  top: 1.8em;
+  max-width: 50%;
   border: 2px solid #999;
-  margin-left: 5px;
-  padding: 3px;
   background: white;
 
-  li {
-    a, a:link, a:visited {
-      color: black;
-      text-decoration: none;
+  .autocomplete-inner {
+    overflow: hidden;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 5px 0 5px;
+    ul {
+      width: 1000em;
+
+      li {
+        a, a:link, a:visited {
+          color: black;
+          text-decoration: none;
+        }
+      }
     }
   }
+}
 
+.search-blurb {
+  margin-top: 2em;
 }

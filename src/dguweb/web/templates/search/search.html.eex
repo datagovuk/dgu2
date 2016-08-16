@@ -4,13 +4,7 @@
 
     <div class="column-two-thirds">
         <h1 class="heading-large">Search</h1>
-
-        <form action="/search" method="GET">
-            <fieldset class="inline">
-            <div id="elm-container"></div>
-            </fieldset>
-        </form>
-
+        <div id="search-box"></div>
     </div>
     <div class="column-one-third">
     </div>

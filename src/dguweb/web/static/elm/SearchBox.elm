@@ -1,5 +1,5 @@
 
-module App exposing (..)
+module SearchBox exposing (..)
 import Html exposing (..)
 import Html.App as App
 import Html.Attributes exposing (..)
@@ -93,8 +93,10 @@ viewCompletionItem result =
 viewCompletionMenu : Model -> Html Msg
 viewCompletionMenu results =
   Html.div [ class "autocomplete-menu" ]
-    [ Html.ul []
-      (List.map viewCompletionItem results)
+    [ Html.div [ class "autocomplete-inner" ]
+      [ Html.ul []
+        (List.map viewCompletionItem results)
+      ]
     ]
 
 
