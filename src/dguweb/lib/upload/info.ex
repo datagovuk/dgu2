@@ -3,7 +3,9 @@ defmodule DGUWeb.Upload.Info do
 
     def from_upload(upload) do
         # We have to move this file before the request completes.
-        newpath = "/tmp/#{upload.filename}"
+        root = Application.get_env(:dguweb, :upload_path)
+        newpath = Path.join(root, "#{upload.filename}")
+
         :ok = File.cp(upload.path, newpath)
         {:ok, stat} = File.stat(newpath)
 
