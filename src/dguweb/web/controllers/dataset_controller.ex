@@ -75,7 +75,14 @@ defmodule DGUWeb.DatasetController do
   def edit(conn, %{"id" => id}) do
     dataset = Repo.get_by!(Dataset, [name: id])
     changeset = Dataset.changeset(dataset)
-    render(conn, "edit.html", dataset: dataset, changeset: changeset)
+
+    publisher = Repo.get(Publisher, dataset.publisher_id)
+
+    render(conn, "edit.html", dataset: dataset, changeset: changeset,
+        themes: get_themes_for_select,
+        publisher: publisher,
+        upload: nil
+      )
   end
 
   def update(conn, %{"id" => id, "dataset" => dataset_params}) do
@@ -88,7 +95,13 @@ defmodule DGUWeb.DatasetController do
         |> put_flash(:info, "Dataset updated successfully.")
         |> redirect(to: dataset_path(conn, :show, dataset.name))
       {:error, changeset} ->
-        render(conn, "edit.html", dataset: dataset, changeset: changeset)
+        publisher = Repo.get_by(Publisher, id: dataset.publisher_id)
+
+        render(conn, "edit.html", dataset: dataset, changeset: changeset,
+          themes: get_themes_for_select,
+          publisher: publisher,
+          upload: nil
+        )
     end
   end
 

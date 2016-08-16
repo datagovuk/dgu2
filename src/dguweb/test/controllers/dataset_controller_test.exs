@@ -3,6 +3,7 @@ defmodule DGUWeb.DatasetControllerTest do
 
   alias DGUWeb.Dataset
   alias DGUWeb.Publisher
+  alias DGUWeb.Upload
 
   @publisher %Publisher{name: "some content", title: "some content", url: "some content"}
   @invalid_attrs %{}
@@ -13,20 +14,31 @@ defmodule DGUWeb.DatasetControllerTest do
   end
 
   test "renders form for new resources", %{conn: conn} do
-    conn = get conn, dataset_path(conn, :new)
-    assert html_response(conn, 200) =~ "New dataset"
+    publisher = Repo.insert!(@publisher)
+    upload = Repo.insert!(%Upload{publisher: publisher.name})
+
+    conn = get conn, dataset_path(conn, :new, upload: upload.id)
+    assert html_response(conn, 200) =~ "Add data to new dataset"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    pub = Repo.insert! @publisher
-    conn = post conn, dataset_path(conn, :create), dataset:   %{name: "test", title: "some content", description: "Description", publisher_id: pub.id}
-    assert redirected_to(conn) == dataset_path(conn, :index)
+    publisher = Repo.insert!(@publisher)
+    upload = Repo.insert!(%Upload{publisher: publisher.name})
+
+    conn = post conn, dataset_path(conn, :create), dataset:   %{
+      name: "test", title: "some content", description: "Description", publisher_id: publisher.id
+      }, upload: "#{upload.id}"
+
+    assert redirected_to(conn) == dataset_path(conn, :show, "test")
     assert Repo.get_by(Dataset, name: "test")
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, dataset_path(conn, :create), dataset: @invalid_attrs
-    assert html_response(conn, 200) =~ "New dataset"
+    publisher = Repo.insert!(@publisher)
+    upload = Repo.insert!(%Upload{publisher: publisher.name})
+
+    conn = post conn, dataset_path(conn, :create), dataset: @invalid_attrs, upload: upload.id
+    assert html_response(conn, 200) =~ "Add data to new dataset"
   end
 
   test "shows chosen resource", %{conn: conn} do
@@ -42,8 +54,11 @@ defmodule DGUWeb.DatasetControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    dataset = Repo.insert! %Dataset{name: "test"}
-    conn = get conn, dataset_path(conn, :edit, dataset.name)
+    publisher = Repo.insert!(@publisher)
+    upload = Repo.insert!(%Upload{publisher: publisher.name})
+    dataset = Repo.insert! %Dataset{name: "test", description: "Desc", title: "Title", publisher_id: publisher.id}
+
+    conn = get conn, dataset_path(conn, :edit, dataset.name, upload: upload.id)
     assert html_response(conn, 200) =~ "Edit dataset"
   end
 
@@ -58,7 +73,10 @@ defmodule DGUWeb.DatasetControllerTest do
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    dataset = Repo.insert! %Dataset{name: "test"}
+    publisher = Repo.insert!(@publisher)
+    #upload = Repo.insert!(%Upload{publisher: publisher.name})
+    dataset = Repo.insert! %Dataset{name: "test", publisher_id: publisher.id}
+
     conn = put conn, dataset_path(conn, :update, dataset.name), dataset: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit dataset"
   end
