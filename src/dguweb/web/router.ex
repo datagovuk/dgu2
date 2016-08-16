@@ -15,6 +15,7 @@ defmodule DGUWeb.Router do
     plug :fetch_flash
     #plug :protect_from_forgery
     plug :put_secure_browser_headers
+
     plug Authentication
   end
 
@@ -29,10 +30,11 @@ defmodule DGUWeb.Router do
     resources "/theme", ThemeController
     resources "/dataset", DatasetController
     resources "/session", SessionController, only: [:new, :create]
-
     resources "/upload", UploadController, only: [:new, :create, :show]
     post "/upload/:id/put", UploadController, :put
     get "/upload/:id/find", UploadController, :find
+
+    get "/download/:path",  DownloadController, :download
 
     get    "/login",  SessionController, :login_view
     post   "/login",  SessionController, :login

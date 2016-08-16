@@ -39,9 +39,11 @@ defmodule DGUWeb.Upload do
 
     File.rename(file.path, newpath)
 
+    host = Application.get_env(:dguweb, :host)
+
     c = put_change(changeset, :content_type, file.content_type)
     c = put_change(c, :path, newpath)
-    c = put_change(c, :url, "/downloads/#{name}")
+    c = put_change(c, :url, "#{host}/download/#{name}")
 
     c
   end

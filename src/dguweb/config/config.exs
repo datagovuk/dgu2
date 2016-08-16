@@ -33,6 +33,10 @@ config :ex_admin,
     DGUWeb.ExAdmin.DataFile,
   ]
 
+# Where are we storing downloads
+config :dguweb, upload_path: "/tmp", host: "http://127.0.0.1:4000"
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
