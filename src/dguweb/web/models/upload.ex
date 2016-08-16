@@ -39,7 +39,8 @@ defmodule DGUWeb.Upload do
     newpath = Application.get_env(:dguweb, :upload_path)
     |> Path.join("#{name}")
 
-    File.rename(file.path, newpath)
+    # File.rename does not work across devices.
+    System.cmd("mv", [file.path, newpath])
 
     host = Application.get_env(:dguweb, :host)
 
