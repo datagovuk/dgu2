@@ -1,15 +1,8 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
-
-
-      <form action="/search" method="GET">
-        <fieldset class="inline">
-          <div id="elm-container"></div>
-        </fieldset>
-      </form>
-
-    <p>Find data published by government departments and agencies,
+    <div id="search-box"></div>
+    <p class="search-blurb">Find data published by government departments and agencies,
     public bodies and local authorities. You can use this data to learn
     more about how government works, carry out research or build
     applications and services.

@@ -53,7 +53,7 @@ exports.config = {
       ignore: [/web\/static\/vendor/]
     },
     elmBrunch: {
-      mainModules: ["web/static/elm/App.elm"],
+      mainModules: ["web/static/elm/SearchBox.elm"],
       outputFolder: "priv/static/js",
       outputFile: "elm.js"
     }
