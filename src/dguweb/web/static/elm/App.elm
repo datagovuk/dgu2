@@ -7,6 +7,7 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode exposing (..)
 import Task
+import String
 
 
 main: Program Never
@@ -48,7 +49,7 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Lookup q ->
-      (model, getMatchingDatasets q)
+      (model, if String.length q > 2 then getMatchingDatasets q else Cmd.none)
 
     FetchSucceed resultList ->
       (resultList, Cmd.none)
