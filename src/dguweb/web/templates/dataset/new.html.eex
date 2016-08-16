@@ -1,6 +1,8 @@
-<h2>New dataset</h2>
+<h1 class="heading-xlarge">Add data to new dataset</h1>
 
 <%= render "form.html", changeset: @changeset,
-                        action: dataset_path(@conn, :create) %>
+                        action: dataset_path(@conn, :create),
+                        themes: @themes,
+                        publisher: @publisher,
+                        upload: @upload %>
 
-<%= link "Back", to: dataset_path(@conn, :index) %>

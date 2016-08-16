@@ -5,19 +5,29 @@
     </div>
   <% end %>
 
+  <input type="hidden" name="dataset[publisher_id]" value="<%= @publisher.id %>">
+  <input type="hidden" name="upload" value="<%= @upload %>">
+
   <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
+    <%= label f, :name, class: "form-label-bold" %>
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">
-    <%= label f, :title, class: "control-label" %>
+    <%= label f, :title, class: "form-label-bold" %>
     <%= text_input f, :title, class: "form-control" %>
     <%= error_tag f, :title %>
   </div>
 
   <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+    <%= label f, :description, class: "form-label-bold" %>
+    <%= textarea f, :description, class: "form-control", rows: 10 %>
+    <%= error_tag f, :description %>
+  </div>
+
+
+  <div class="form-group">
+    <%= submit "Submit", class: "button" %>
   </div>
 <% end %>
