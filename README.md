@@ -61,6 +61,7 @@ brew update
 brew install elixir # Want v1.3.x
 brew install nodejs
 brew install npm
+brew install elm
 npm install -g npm
 ```
 
@@ -77,6 +78,7 @@ mix deps.compile
 mix ecto.create
 mix ecto.migrate
 npm install
+elm-package install
 mix run priv/repo/seeds.exs  # Load seed data
 ```
 
