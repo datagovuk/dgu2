@@ -35,7 +35,9 @@ defmodule DGUWeb.Upload do
   defp do_file(changeset, file) do
     [_name, ext] = String.split(file.filename, ".")
     name = "#{UUID.uuid4}.#{ext}"
-    newpath = "/tmp/#{name}"
+
+    newpath = Application.get_env(:dguweb, :upload_path)
+    |> Path.join("#{name}")
 
     File.rename(file.path, newpath)
 
