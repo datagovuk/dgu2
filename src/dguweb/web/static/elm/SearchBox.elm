@@ -19,7 +19,9 @@ main =
     , subscriptions = \_ -> Sub.none
     }
 
+
 -- MODEL
+
 
 type alias Dataset =
   { title: String
@@ -28,12 +30,16 @@ type alias Dataset =
   }
 
 
-type alias Model = List Dataset
+type alias Model =
+  { datasets: List Dataset
+  , selectedIndex: Int
+  , visible: Bool
+  }
 
 
 init : (Model, Cmd Msg)
 init =
-  ([], Cmd.none)
+  (Model [] -1 False, Cmd.none)
 
 
 -- UPDATE
@@ -41,21 +47,46 @@ init =
 
 type Msg
   = Lookup String
-  | FetchSucceed Model
+  | FetchSucceed (List Dataset)
   | FetchFail Http.Error
+  | SelectPrevious
+  | SelectNext
+  | CloseCompletions
+
+
+newIndexModel: Model -> Int -> Model
+newIndexModel model inc =
+  let
+    try = model.selectedIndex + inc
+  in
+    if try < 0 || try >= (List.length model.datasets) then
+      model
+    else
+      { model | selectedIndex = try }
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Lookup q ->
-      (model, if String.length q > 2 then getMatchingDatasets q else Cmd.none)
+      ( { model | visible = True }
+      , if String.length q > 2 then getMatchingDatasets q else Cmd.none
+      )
 
     FetchSucceed resultList ->
-      (resultList, Cmd.none)
+      ({ model | datasets = resultList}, Cmd.none)
 
     FetchFail error ->
       (model, Cmd.none)
+
+    SelectPrevious ->
+      (newIndexModel model -1, Cmd.none)
+
+    SelectNext ->
+      (newIndexModel model 1, Cmd.none)
+
+    CloseCompletions ->
+      ({ model | visible = False }, Cmd.none)
 
 
 getMatchingDatasets: String -> Cmd Msg
@@ -69,7 +100,7 @@ getMatchingDatasets query =
       (Http.get searchApiDecoder url)
 
 
-searchApiDecoder: Decoder Model
+searchApiDecoder: Decoder (List Dataset)
 searchApiDecoder =
   Json.Decode.list
     (object3 Dataset
@@ -82,49 +113,71 @@ searchApiDecoder =
 -- VIEW
 
 
-viewCompletionItem : Dataset -> Html Msg
-viewCompletionItem result =
-  Html.li []
+viewCompletionItem : Int -> Int -> Dataset -> Html Msg
+viewCompletionItem liIdx selectedIdx result =
+  Html.li [ class (if liIdx == selectedIdx then "selected" else "") ]
     [ Html.a [ href ("/dataset/" ++ result.name) ]
-        [ Html.text (result.title ++ " - " ++ result.publisher_title) ]
+      [ Html.text (result.title ++ " - " ++ result.publisher_title) ]
     ]
 
 
 viewCompletionMenu : Model -> Html Msg
-viewCompletionMenu results =
+viewCompletionMenu model =
   Html.div [ class "autocomplete-menu" ]
     [ Html.div [ class "autocomplete-inner" ]
       [ Html.ul []
-        (List.map viewCompletionItem results)
+        (List.indexedMap
+          (viewCompletionItem model.selectedIndex)
+          model.datasets
+        )
       ]
     ]
 
 
 viewForm : Html Msg
 viewForm =
-  Html.form
-    [ action "/search"
-    , method "GET"
-    ]
-    [ Html.fieldset []
-      [ Html.input
-        [ id "q"
-        , name "q"
-        , type' "text"
-        , placeholder "Search for data"
-        , class "form-control search"
-        , autocomplete False
-        , onInput Lookup
-        ]
-        []
+  let
+    keydownOptions =
+      { preventDefault = True, stopPropagation = False }
+
+    keydownDecoder =
+      (Json.Decode.customDecoder keyCode
+        (\code ->
+          if code == 38 then
+            Ok SelectPrevious
+          else if code == 40 then
+            Ok SelectNext
+          else if code == 27 then
+            Ok CloseCompletions
+          else
+            Err "not handling that key"
+        )
+      )
+  in
+    Html.form
+      [ action "/search"
+      , method "GET"
       ]
-    ]
+      [ Html.fieldset []
+        [ Html.input
+          [ id "q"
+          , name "q"
+          , type' "text"
+          , placeholder "Search for data"
+          , class "form-control search"
+          , autocomplete False
+          , onInput Lookup
+          , onWithOptions "keydown" keydownOptions keydownDecoder
+          ]
+          []
+        ]
+      ]
 
 
 view : Model -> Html Msg
 view model =
   Html.div []
-    (if (List.length model > 0) then
+    (if model.visible && List.length model.datasets > 0 then
       [ viewForm
       , viewCompletionMenu model
       ]
