@@ -3,29 +3,65 @@ defmodule DGUWeb.DatasetController do
 
   alias DGUWeb.Repo
   alias DGUWeb.Dataset
+  alias DGUWeb.Theme
+  alias DGUWeb.Upload
+  alias DGUWeb.Publisher
+  alias DGUWeb.DataFile
 
   def index(conn, _params) do
     datasets = Repo.all(Dataset) |> Repo.preload(:publisher)
     render(conn, "index.html", datasets: datasets)
   end
 
-  def new(conn, _params) do
+  def new(conn, %{"upload"=> upload}=_params) do
     changeset = Dataset.changeset(%Dataset{})
-    render(conn, "new.html", changeset: changeset)
+
+    render(conn, "new.html", changeset: changeset,
+      themes: get_themes_for_select,
+      publisher: get_publisher_from_upload(upload),
+      upload: upload)
   end
 
-  def create(conn, %{"dataset" => dataset_params}) do
+  def create(conn, %{"dataset" => dataset_params, "upload"=> upload}) do
     changeset = Dataset.changeset(%Dataset{}, dataset_params)
 
     case Repo.insert(changeset) do
-      {:ok, _dataset} ->
+      {:ok, dataset} ->
+
+        # Upload the upload and delete
+        # TODO(rdj): Make this a bit more resilient
+        upload_obj = Repo.get(Upload, String.to_integer(upload))
+        cs = DataFile.changeset_from_upload(upload_obj, dataset.id)
+
+        Repo.insert(cs)
+        Repo.delete(upload_obj)
+
         conn
         |> put_flash(:info, "Dataset created successfully.")
-        |> redirect(to: dataset_path(conn, :index))
+        |> redirect(to: dataset_path(conn, :show, dataset.name))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset,
+          themes: get_themes_for_select,
+          publisher: get_publisher_from_upload(upload),
+          upload: upload
+        )
     end
   end
+
+  defp get_themes_for_select() do
+    themes = Repo.all(Theme)
+    |> Enum.map(fn t->
+      {t.title, t.id}
+    end)
+    |> Enum.into([])
+  end
+
+  defp get_publisher_from_upload(upload) do
+    up = Repo.get(Upload, upload)
+    Repo.get_by(Publisher, name: up.publisher)
+  end
+
+
 
   def show(conn, %{"id" => id}) do
     dataset = Repo.get_by!(Dataset, name: id)
@@ -39,7 +75,14 @@ defmodule DGUWeb.DatasetController do
   def edit(conn, %{"id" => id}) do
     dataset = Repo.get_by!(Dataset, [name: id])
     changeset = Dataset.changeset(dataset)
-    render(conn, "edit.html", dataset: dataset, changeset: changeset)
+
+    publisher = Repo.get(Publisher, dataset.publisher_id)
+
+    render(conn, "edit.html", dataset: dataset, changeset: changeset,
+        themes: get_themes_for_select,
+        publisher: publisher,
+        upload: nil
+      )
   end
 
   def update(conn, %{"id" => id, "dataset" => dataset_params}) do
@@ -52,7 +95,13 @@ defmodule DGUWeb.DatasetController do
         |> put_flash(:info, "Dataset updated successfully.")
         |> redirect(to: dataset_path(conn, :show, dataset.name))
       {:error, changeset} ->
-        render(conn, "edit.html", dataset: dataset, changeset: changeset)
+        publisher = Repo.get_by(Publisher, id: dataset.publisher_id)
+
+        render(conn, "edit.html", dataset: dataset, changeset: changeset,
+          themes: get_themes_for_select,
+          publisher: publisher,
+          upload: nil
+        )
     end
   end
 

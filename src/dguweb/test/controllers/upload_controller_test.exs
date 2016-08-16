@@ -2,7 +2,7 @@ defmodule DGUWeb.UploadControllerTest do
   use DGUWeb.ConnCase
 
   alias DGUWeb.Upload
-  alias DGUWeb.{Dataset, Publisher}
+  alias DGUWeb.Publisher
 
   @valid_attrs %{name: "simple", description: "A description", content_type: "some content",
     dataset: nil, errors: [], path: "some content", publisher: "testpub",
@@ -16,7 +16,7 @@ defmodule DGUWeb.UploadControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    pub = Repo.insert! %Publisher{name: "testpub", title: "some content",description: "Description", url: "some content"}
+    Repo.insert! %Publisher{name: "testpub", title: "some content",description: "Description", url: "some content"}
     post conn, upload_path(conn, :create), upload: @valid_attrs
     assert Repo.get_by(Upload, description: "A description" )
   end
@@ -27,7 +27,7 @@ defmodule DGUWeb.UploadControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    pub = Repo.insert! %Publisher{name: "testpub", title: "some content",description: "Description", url: "some content"}
+    Repo.insert! %Publisher{name: "testpub", title: "some content",description: "Description", url: "some content"}
 
     cs = Upload.changeset(%Upload{}, @valid_attrs)
     upload = Repo.insert!(cs)

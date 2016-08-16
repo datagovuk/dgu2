@@ -1,6 +1,9 @@
 <h2>Edit dataset</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: dataset_path(@conn, :update, @dataset) %>
+                        action: dataset_path(@conn, :update, @dataset),
+                        themes: @themes,
+                        publisher: @publisher,
+                        upload: nil %>
 
 <%= link "Back", to: dataset_path(@conn, :index) %>
