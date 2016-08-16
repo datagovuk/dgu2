@@ -2,14 +2,12 @@
 <div class="grid-row">
   <div class="column-two-thirds">
 
-    <div id="elm-container"></div>
 
-    <form action="/search" method="GET">
-      <fieldset class="inline">
-        <input id="q" name="q" type="text" value="" placeholder="Search for data"
-        class="form-control search">
-      </fieldset>
-    </form>
+      <form action="/search" method="GET">
+        <fieldset class="inline">
+          <div id="elm-container"></div>
+        </fieldset>
+      </form>
 
     <p>Find data published by government departments and agencies,
     public bodies and local authorities. You can use this data to learn
