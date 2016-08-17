@@ -10,7 +10,7 @@ defmodule DGUWeb.SearchControllerTest do
 
   test "lists all entries on query when empty", %{conn: conn} do
     conn = get conn, search_path(conn, :search, q: "")
-    assert json_response(conn, 200) == []
+    assert json_response(conn, 200) != []
   end
 
 
