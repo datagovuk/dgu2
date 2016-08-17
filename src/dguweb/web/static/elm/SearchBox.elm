@@ -1,5 +1,5 @@
+port module SearchBox exposing (..)
 
-module SearchBox exposing (..)
 import Html exposing (..)
 import Html.App as App
 import Html.Attributes exposing (..)
@@ -18,6 +18,11 @@ main =
     , update = update
     , subscriptions = \_ -> Sub.none
     }
+
+
+-- PORTS
+
+port hitReturn : String -> Cmd msg
 
 
 -- MODEL
@@ -52,6 +57,7 @@ type Msg
   | SelectPrevious
   | SelectNext
   | CloseCompletions
+  | GoToSelection
 
 
 newIndexModel: Model -> Int -> Model
@@ -87,6 +93,9 @@ update msg model =
 
     CloseCompletions ->
       ({ model | visible = False }, Cmd.none)
+
+    GoToSelection ->
+      (model, hitReturn ".selected a")
 
 
 getMatchingDatasets: String -> Cmd Msg
@@ -149,6 +158,8 @@ viewForm =
             Ok SelectNext
           else if code == 27 then
             Ok CloseCompletions
+          else if code == 13 then
+            Ok GoToSelection
           else
             Err "not handling that key"
         )

@@ -20,7 +20,19 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
-const searchBox = document.querySelector('#search-box');
-if (searchBox) {
-  Elm.SearchBox.embed(searchBox);
+
+const searchBoxElement = document.querySelector('#search-box');
+
+if (searchBoxElement) {
+  const searchBox = Elm.SearchBox.embed(searchBoxElement);
+
+  // called when return key hit in the form
+  searchBox.ports.hitReturn.subscribe(selector => {
+    const nodes = document.querySelectorAll(selector);
+    if (nodes.length === 1 && document.activeElement !== nodes[0]) {
+      nodes[0].click();
+    } else {
+      searchBoxElement.querySelector('form').submit();
+    }
+  });
 }
