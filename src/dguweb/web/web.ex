@@ -53,6 +53,7 @@ defmodule DGUWeb.Web do
       import DGUWeb.ErrorHelpers
       import DGUWeb.Gettext
       import DGUWeb.Session, only: [logged_in?: 1]
+      import DGUWeb.TemplateHelpers
     end
   end
 
