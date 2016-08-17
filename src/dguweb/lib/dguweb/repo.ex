@@ -79,8 +79,8 @@ defmodule DGUWeb.Repo do
 
   defp index_name, do: Application.get_env(:dguweb, :index)
 
-  def search(q) do
-    case Search.get("/#{index_name}/datasets/_search?q=#{q}") do
+  def search(q, offset \\ 0, size \\ 10) do
+    case Search.get("/#{index_name}/datasets/_search?size=#{size}&from=#{offset}&q=#{q}") do
       {:ok, _status, result } ->
          result
       _ ->
