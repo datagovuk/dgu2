@@ -24,6 +24,7 @@ import "phoenix_html"
 const searchBoxElement = document.querySelector('#search-box');
 
 if (searchBoxElement) {
+  searchBoxElement.innerHTML = '';
   const searchBox = Elm.SearchBox.embed(searchBoxElement);
 
   // called when return key hit in the form
@@ -32,7 +33,7 @@ if (searchBoxElement) {
     if (nodes.length === 1 && document.activeElement !== nodes[0]) {
       nodes[0].click();
     } else {
-      searchBoxElement.querySelector('form').submit();
+      document.querySelector('#search-form').submit();
     }
   });
 }

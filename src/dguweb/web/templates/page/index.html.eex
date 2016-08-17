@@ -1,7 +1,13 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <div id="search-box"></div>
+    <form id="search-form" action="/search" method="GET">
+      <fieldset>
+        <div id="search-box">
+          <input id="q" name="q" type="text" placeholder="Search for data" class="form-control search" autocomplete="off"/>
+        </div>
+      </fieldset>
+    </form>
     <p class="search-blurb">Find data published by government departments and agencies,
     public bodies and local authorities. You can use this data to learn
     more about how government works, carry out research or build

@@ -182,24 +182,17 @@ viewForm =
                 )
             )
     in
-        Html.form
-            [ action "/search"
-            , method "GET"
+        Html.input
+            [ id "q"
+            , name "q"
+            , type' "text"
+            , placeholder "Search for data"
+            , class "form-control search"
+            , autocomplete False
+            , onInput Lookup
+            , onWithOptions "keydown" keydownOptions keydownDecoder
             ]
-            [ Html.fieldset []
-                [ Html.input
-                    [ id "q"
-                    , name "q"
-                    , type' "text"
-                    , placeholder "Search for data"
-                    , class "form-control search"
-                    , autocomplete False
-                    , onInput Lookup
-                    , onWithOptions "keydown" keydownOptions keydownDecoder
-                    ]
-                    []
-                ]
-            ]
+            []
 
 
 view : Model -> Html Msg
