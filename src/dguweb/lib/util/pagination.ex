@@ -21,7 +21,9 @@ defmodule DGUWeb.Util.Pagination do
     page < pagination.page_count
   end
 
-  def offset_for_page(pagination, page) do
+  def offset_for_page(pagination, p) when p < 0, do: offset_for_page(pagination, 1)
+
+  def offset_for_page(pagination, page) when is_integer(page) do
     case page > pagination.page_count do
       true ->
         0
@@ -30,7 +32,9 @@ defmodule DGUWeb.Util.Pagination do
     end
   end
 
+  def offset_for_page(pagination, page), do: offset_for_page(pagination, String.to_integer(page))
+
   def calc_page_count(total, size) do
-    Float.ceil total / size
+    Float.ceil(total / size) |> round
   end
 end
