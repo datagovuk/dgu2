@@ -7,11 +7,13 @@
         <div id="search-box"></div>
     </div>
     <div class="column-one-third">
+        &nbsp;
     </div>
 
 </div>
 
 <div class="grid-row">
+    <div class="column-two-thirds">
 <%= if @total > 0 do %>
     <p>Search returned <%= @total %> results</p>
     <%= for result <- @results do %>
@@ -21,8 +23,12 @@
     <% end %>
 <% else %>
     <%= if @query != "" do %>
-    <p>Search returned 0 results</p>
+        <p>Search returned 0 results</p>
     <% end %>
 <% end %>
+    </div>
+    <div class="column-one-third">
+    &nbsp;
+    </div>
 </div>
 
