@@ -24,6 +24,7 @@ import "phoenix_html"
 const searchBoxElement = document.querySelector('#search-box');
 
 if (searchBoxElement) {
+  searchBoxElement.innerHTML = '';
   const searchBox = Elm.SearchBox.embed(searchBoxElement);
 
   // called when return key hit in the form
