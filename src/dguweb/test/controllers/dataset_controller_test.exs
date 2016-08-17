@@ -18,7 +18,7 @@ defmodule DGUWeb.DatasetControllerTest do
     upload = Repo.insert!(%Upload{publisher: publisher.name})
 
     conn = get conn, dataset_path(conn, :new, upload: upload.id)
-    assert html_response(conn, 200) =~ "Add data to new dataset"
+    assert html_response(conn, 200) =~ "Add data"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -38,7 +38,7 @@ defmodule DGUWeb.DatasetControllerTest do
     upload = Repo.insert!(%Upload{publisher: publisher.name})
 
     conn = post conn, dataset_path(conn, :create), dataset: @invalid_attrs, upload: upload.id
-    assert html_response(conn, 200) =~ "Add data to new dataset"
+    assert html_response(conn, 200) =~ "Add data"
   end
 
   test "shows chosen resource", %{conn: conn} do

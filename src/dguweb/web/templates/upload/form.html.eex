@@ -1,18 +1,28 @@
 <%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+    <div class="error-summary">
+     <h1 class="heading-medium error-summary-heading">
+        Oops, something went wrong! Please check the errors below.
+      </h1>
     </div>
   <% end %>
 
   <div class="form-group">
     <label class="form-label">Title</label>
+    <p class="form-hint">
+        Titles should be 65 characters or less, including spaces.<br/>
+        Most search engines will shorten titles if they’re longer than this.
+    </p>
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">
     <label class="form-label">Summary</label>
+    <p class="form-hint">
+      The first sentence of the summary will appear in search results.<br/>
+      It should be 140 characters or less.
+    </p>
     <%= textarea f, :description, class: "form-control" %>
     <%= error_tag f, :description %>
   </div>
@@ -23,6 +33,9 @@
 
   <div class="form-group">
     <label class="form-label">Upload a file</label>
+    <p class="form-hint">
+      Files should be less than 100 petabytes
+    </p>
     <%= file_input f, :file, class: "form-control" %>
     <%= error_tag f, :file %>
   </div>
@@ -33,12 +46,14 @@
 
   <div class="form-group">
     <label class="form-label">Add a URL</label>
+    <p class="form-hint">Make sure your URL starts with "http(s)://“</p>
+
     <%= text_input f, :url, class: "form-control" %>
     <%= error_tag f, :url %>
   </div>
 
-  <input type="hidden" name="upload[publisher]" value="<%= if @publisher, do: @publisher.name  %>">
-  <input type="hidden" name="upload[dataset]" value="<%= if @dataset, do: @dataset.name  %>">
+  <input type="hidden" name="upload[publisher]" value="<%= if @publisher, do: @publisher.name  %>"/>
+  <input type="hidden" name="upload[dataset]" value="<%= if @dataset, do: @dataset.name  %>"/>
 
   <div class="form-group">
     <%= submit "Upload", class: "button" %>

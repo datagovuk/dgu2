@@ -85,7 +85,7 @@
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/publisher">Publishers</a></li>
+      <li><a href="/publisher">Organisations</a></li>
     </ul>
   </nav>
   <%= if logged_in?(@conn) do %>

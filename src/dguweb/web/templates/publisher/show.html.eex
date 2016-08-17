@@ -1,59 +1,49 @@
 <h1 class="heading-xlarge"><%= @publisher.title %></h1>
 
 <div class="grid-row">
-  <div class="column-two-thirds">
-      <%= @publisher.description %>
-      <a target="_blank" href="<%= @publisher.url %>">More info</a>
-  </div>
+    <div class="column-two-thirds">
 
-    <div class="column-one-third">
-       <%= if user_in_publisher(@conn, @publisher.name) do %>
-            <a class="button" href="/upload/new?publisher=<%= @publisher.name %>">Add Data</a>
-            <br/> <br/>
+        <p>
+          <%= @publisher.description %><br/>
+          <a target="_blank" href="<%= @publisher.url %>">More info</a>
+        </p>
+
+        <%= if user_in_publisher(@conn, @publisher.name) do %>
+            <p>
+                <a class="button" href="/upload/new?publisher=<%= @publisher.name %>">Add Data</a>
+            </p>
         <% end %>
-    </div>
-</div>
 
-<div class="grid-row">
-  <div class="column-two-thirds">
-    <h1 class="heading-large">Datasets</h1>
-    <h1 class="heading-small">Showing <%= @offset + 1 %> - <%= @offset + length(@datasets) %> of <%= @pagination.total%></h1>
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-    <%= for dataset <- @datasets do %>
-        <tr>
-          <td>
-            <a href="<%= dataset_path(@conn, :show, dataset.name) %>">
-            <%= dataset.title %> <br/>
-            </a>
-            <%= dataset.description %>
-            <%= if user_in_publisher(@conn, @publisher.name) do %>
-              <a href="/upload/new?dataset=<%= dataset.name %>">Add data</a>
+        <h2 class="heading-large">Datasets</h2>
+        <p>Showing <%= @offset + 1 %> - <%= @offset + length(@datasets) %> of <%= @pagination.total%></p>
+        <ul class="dataset-list">
+            <%= for dataset <- @datasets do %>
+              <li>
+                  <a href="<%= dataset_path(@conn, :show, dataset.name) %>">
+                      <%= dataset.title %> <br/>
+                  </a>
+                  <%= dataset.description %>
+                  <%= if user_in_publisher(@conn, @publisher.name) do %>
+                      <a href="/upload/new?dataset=<%= dataset.name %>">Add data</a>
+                  <% end %>
+              </li>
             <% end %>
-          </td>
-        </tr>
-    <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div class="column-one-third">
-      &nbsp;
-  </div>
-</div>
+        </ul>
 
-
-<!-- Page <%= @page_number %> of <%= @pagination.page_count %> -->
-<div class="clearfix grid-row">
-    </div>
-    <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
-        <a class="button" href="<%= publisher_path(@conn, :show, @publisher.name,  page: (@page_number - 1)) %>">&lt; Previous</a>
-    <% end %>
-    <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
-        <a class="button" href="<%= publisher_path(@conn, :show, @publisher.name,  page: (@page_number + 1)) %>">Next &gt;</a>
-    <% end %>
+        <%= if @pagination.page_count > 1 do %>
+            <p class="pagination">Page <%= @page_number %> of <%= @pagination.page_count %>
+                -
+                <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
+                    <a href="<%= publisher_path(@conn, :show, @publisher.name,  page: (@page_number - 1)) %>">Previous</a>
+                <% end %>
+                <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) and
+                    DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+                    -
+                <% end %>
+                <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+                    <a href="<%= publisher_path(@conn, :show, @publisher.name,  page: (@page_number + 1)) %>">Next</a>
+                <% end %>
+            </p>
+        <% end %>
+     </div>
 </div>

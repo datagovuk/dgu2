@@ -1,4 +1,4 @@
-<h1 class="heading-xlarge">Add a publisher</h1>
+<h1 class="heading-xlarge">Add an organisation</h1>
 
 <%= render "form.html", changeset: @changeset,
                         action: publisher_path(@conn, :create) %>
