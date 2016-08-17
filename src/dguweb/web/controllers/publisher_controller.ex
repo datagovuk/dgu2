@@ -1,8 +1,8 @@
 defmodule DGUWeb.PublisherController do
   use DGUWeb.Web, :controller
 
-  alias DGUWeb.Repo
-  alias DGUWeb.Publisher
+  alias DGUWeb.{Repo, Publisher, Dataset}
+  alias DGUWeb.Util.Pagination
 
   def index(conn, _params) do
     publishers = Repo.all(Publisher)
@@ -28,11 +28,30 @@ defmodule DGUWeb.PublisherController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}=params) do
     publisher = Repo.get_by!(Publisher, name: id)
-    |> Repo.preload(:datasets)
 
-    render(conn, "show.html", publisher: publisher)
+    count = Repo.all(from d in Dataset,
+      where: d.publisher_id == ^publisher.id,
+      select: count(d.id)) |> hd
+
+    page_number = get_page_number(params)
+    pagination = Pagination.create(count)
+    offset = Pagination.offset_for_page(pagination, page_number)
+
+    datasets = Repo.all(from d in Dataset,
+      where: d.publisher_id == ^publisher.id,
+      offset: ^offset,
+      limit: 10,
+      order_by: [asc: d.updated_at])
+
+    render(conn, "show.html", publisher: publisher, datasets: datasets, pagination: pagination,
+      page_number: page_number, offset: offset)
+  end
+
+
+  defp get_page_number(params) do
+    params |> Map.get("page", "1") |> String.to_integer
   end
 
   def edit(conn, %{"id" => id}) do

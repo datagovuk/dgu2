@@ -17,6 +17,7 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <h1 class="heading-large">Datasets</h1>
+    <h1 class="heading-small">Showing <%= @offset + 1 %> - <%= @offset + length(@datasets) %> of <%= @pagination.total%></h1>
     <table>
       <thead>
         <tr>
@@ -24,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-    <%= for dataset <- @publisher.datasets do %>
+    <%= for dataset <- @datasets do %>
         <tr>
           <td>
             <a href="<%= dataset_path(@conn, :show, dataset.name) %>">
@@ -43,4 +44,16 @@
   <div class="column-one-third">
       &nbsp;
   </div>
+</div>
+
+
+<!-- Page <%= @page_number %> of <%= @pagination.page_count %> -->
+<div class="clearfix grid-row">
+    </div>
+    <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
+        <a class="button" href="<%= publisher_path(@conn, :show, @publisher.name,  page: (@page_number - 1)) %>">&lt; Previous</a>
+    <% end %>
+    <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+        <a class="button" href="<%= publisher_path(@conn, :show, @publisher.name,  page: (@page_number + 1)) %>">Next &gt;</a>
+    <% end %>
 </div>
