@@ -33,7 +33,7 @@ if (searchBoxElement) {
     if (nodes.length === 1 && document.activeElement !== nodes[0]) {
       nodes[0].click();
     } else {
-      searchBoxElement.querySelector('form').submit();
+      document.querySelector('#search-form').submit();
     }
   });
 }
