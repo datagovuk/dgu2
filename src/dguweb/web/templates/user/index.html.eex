@@ -3,10 +3,10 @@
 
 <div class="grid-row">
     <div class="column-one-half">
-        <h1 class="heading-large">Publishers</h1>
+        <h1 class="heading-large">Organisations</h1>
 
         <%= if @publishers == [] do %>
-            <p>You are not a member of any publisher</p>
+            <p>You are not a member of any organisation</p>
         <% end %>
 
         <ul>

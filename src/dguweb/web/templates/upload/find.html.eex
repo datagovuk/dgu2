@@ -14,7 +14,7 @@
 
       <%= for {dataset_name, dataset_title, dataset_description} <- @datasets do %>
         <label class="block-label" for="id_organogram">
-            <input type="radio" name="add_to" value="dataset:<%= dataset_name %>">
+            <input type="radio" name="add_to" value="dataset:<%= dataset_name %>"/>
             <div class="bold"><%= dataset_title %></div>
             <%= dataset_description %>
          </label>
@@ -24,7 +24,7 @@
 
       <div class="form-group">
         <a href="<%= upload_path(@conn, :show, @upload.id) %>" class="button" type="submit">Cancel</a>
-        <input class="button" type="submit" value="Save">
+        <input class="button" type="submit" value="Save"/>
       </div>
     </form>
   </div>

@@ -1,12 +1,14 @@
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+    <div class="error-summary">
+      <h1 class="heading-medium error-summary-heading">
+        Oops, something went wrong! Please check the errors below.
+      </h1>
     </div>
   <% end %>
 
-  <input type="hidden" name="dataset[publisher_id]" value="<%= @publisher.id %>">
-  <input type="hidden" name="upload" value="<%= @upload %>">
+  <input type="hidden" name="dataset[publisher_id]" value="<%= @publisher.id %>"/>
+  <input type="hidden" name="upload" value="<%= @upload %>"/>
 
   <div class="form-group">
     <%= label f, :name, class: "form-label-bold" %>

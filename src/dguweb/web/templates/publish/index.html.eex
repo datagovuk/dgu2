@@ -4,25 +4,23 @@
 <% end %>
 
 <h1 class="heading-medium">
-<%= if @publisher do %>
-  Adding data to a dataset for <%= @publisher.title %>.
-<% end %>
-<%= if @dataset do %>
-  Adding data to the '<%= @dataset.title %>' dataset.
-<% end %>
+  Add data
+  <%= if @dataset do %>
+   to '<%= @dataset.title %>'
+  <% end %>
 </h1>
 <div class="grid-row">
   <div class="column-two-thirds">
     <h1 class="heading-small">Upload data</h1>
     <form action="" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>">
+      <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>"/>
 
-      <input type="hidden" name="publisher_name" value="">
-      <input type="hidden" name="dataset_name" value="">
+      <input type="hidden" name="publisher_name" value=""/>
+      <input type="hidden" name="dataset_name" value=""/>
 
       <div class="form-group">
         <label class="control-label" for="file">Choose a file</label>
-        <input class="form-control" type="file" name="file">
+        <input class="form-control" type="file" name="file"/>
       </div>
       <div class="form-group">
         Or
@@ -30,11 +28,11 @@
       <h1 class="heading-small">Provide a URL</h1>
       <div class="form-group">
         <label class="control-label" for="url"></label>
-        <input class="form-control" type="url" name="url">
+        <input class="form-control" type="url" name="url"/>
       </div>
 
       <div class="form-group">
-        <input class="button" type="submit" value="Upload">
+        <input class="button" type="submit" value="Upload"/>
       </div>
     </form>
   </div>

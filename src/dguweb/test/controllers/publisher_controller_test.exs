@@ -7,12 +7,12 @@ defmodule DGUWeb.PublisherControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, publisher_path(conn, :index)
-    assert html_response(conn, 200) =~ "Publishers"
+    assert html_response(conn, 200) =~ "Organisations"
   end
 
   test "renders form for new resources", %{conn: conn} do
     conn = get conn, publisher_path(conn, :new)
-    assert html_response(conn, 200) =~ "Add a publisher"
+    assert html_response(conn, 200) =~ "Add an organisation"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -23,7 +23,7 @@ defmodule DGUWeb.PublisherControllerTest do
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, publisher_path(conn, :create), publisher: @invalid_attrs
-    assert html_response(conn, 200) =~ "Add a publisher"
+    assert html_response(conn, 200) =~ "Add an organisation"
   end
 
   test "shows chosen resource", %{conn: conn} do

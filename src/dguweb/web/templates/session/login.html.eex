@@ -13,6 +13,6 @@
   </div>
 
   <div class="form-group">
-    <%= submit "Signin", class: "button" %>
+    <%= submit "Sign in", class: "button" %>
   </div>
 <% end %>

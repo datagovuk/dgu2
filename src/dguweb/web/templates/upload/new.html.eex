@@ -1,11 +1,17 @@
 <h1 class="heading-medium">
-    <%= if @publisher do %>
-      Adding data to a dataset for <%= @publisher.title %>.
-    <% end %>
-    <%= if @dataset do %>
-      Adding data to the '<%= @dataset.title %>' dataset.
-    <% end %>
+    Adding data
 </h1>
+
+<p>
+    <%= if @dataset do %>
+        Adding to dataset: '<%= @dataset.title %>'
+    <% end %>
+</p>
+
+<p>
+    You must give your data a title and summary. This will make it easier
+    for users to find it on data.gov.uk.
+</p>
 
 
 <%= render "form.html", changeset: @changeset, publisher: @publisher, dataset: @dataset,
