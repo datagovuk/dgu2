@@ -82,8 +82,9 @@ defmodule DGUWeb.Repo do
   def search(q, offset \\ 0, size \\ 10) do
     case Search.get("/#{index_name}/datasets/_search?size=#{size}&from=#{offset}&q=#{q}") do
       {:ok, _status, result } ->
-        result
-      _ -> nil
+         result
+      _ ->
+        nil
     end
   end
 
