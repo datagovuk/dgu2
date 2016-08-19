@@ -27,24 +27,31 @@ defmodule DGUWeb.PublisherController do
   end
 
   def show(conn, %{"id" => id}=params) do
-    publisher = Repo.get_by!(Publisher, name: id)
-
-    count = Repo.all(from d in Dataset,
-      where: d.publisher_id == ^publisher.id,
-      select: count(d.id)) |> hd
-
+    publisher = Publisher.show(conn, id)
     page_number = get_page_number(params)
-    pagination = Pagination.create(count)
-    offset = Pagination.offset_for_page(pagination, page_number)
+    show_publisher(conn, publisher, page_number)
+  end
 
-    datasets = Repo.all(from d in Dataset,
-      where: d.publisher_id == ^publisher.id,
-      offset: ^offset,
-      limit: 10,
-      order_by: [asc: d.updated_at])
+  def show_publisher(conn, nil, _page_number) do
+   conn
+   |> put_status(:not_found)
+   |> render(DGUWeb.ErrorView, "404.html")
+  end
 
-    render(conn, "show.html", publisher: publisher, datasets: datasets, pagination: pagination,
-      page_number: page_number, offset: offset)
+  def show_publisher(conn, publisher, page_number) do
+    if page_number < 1, do: page_number = 1
+    case page_number do
+      1 ->
+        offset = 0
+      other ->
+        offset = (other * 10) - 10
+    end
+
+    response = Dataset.search(conn, "", [fq: "organization:#{publisher.name}", rows: 10, start: offset])
+    pagination = Pagination.create(response.count)
+
+    render(conn, "show.html", publisher: publisher, datasets: response.results,
+      pagination: pagination, page_number: page_number, offset: offset)
   end
 
 

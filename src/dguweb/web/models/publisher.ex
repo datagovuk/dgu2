@@ -38,6 +38,25 @@ defmodule DGUWeb.Publisher do
     |> validate_required([:name, :title, :url])
   end
 
+  def show(conn, id) do
+    key = "organization_show:#{id}"
+    case Cachex.get!(:request_cache, key) do
+      nil ->
+        call = Client.organization_show(conn.assigns[:ckan], [id: id, include_datasets: false])
+        publisher_or_nil(key, call)
+      results ->
+        results
+    end
+  end
+
+  def publisher_or_nil(_key, %{error: _error}) do
+   nil
+  end
+
+  def publisher_or_nil(key, response) do
+    Cachex.set(:request_cache, key, response.result, DGUWeb.cache_opts)
+    response.result
+  end
 
   def list(conn) do
     case Cachex.get!(:request_cache, "organization_list") do
@@ -64,9 +83,7 @@ defmodule DGUWeb.Publisher do
         |> Enum.into(%{})
         Cachex.set(:request_cache, key, orgs)
         orgs
-      results ->
-                IO.inspect "Got from cache"
-        results
+      results -> results
     end
   end
 

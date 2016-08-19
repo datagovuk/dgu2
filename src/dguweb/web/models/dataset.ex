@@ -1,6 +1,7 @@
 defmodule DGUWeb.Dataset do
   use DGUWeb.Web, :model
 
+  alias CKAN.Client
   alias DGUWeb.Repo
 
   schema "datasets" do
@@ -14,6 +15,13 @@ defmodule DGUWeb.Dataset do
     has_many :datafiles, DGUWeb.DataFile
     timestamps()
   end
+
+ def search(conn, q, params \\ []) do
+    call = conn.assigns[:ckan]
+    |> Client.package_search(Keyword.merge([q: q], params))
+    call.result
+  end
+
 
   @required_fields [:name, :title, :publisher_id, :description]
 
