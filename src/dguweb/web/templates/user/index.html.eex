@@ -10,20 +10,20 @@
         <% end %>
 
         <ul>
-        <%= for {name, title} <- @publishers do %>
-            <li>
-            <%= link title, to: publisher_path(@conn, :show, name) %>
-            </li>
-        <% end %>
+            <%= for {name, title} <- @publishers do %>
+                <li>
+                <%= link title, to: publisher_path(@conn, :show, name) %>
+                </li>
+            <% end %>
         </ul>
     </div>
 
     <div class="column-one-half">
         <h1 class="heading-large">Tasks</h1>
         <ol class="user-tasks">
-        <%= for task <- @tasks do %>
-            <li><%= raw task %></li>
-        <% end %>
+            <%= for task <- @tasks do %>
+                <li><%= raw task %></li>
+            <% end %>
         </ol>
     </div>
 </div>
