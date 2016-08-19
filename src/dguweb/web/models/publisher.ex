@@ -38,6 +38,18 @@ defmodule DGUWeb.Publisher do
     |> validate_required([:name, :title, :url])
   end
 
+  def show(conn, id) do
+    key = "organization_show:#{id}"
+    case Cachex.get!(:request_cache, key) do
+      nil ->
+        call = Client.organization_show(conn.assigns[:ckan], [id: id, include_datasets: false])
+        Cachex.set(:request_cache, key, call.result, DGUWeb.cache_opts)
+        call.result
+      results ->
+        results
+    end
+  end
+
 
   def list(conn) do
     case Cachex.get!(:request_cache, "organization_list") do
