@@ -9,10 +9,6 @@
             <%= for dataset <- @datasets do %>
                 <%= render "dataset_item.html", dataset: dataset, conn: @conn %>
             <% end %>
-        <% else %>
-            <%= if @query != "" do %>
-                <p>Search returned 0 results</p>
-            <% end %>
         <% end %>
 
         <%= if @pagination.page_count > 1 do %>
