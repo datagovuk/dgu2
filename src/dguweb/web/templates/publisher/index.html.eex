@@ -8,14 +8,14 @@
     </tr>
   </thead>
   <tbody>
-    <%= for publisher <- @publishers do %>
+    <%= for organisation <- @publishers do %>
       <tr>
         <td>
-          <a href="<%= publisher_path(@conn, :show, publisher.name) %>"><%= publisher.title %></a>
+          <a href="<%= publisher_path(@conn, :show, organisation.name) %>"><%= organisation.title %></a>
           </td>
           <td class="text-right">
-          <%= if user_in_publisher(@conn, publisher.name) do %>
-              <%= link "Edit", to: publisher_path(@conn, :edit, publisher.name), class: "btn btn-default btn-xs" %>
+          <%= if user_in_publisher(@conn, organisation.name) do %>
+              <%= link "Edit", to: publisher_path(@conn, :edit, organisation.name), class: "btn btn-default btn-xs" %>
             <% end %>
           </td>
       </tr>

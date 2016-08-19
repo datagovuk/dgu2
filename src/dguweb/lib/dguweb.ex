@@ -8,13 +8,11 @@ defmodule DGUWeb do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
       supervisor(DGUWeb.EctoRepo, []),
-      # Start the endpoint when the application starts
       supervisor(DGUWeb.Endpoint, []),
-      # Start your own worker by calling: DGUWeb.Worker.start_link(arg1, arg2, arg3)
-      # worker(DGUWeb.Worker, [arg1, arg2, arg3]),
+      worker(Cachex, [:request_cache, []])
     ]
+
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
@@ -27,5 +25,9 @@ defmodule DGUWeb do
   def config_change(changed, _new, removed) do
     DGUWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  def cache_opts do
+    [ ttl: :timer.seconds(60) ]
   end
 end

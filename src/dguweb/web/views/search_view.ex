@@ -15,7 +15,7 @@ defmodule DGUWeb.SearchView do
       pub.name == publisher
     end)
 
-    length(publishers) > 0
+    map_size(publishers) > 0
   end
 
   def publishers_for_user(nil), do: []

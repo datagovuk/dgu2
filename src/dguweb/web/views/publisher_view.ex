@@ -13,9 +13,4 @@ defmodule DGUWeb.PublisherView do
     length(member_of) > 0
   end
 
-  def publishers_for_user(nil), do: []
-  def publishers_for_user(user) do
-    User.publishers(user)
-  end
-
 end
