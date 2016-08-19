@@ -20,6 +20,7 @@ defmodule DGUWeb.Plugs.Authentication do
     else
       conn
       |> assign(:ckan, Client.new("https://test.data.gov.uk"))
+      |> assign(:user_publishers, %{})
     end
 
   end
