@@ -27,14 +27,15 @@ defmodule DGUWeb.PublisherControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    publisher = Repo.insert! %Publisher{name: "test", title: "Test"}
-    conn = get conn, publisher_path(conn, :show, publisher.name)
-    assert html_response(conn, 200) =~ publisher.title
+    conn = get conn, publisher_path(conn, :show, "cabinet-office")
+    assert html_response(conn, 200) =~ "Cabinet Office"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
-      get conn, publisher_path(conn, :show, -1)
+
+      get conn, publisher_path(conn, :show, "wombles")
+      html_response(conn, 200)
     end
   end
 

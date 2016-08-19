@@ -28,8 +28,17 @@ defmodule DGUWeb.PublisherController do
 
   def show(conn, %{"id" => id}=params) do
     publisher = Publisher.show(conn, id)
-
     page_number = get_page_number(params)
+    show_publisher(conn, publisher, page_number)
+  end
+
+  def show_publisher(conn, nil, _page_number) do
+   conn
+   |> put_status(:not_found)
+   |> render(DGUWeb.ErrorView, "404.html")
+  end
+
+  def show_publisher(conn, publisher, page_number) do
     if page_number < 1, do: page_number = 1
     case page_number do
       1 ->
