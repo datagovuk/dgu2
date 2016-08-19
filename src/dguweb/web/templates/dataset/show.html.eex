@@ -5,20 +5,20 @@
 
 
   <div class="column-two-thirds">
-    <%= if @dataset.theme do %>
-        <div>Theme: <%= @dataset.theme.title %></div>
+    <%= if Map.get(@dataset, "theme-primary") do %>
+        <div>Theme: <%= Map.get(@dataset, "theme-primary") %></div>
     <% end %>
 
-    <%= if @dataset.publisher do  %>
-        <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.publisher.name) %>"><%= @dataset.publisher.title %></a></div>
+    <%= if @dataset.organization do  %>
+        <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.organization.name) %>"><%= @dataset.organization.title %></a></div>
     <br/>
     <% end %>
 
-    <p><%= @dataset.description %></p>
+    <p><%= raw @dataset.notes %></p>
     </div>
 
     <div class="column-one-third">
-       <%= if @dataset.publisher && user_in_publisher(@conn, @dataset.publisher.name) do %>
+       <%= if @dataset.organization && user_in_publisher(@conn, @dataset.organization.name) do %>
             <a class="button" href="/upload/new?dataset=<%= @dataset.name %>">Add Data</a>
             <br/> <br/>
         <% end %>
@@ -33,10 +33,13 @@
 
     <h1 class="heading-large">Files</h1>
 
-    <%= for file <- @dataset.datafiles do %>
+    <%= for file <- @dataset.resources do %>
     <div class="datafile">
 
-        <div class="bold"><%= file.name %></small></div>
+        <%= if Map.get(file, "name") do %>
+            <div class="bold"><%= Map.get(file, "name") %></small></div>
+        <% end %>
+
         <div><%= file.description %></div>
         <div>Downloaded <%= :random.uniform(50) %> times</div>
         <div>

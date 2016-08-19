@@ -61,14 +61,18 @@ defmodule DGUWeb.DatasetController do
     Repo.get_by(Publisher, name: up.publisher)
   end
 
-
-
   def show(conn, %{"id" => id}) do
-    dataset = Repo.get_by!(Dataset, name: id)
-    |> Repo.preload(:publisher)
-    |> Repo.preload(:datafiles)
-    |> Repo.preload(:theme)
+    dataset = Dataset.show(conn, id)
+    conn |> show_dataset(dataset)
+  end
 
+  def show_dataset(conn, nil) do
+    conn
+    |> put_status(:not_found)
+    |> render(DGUWeb.ErrorView, "404.html")
+  end
+
+  def show_dataset(conn, dataset) do
     render(conn, "show.html", dataset: dataset)
   end
 

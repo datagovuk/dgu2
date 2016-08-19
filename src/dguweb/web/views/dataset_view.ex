@@ -10,7 +10,7 @@ defmodule DGUWeb.DatasetView do
       pub.name == publisher
     end)
 
-    map_size(publishers) > 0
+    length(publishers) > 0
   end
 
 end
