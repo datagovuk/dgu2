@@ -1,6 +1,7 @@
 defmodule DGUWeb.SearchController do
   use DGUWeb.Web, :controller
 
+  alias DGUWeb.Dataset
   alias DGUWeb.Util.Pagination
 
   def index(conn, _params) do
@@ -12,31 +13,42 @@ defmodule DGUWeb.SearchController do
 
   # Search with a valid search term
   def search(conn, %{"q" => query} = params) do
-    q = URI.encode(query)
-    do_search(conn, q, params)
+    do_search(conn, query, params)
   end
 
   # Search with no q param
   def search(conn, params), do: showall(conn, params)
 
   # Show all datasets in the index
-  defp showall(conn, params), do: do_search(conn, "*", params)
+  defp showall(conn, params), do: do_search(conn, "*:*", params)
 
   defp do_search(conn, querystring, params) do
 
-    result = Repo.search(querystring)
     page_number = get_page_number(params)
-    pagination = Pagination.create(result.hits.total)
-    offset = Pagination.offset_for_page(pagination, page_number)
-
-    result = Repo.search querystring, offset
-
-    query = case querystring do
-      "*" -> ""
-      x -> x
+    if page_number < 1, do: page_number = 1
+    case page_number do
+      1 ->
+        offset = 0
+      other ->
+        offset = (other * 10) - 10
     end
 
-    render conn, :search, query: query, results: result.hits.hits,
+    response = Dataset.search(conn, URI.encode(querystring), [rows: 10, start: offset])
+    pagination = Pagination.create(response.count)
+
+    datasets = response.results
+    |> Enum.map(fn dataset->
+      %{
+         name: dataset.name,
+         title: dataset.title,
+         description: dataset.notes,
+         publisher_name: dataset.organization.name,
+         publisher_title: dataset.organization.title
+       }
+    end)
+
+
+    render conn, :search, query: querystring, results: datasets,
       pagination: pagination, offset: offset, page_number: page_number
   end
 

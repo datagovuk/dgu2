@@ -5,7 +5,6 @@ defmodule DGUWeb.SearchView do
 
   def render("search.json", %{results: datasets}) do
     datasets
-    |> Enum.map( fn x-> x._source end)
   end
 
   # FIXME(rdj): Remove when we have authz.

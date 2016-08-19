@@ -14,10 +14,8 @@
         <%= if @pagination.total > 0 do %>
             <p>Showing <%= @offset + 1 %> - <%= @offset + length(@results) %> of <%= @pagination.total %> results</p>
 
-            <%= for result <- @results do %>
-                <%= if result._type == "datasets" do %>
-                    <%= render "dataset_item.html", dataset: result._source, conn: @conn %>
-                <% end %>
+            <%= for dataset <- @results do %>
+                <%= render "dataset_item.html", dataset: dataset, conn: @conn %>
             <% end %>
         <% else %>
             <%= if @query != "" do %>
