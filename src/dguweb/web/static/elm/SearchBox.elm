@@ -134,17 +134,17 @@ searchApiDecoder =
 
 viewCompletionItem : Int -> Int -> Dataset -> Html Msg
 viewCompletionItem liIdx selectedIdx result =
-    Html.li
-        [ class
-            (if liIdx == selectedIdx then
-                "selected"
-             else
-                ""
-            )
-        ]
-        [ Html.a [ href ("/dataset/" ++ result.name) ]
-            [ Html.text (result.title ++ " - " ++ result.publisher_title) ]
-        ]
+    let attribs =
+        if liIdx == selectedIdx then
+            [ class "selected" ]
+        else
+            []
+    in
+        Html.li
+            attribs
+            [ Html.a [ href ("/dataset/" ++ result.name) ]
+                [ Html.text (result.title ++ " - " ++ result.publisher_title) ]
+            ]
 
 
 viewCompletionMenu : Model -> Html Msg
