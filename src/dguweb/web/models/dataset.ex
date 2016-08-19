@@ -22,6 +22,26 @@ defmodule DGUWeb.Dataset do
     call.result
   end
 
+  def show(conn, id) do
+    key = "package_show:#{id}"
+    case Cachex.get!(:request_cache, key) do
+      nil ->
+        call = Client.package_show(conn.assigns[:ckan], [id: id])
+        dataset_or_nil(key, call)
+      results ->
+        results
+    end
+  end
+
+  def dataset_or_nil(_key, %{error: _error}) do
+   nil
+  end
+
+  def dataset_or_nil(key, response) do
+    Cachex.set(:request_cache, key, response.result, DGUWeb.cache_opts)
+    response.result
+  end
+
 
   @required_fields [:name, :title, :publisher_id, :description]
 

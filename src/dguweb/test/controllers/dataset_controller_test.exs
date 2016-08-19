@@ -42,15 +42,13 @@ defmodule DGUWeb.DatasetControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    dataset = Repo.insert! %Dataset{name: "test", title: "Title", description: "Description",}
-    conn = get conn, dataset_path(conn, :show, dataset.name)
-    assert html_response(conn, 200) =~ "Title"
+    conn = get conn, dataset_path(conn, :show, "naptan")
+    assert html_response(conn, 200) =~ "NaPTAN is Britain's national system"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, dataset_path(conn, :show, -1)
-    end
+    c = get conn, dataset_path(conn, :show, "wombles")
+    assert html_response(c, 404) =~ "Page not found"
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
