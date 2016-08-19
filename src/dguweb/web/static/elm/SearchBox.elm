@@ -5,14 +5,14 @@ import Html.App as App
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
-import Json.Decode exposing (..)
+import Json.Decode exposing ((:=))
 import Task
 import String
 
 
-main : Program Never
+main : Program Flags
 main =
-    App.program
+    App.programWithFlags
         { init = init
         , view = view
         , update = update
@@ -31,6 +31,10 @@ port hitReturn : String -> Cmd msg
 -- MODEL
 
 
+type alias Flags =
+    { initialSearchQuery: String }
+
+
 type alias Dataset =
     { title : String
     , publisher_title : String
@@ -42,12 +46,13 @@ type alias Model =
     { datasets : List Dataset
     , selectedIndex : Int
     , visible : Bool
+    , searchQuery : String
     }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( Model [] -1 False, Cmd.none )
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( Model [] -1 False flags.initialSearchQuery, Cmd.none )
 
 
 
@@ -80,7 +85,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Lookup q ->
-            ( { model | visible = True }
+            ( { model | visible = True, searchQuery = q }
             , if String.length q > 2 then
                 getMatchingDatasets q
               else
@@ -118,10 +123,10 @@ getMatchingDatasets query =
             (Http.get searchApiDecoder url)
 
 
-searchApiDecoder : Decoder (List Dataset)
+searchApiDecoder : Json.Decode.Decoder (List Dataset)
 searchApiDecoder =
     Json.Decode.list
-        (object3 Dataset
+        (Json.Decode.object3 Dataset
             ("title" := Json.Decode.string)
             ("publisher_title" := Json.Decode.string)
             ("name" := Json.Decode.string)
@@ -134,17 +139,17 @@ searchApiDecoder =
 
 viewCompletionItem : Int -> Int -> Dataset -> Html Msg
 viewCompletionItem liIdx selectedIdx result =
-    Html.li
-        [ class
-            (if liIdx == selectedIdx then
-                "selected"
-             else
-                ""
-            )
-        ]
-        [ Html.a [ href ("/dataset/" ++ result.name) ]
-            [ Html.text (result.title ++ " - " ++ result.publisher_title) ]
-        ]
+    let attribs =
+        if liIdx == selectedIdx then
+            [ class "selected" ]
+        else
+            []
+    in
+        Html.li
+            attribs
+            [ Html.a [ href ("/dataset/" ++ result.name) ]
+                [ Html.text (result.title ++ " - " ++ result.publisher_title) ]
+            ]
 
 
 viewCompletionMenu : Model -> Html Msg
@@ -160,8 +165,8 @@ viewCompletionMenu model =
         ]
 
 
-viewForm : Html Msg
-viewForm =
+viewForm : String -> Html Msg
+viewForm queryString =
     let
         keydownOptions =
             { preventDefault = True, stopPropagation = False }
@@ -191,6 +196,7 @@ viewForm =
             , autocomplete False
             , onInput Lookup
             , onWithOptions "keydown" keydownOptions keydownDecoder
+            , value queryString
             ]
             []
 
@@ -199,9 +205,9 @@ view : Model -> Html Msg
 view model =
     Html.div []
         (if model.visible && List.length model.datasets > 0 then
-            [ viewForm
+            [ viewForm model.searchQuery
             , viewCompletionMenu model
             ]
          else
-            [ viewForm ]
+            [ viewForm model.searchQuery ]
         )

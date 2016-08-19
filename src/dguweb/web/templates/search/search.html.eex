@@ -1,7 +1,7 @@
 <form id="search-form" action="/search" method="GET">
     <fieldset>
     <div id="search-box">
-        <input id="q" name="q" type="text" placeholder="Search for data" class="form-control search" autocomplete="off"/>
+        <input id="q" name="q" type="text" placeholder="Search for data" class="form-control search" autocomplete="off" value="<%= @query %>"/>
     </div>
     </fieldset>
 </form>

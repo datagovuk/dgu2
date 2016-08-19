@@ -24,8 +24,10 @@ import "phoenix_html"
 const searchBoxElement = document.querySelector('#search-box');
 
 if (searchBoxElement) {
+  var searchQuery = searchBoxElement.querySelector('input').value;
   searchBoxElement.innerHTML = '';
-  const searchBox = Elm.SearchBox.embed(searchBoxElement);
+  const searchBox =
+    Elm.SearchBox.embed(searchBoxElement, { initialSearchQuery: searchQuery });
 
   // called when return key hit in the form
   searchBox.ports.hitReturn.subscribe(selector => {
