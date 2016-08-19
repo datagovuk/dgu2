@@ -10,6 +10,8 @@ defmodule DGUWeb.User do
     field :password, :string, virtual: true
     field :crypted_password, :string
 
+    field :apikey, :string
+
     many_to_many :publisher, DGUWeb.Publisher, join_through: PublisherUser
 
     timestamps()

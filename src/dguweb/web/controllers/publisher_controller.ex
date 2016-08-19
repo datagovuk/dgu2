@@ -5,9 +5,7 @@ defmodule DGUWeb.PublisherController do
   alias DGUWeb.Util.Pagination
 
   def index(conn, _params) do
-    publishers = Repo.all(Publisher)
-
-    render(conn, "index.html", publishers: publishers)
+    render(conn, "index.html", publishers: Publisher.list(conn))
   end
 
   def new(conn, _params) do
