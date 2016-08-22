@@ -26,17 +26,13 @@ defmodule DGUWeb.Dataset do
     dataset = show(conn, dataset_name)
 
     r = resource_from_upload(upload_obj)
-    resources = [r|dataset.resources] |> Enum.reverse
-
-    dataset = dataset
-    |> Map.put(:resources, resources)
-    |> Map.delete(:extras)
-    |> Map.delete(:tags)
-    |> Map.delete(:codelist)
-    |> Map.delete(:schema)
+    |> Map.put(:package_id, dataset_name)
 
     call = conn.assigns[:ckan]
-    |> Client.package_update(dataset)
+    |> Client.resource_create(r)
+
+    key = "package_show:#{dataset_name}"
+    Cachex.del(:request_cache, key)
 
     call
   end
