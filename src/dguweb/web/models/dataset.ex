@@ -38,6 +38,9 @@ defmodule DGUWeb.Dataset do
     call = conn.assigns[:ckan]
     |> Client.package_update(dataset)
 
+    key = "package_show:#{dataset_name}"
+    Cachex.del(:request_cache, key)
+
     call
   end
 

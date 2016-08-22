@@ -6,7 +6,6 @@ defmodule DGUWeb.DatasetController do
   alias DGUWeb.Theme
   alias DGUWeb.Upload
   alias DGUWeb.Publisher
-  alias DGUWeb.DataFile
 
   def index(conn, _params) do
     datasets = Repo.all(Dataset) |> Repo.preload(:publisher)
@@ -33,7 +32,7 @@ defmodule DGUWeb.DatasetController do
         |> Map.delete(:publisher_id)
         |> Map.put(:notes, changeset.changes.description)
         |> Map.delete(:description)
-        |> Map.put(:resources, [resource_from_upload(upload_obj)])
+        |> Map.put(:resources, [Dataset.resource_from_upload(upload_obj)])
         |> Map.put(:owner_org, upload_obj.publisher)
         |> Map.put(:license_id, "uk-ogl")
 
@@ -50,15 +49,6 @@ defmodule DGUWeb.DatasetController do
           upload: upload
         )
     end
-  end
-
-  def resource_from_upload(upload) do
-    %{
-      name: upload.name,
-      description: upload.description,
-      url: upload.url,
-      format: upload.content_type,
-    }
   end
 
   defp get_themes_for_select() do
