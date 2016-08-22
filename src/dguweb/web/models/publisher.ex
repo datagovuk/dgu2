@@ -2,7 +2,7 @@ defmodule DGUWeb.Publisher do
   use DGUWeb.Web, :model
 
   alias Cachex
-  alias CKAN.Client
+  alias DGUWeb.CKAN.Client
 
   schema "publishers" do
     field :name, :string

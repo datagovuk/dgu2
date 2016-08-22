@@ -1,7 +1,7 @@
 defmodule DGUWeb.Plugs.Authentication do
   import Plug.Conn
 
-  alias CKAN.Client
+  alias DGUWeb.CKAN.Client
   alias DGUWeb.{Repo, User, Publisher}
 
   def init(default), do: default
