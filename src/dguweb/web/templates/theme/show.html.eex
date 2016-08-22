@@ -2,17 +2,29 @@
 <p><%= @theme.description %></p>
 
 <div class="grid-row">
-    <div class="column">
-        <%= for dataset <- @datasets do %>
-            <div class="column-one-half">
-                <div class="bold"><%= dataset.title %></div>
-                <div><%= dataset.description %>
-                    <a href="<%= dataset_path(@conn, :show, dataset.name) %>">View</a>
+    <div class="column-two-thirds">
+        <%= if @pagination.total > 0 do %>
+            <p>Showing <%= @offset + 1 %> - <%= @offset + length(@datasets) %> of <%= @pagination.total %> results</p>
 
-                </div>
-            </div>
+            <%= for dataset <- @datasets do %>
+                <%= render "dataset_item.html", dataset: dataset, conn: @conn %>
+            <% end %>
         <% end %>
 
-        <div class="clearfix"></div>
+        <%= if @pagination.page_count > 1 do %>
+            <p class="pagination">Page <%= @page_number %> of <%= @pagination.page_count %>
+                -
+                <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
+                    <a href="<%= theme_path(@conn, :show, @theme.name, page: (@page_number - 1)) %>">Previous</a>
+                <% end %>
+                <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) and
+                    DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+                    -
+                <% end %>
+                <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+                    <a href="<%= theme_path(@conn, :show, @theme.name,  page: (@page_number + 1)) %>">Next</a>
+                <% end %>
+            </p>
+        <% end %>
     </div>
 </div>
