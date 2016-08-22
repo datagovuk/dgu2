@@ -22,9 +22,33 @@ defmodule DGUWeb.Upload do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :description, :url, :dataset, :publisher, :content_type, :path, :warnings, :errors, :file])
+    |> validate_mimetype
     |> validate_url_or_file
     |> validate_required([:name, :description])
     |> process_uploaded_file
+  end
+
+  def validate_mimetype(changeset) do
+    validate_url_mimetype(changeset, get_field(changeset, :url))
+  end
+
+  def validate_url_mimetype(changeset, nil), do: changeset
+  def validate_url_mimetype(changeset, url) do
+    case Mix.env do
+      :test -> changeset
+      _ ->
+        resp = HTTPotion.head(url)
+        headers = resp.headers |> Enum.into(%{})
+
+        format = case MIME.extensions(Map.get(headers, :"Content-Type")) do
+          [] -> "application/octet-stream"  # TODO(rdj) use extension in URL
+          other ->
+            hd(other) |> String.upcase
+        end
+
+        changeset
+        |> put_change(:content_type, format)
+    end
   end
 
   defp process_uploaded_file(changeset) do

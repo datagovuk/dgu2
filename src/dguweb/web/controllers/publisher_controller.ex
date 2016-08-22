@@ -40,7 +40,6 @@ defmodule DGUWeb.PublisherController do
 
   def show_publisher(conn, publisher, page_number) do
     page_number = if page_number < 1, do: 1, else: page_number
-    IO.inspect page_number
     offset = case page_number do
       1 ->
          0
