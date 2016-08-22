@@ -16,6 +16,12 @@ defmodule DGUWeb.Dataset do
     timestamps()
   end
 
+ def create(conn, dataset) do
+    call = conn.assigns[:ckan]
+    |> Client.package_create(dataset)
+    call.result
+ end
+
  def search(conn, q, params \\ []) do
     call = conn.assigns[:ckan]
     |> Client.package_search(Keyword.merge([q: q], params))

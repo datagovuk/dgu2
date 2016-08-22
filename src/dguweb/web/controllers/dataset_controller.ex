@@ -24,28 +24,41 @@ defmodule DGUWeb.DatasetController do
 
   def create(conn, %{"dataset" => dataset_params, "upload"=> upload}) do
     changeset = Dataset.changeset(%Dataset{}, dataset_params)
+    upload_obj = Repo.get(Upload, String.to_integer(upload))
 
-    case Repo.insert(changeset) do
-      {:ok, dataset} ->
+    case changeset.valid? do
+      true ->
 
-        # Upload the upload and delete
-        # TODO(rdj): Make this a bit more resilient
-        upload_obj = Repo.get(Upload, String.to_integer(upload))
-        cs = DataFile.changeset_from_upload(upload_obj, dataset.id)
+        ckan_dataset = changeset.changes
+        |> Map.delete(:publisher_id)
+        |> Map.put(:notes, changeset.changes.description)
+        |> Map.delete(:description)
+        |> Map.put(:resources, [resource_from_upload(upload_obj)])
+        |> Map.put(:owner_org, upload_obj.publisher)
+        |> Map.put(:license_id, "uk-ogl")
 
-        Repo.insert(cs)
+        Dataset.create(conn, ckan_dataset)
         Repo.delete(upload_obj)
 
         conn
         |> put_flash(:info, "Dataset created successfully.")
-        |> redirect(to: dataset_path(conn, :show, dataset.name))
-      {:error, changeset} ->
+        |> redirect(to: dataset_path(conn, :show, ckan_dataset.name))
+      false ->
         render(conn, "new.html", changeset: changeset,
           themes: get_themes_for_select,
           publisher: get_publisher_from_upload(upload),
           upload: upload
         )
     end
+  end
+
+  def resource_from_upload(upload) do
+    %{
+      name: upload.name,
+      description: upload.description,
+      url: upload.url,
+      format: upload.content_type,
+    }
   end
 
   defp get_themes_for_select() do
