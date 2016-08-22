@@ -25,12 +25,13 @@ defmodule DGUWeb.SearchController do
   defp do_search(conn, querystring, params) do
 
     page_number = get_page_number(params)
-    if page_number < 1, do: page_number = 1
-    case page_number do
+    page_number = if page_number < 1, do: 1, else: 1
+
+    offset = case page_number do
       1 ->
-        offset = 0
+        0
       other ->
-        offset = (other * 10) - 10
+        (other * 10) - 10
     end
 
     response = Dataset.search(conn, URI.encode(querystring), [rows: 10, start: offset])

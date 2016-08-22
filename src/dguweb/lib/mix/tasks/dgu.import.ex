@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Dgu.Import do
   use Mix.Task
 
   alias Poison, as: JSON
-  alias DGUWeb.{EctoRepo, Repo, Publisher, Dataset}
+  alias DGUWeb.{Repo, Publisher, Dataset}
 
   def run([]) do
     IO.puts "Please specify the JSON file containing the data"
@@ -11,7 +11,7 @@ defmodule Mix.Tasks.Dgu.Import do
   def run([path]) do
     Mix.Task.run "app.start", []
 
-    datasets = path
+    path
     |> File.read!
     |> JSON.decode!(keys: :atoms)
     |> filter

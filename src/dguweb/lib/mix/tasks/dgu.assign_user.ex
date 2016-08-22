@@ -1,7 +1,6 @@
 defmodule Mix.Tasks.Dgu.AssignUser do
   use Mix.Task
 
-  alias Poison, as: JSON
   alias DGUWeb.{Repo, Publisher, User, PublisherUser}
 
   def run([]) do
@@ -26,7 +25,7 @@ defmodule Mix.Tasks.Dgu.AssignUser do
         PublisherUser.changeset(%PublisherUser{}, %{
           user_id: user.id, publisher_id: publisher.id, role: "admin"}
         ) |>  Repo.insert_or_update!
-      entry ->  nil
+      _entry ->  nil
     end
 
   end

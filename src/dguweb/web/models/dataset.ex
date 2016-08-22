@@ -60,8 +60,8 @@ defmodule DGUWeb.Dataset do
       |> Repo.preload(:theme)
 
     fields = fields_with_publisher( d, d.publisher )
-    if d.theme do
-      fields = Keyword.put(fields, :theme, d.theme.name)
+    fields = if d.theme do
+      Keyword.put(fields, :theme, d.theme.name)
     end
     fields
   end

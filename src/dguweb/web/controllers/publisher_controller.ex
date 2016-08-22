@@ -39,12 +39,13 @@ defmodule DGUWeb.PublisherController do
   end
 
   def show_publisher(conn, publisher, page_number) do
-    if page_number < 1, do: page_number = 1
-    case page_number do
+    page_number = if page_number < 1, do: 1, else: 1
+    IO.inspect page_number
+    offset = case page_number do
       1 ->
-        offset = 0
+         0
       other ->
-        offset = (other * 10) - 10
+        ((other * 10) - 10)
     end
 
     response = Dataset.search(conn, "", [fq: "organization:#{publisher.name}", rows: 10, start: offset])

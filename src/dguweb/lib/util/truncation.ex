@@ -19,7 +19,7 @@ defmodule DGUWeb.Util.Truncation do
    String.slice(text, 0..(pos-4)) <> "..."
  end
 
-  def truncate_at(text, sep) when byte_size(text) < @length, do: text
+  def truncate_at(text, _sep) when byte_size(text) < @length, do: text
 
   def truncate_at(text, sep) do
     [start|_] = String.split(text, sep)

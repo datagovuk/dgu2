@@ -1,7 +1,6 @@
 defmodule DGUWeb.PublisherView do
   use DGUWeb.Web, :view
 
-  alias DGUWeb.User
 
   def user_in_publisher(conn, publisher) do
     publishers = conn.assigns[:user_publishers] || []

@@ -49,7 +49,7 @@ defmodule DGUWeb.DatasetController do
   end
 
   defp get_themes_for_select() do
-    themes = Repo.all(Theme)
+    Repo.all(Theme)
     |> Enum.map(fn t->
       {t.title, t.id}
     end)
