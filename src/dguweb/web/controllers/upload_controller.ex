@@ -8,8 +8,8 @@ defmodule DGUWeb.UploadController do
   def new(conn, params) do
     changeset = Upload.changeset(%Upload{})
 
-    dataset = Repo.get_by(Dataset, name: Map.get(params, "dataset") || "")
-    publisher = Repo.get_by(Publisher, name: Map.get(params, "publisher") || "")
+    dataset = Dataset.show(conn, Map.get(params, "dataset"))
+    publisher = Publisher.show(conn, Map.get(params, "publisher"))
 
     render(conn, "new.html", changeset: changeset,
       publisher: publisher, dataset: dataset)
@@ -37,24 +37,8 @@ defmodule DGUWeb.UploadController do
   # If we are uploading data and we already know the dataset, then we will add the data file
   # and then redirect to the dataset itself.
   def get_redirect(conn, %Upload{dataset: dataset_name}=params) when not is_nil(dataset_name) do
-    dataset = Repo.get_by(Dataset, name: dataset_name)
-    upload = Repo.get(Upload, params.id )
-
-    # Create a new data_file for the dataset
-    changeset = DataFile.changeset_from_upload(params, dataset.id)
-    case Repo.insert(changeset) do
-      {:ok, _datafile} ->
-        Repo.delete upload
-
-        conn
-        |> put_flash(:info, "Datafile created successfully.")
-        |> redirect(to: dataset_path(conn, :show, dataset.name))
-      {:error, changeset} ->
-        dataset = Repo.get_by(Dataset, name: Map.get(params, "dataset") || "")
-        publisher = Repo.get_by(Publisher, name: Map.get(params, "publisher") || "")
-        render(conn, "new.html", changeset: changeset, dataset: dataset, publisher: publisher)
-    end
-
+      Dataset.add_resource(conn, dataset_name, params)
+      conn |> redirect(to: dataset_path(conn, :show, dataset_name))
   end
 
   # If we have a publisher, but no dataset then redirect to the chooser

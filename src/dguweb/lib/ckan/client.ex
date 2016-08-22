@@ -71,7 +71,7 @@ defmodule DGUWeb.CKAN.Client do
 
   defp process(client, {:get, function, args}) do
     qs = keywords_to_querystring(args)
-    response = HTTPotion.get client.server <> to_string(function) <> qs, [timeout: 10_000,
+    response = HTTPotion.get client.server <> to_string(function) <> qs, [timeout: 20_000,
                                                                          headers: get_headers_from_state(client)]
     {:ok, result} = JSON.decode(response.body, keys: :atoms)
     result
@@ -81,7 +81,7 @@ defmodule DGUWeb.CKAN.Client do
     headers = get_headers_from_state(client)
     host = client.server <> function
 
-    response = HTTPotion.post host, [body: JSON.encode!(args), headers: headers, timeout: 10_000]
+    response = HTTPotion.post host, [body: JSON.encode!(args), headers: headers, timeout: 20_000]
     {:ok, result} = JSON.decode(response.body, keys: :atoms)
     result
   end
