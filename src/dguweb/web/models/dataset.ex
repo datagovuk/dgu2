@@ -1,7 +1,7 @@
 defmodule DGUWeb.Dataset do
   use DGUWeb.Web, :model
 
-  alias CKAN.Client
+  alias DGUWeb.CKAN.Client
   alias DGUWeb.Repo
 
   schema "datasets" do

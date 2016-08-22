@@ -52,7 +52,8 @@ defmodule DGUWeb.Mixfile do
      {:csv, "~> 1.4.0"},
      {:uuid, "~> 1.1" },
      {:cachex, "~> 1.2"},
-     {:ckan, github: 'rossjones/ckan_ex'}
+     {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.2"},
+     {:httpotion, "~> 2.1.0"},
     ]
   end
 
