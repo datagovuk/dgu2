@@ -8,7 +8,7 @@ defmodule DGUWeb do
 
     # Define workers and child supervisors to be supervised
     children = [
-      supervisor(DGUWeb.EctoRepo, []),
+      supervisor(DGUWeb.Repo, []),
       supervisor(DGUWeb.Endpoint, []),
       worker(Cachex, [:request_cache, []])
     ]

@@ -25,7 +25,7 @@ defmodule DGUWeb.SearchController do
   defp do_search(conn, querystring, params) do
 
     page_number = get_page_number(params)
-    page_number = if page_number < 1, do: 1, else: 1
+    page_number = if page_number < 1, do: 1, else: page_number
 
     offset = case page_number do
       1 ->

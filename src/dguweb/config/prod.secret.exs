@@ -12,7 +12,7 @@ config :dguweb, DGUWeb.Endpoint,
   secret_key_base: "U28NhDPtq3piAYGOkQ6xufnsXY4X2ozzCf+ZUJqqDujEtkZIPvS0TnLCBcxjFZYF"
 
 # Configure your database
-config :dguweb, DGUWeb.EctoRepo,
+config :dguweb, DGUWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
