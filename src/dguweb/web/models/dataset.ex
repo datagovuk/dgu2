@@ -16,13 +16,42 @@ defmodule DGUWeb.Dataset do
     timestamps()
   end
 
- def create(conn, dataset) do
+  def create(conn, dataset) do
     call = conn.assigns[:ckan]
     |> Client.package_create(dataset)
     call.result
- end
+  end
 
- def search(conn, q, params \\ []) do
+  def add_resource(conn, dataset_name, upload_obj) do
+    dataset = show(conn, dataset_name)
+
+    r = resource_from_upload(upload_obj)
+    resources = [r|dataset.resources] |> Enum.reverse
+
+    dataset = dataset
+    |> Map.put(:resources, resources)
+    |> Map.delete(:extras)
+    |> Map.delete(:tags)
+    |> Map.delete(:codelist)
+    |> Map.delete(:schema)
+
+    call = conn.assigns[:ckan]
+    |> Client.package_update(dataset)
+
+    call
+  end
+
+  def resource_from_upload(upload) do
+    %{
+      id: UUID.uuid4(),
+      name: upload.name,
+      description: upload.description,
+      url: upload.url,
+      format: upload.content_type,
+    }
+  end
+
+  def search(conn, q, params \\ []) do
     call = conn.assigns[:ckan]
     |> Client.package_search(Keyword.merge([q: q], params))
     call.result
