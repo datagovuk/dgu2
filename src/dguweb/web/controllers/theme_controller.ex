@@ -22,7 +22,7 @@ defmodule DGUWeb.ThemeController do
   end
 
   def show_datasets(conn, theme, page_number) do
-    if page_number < 1, do: page_number = 1
+    page_number = if page_number < 1, do: 1, else: page_number
     offset = case page_number do
       1 ->
         0

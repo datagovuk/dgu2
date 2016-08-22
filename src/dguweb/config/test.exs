@@ -13,7 +13,7 @@ config :dguweb, index: "dgu_test"
 config :logger, level: :warn
 
 # Configure your database
-config :dguweb, DGUWeb.EctoRepo,
+config :dguweb, DGUWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "dgu",
   password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "pass",

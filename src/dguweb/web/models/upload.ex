@@ -44,27 +44,22 @@ defmodule DGUWeb.Upload do
 
     host = Application.get_env(:dguweb, :host)
 
-    c = put_change(changeset, :content_type, file.content_type)
-    c = put_change(c, :path, newpath)
-    c = put_change(c, :url, "#{host}/download/#{name}")
-
-    c
+    changeset
+    |> put_change(:content_type, file.content_type)
+    |> put_change(:path, newpath)
+    |> put_change(:url, "#{host}/download/#{name}")
   end
 
   defp validate_url_or_file(changeset) do
     a = get_field(changeset, :file)
     b = get_field(changeset, :url)
-
-    if a == nil && b == nil do
-      c = add_error(changeset, :url, "Please specify a URL or a file to upload")
-    end
-
-    if a && b do
-      c = add_error(changeset, :url, "Please only specify a URL or add a file, not both")
-    end
-
-    c || changeset
+    valdation_url_or_file(changeset, a, b)
   end
+
+  defp valdation_url_or_file(changeset, nil, nil), do: add_error(changeset, :url, "Please specify a URL or a file to upload")
+  defp valdation_url_or_file(changeset, url, file) when not is_nil(url) and not is_nil(file), do: add_error(changeset, :url, "Please only specify a URL or add a file, not both")
+  defp valdation_url_or_file(changeset, _url, _file), do: changeset
+
 
 
 end

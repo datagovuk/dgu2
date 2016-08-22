@@ -37,7 +37,7 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :dguweb, DGUWeb.EctoRepo,
+config :dguweb, DGUWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "dgu",
   password: "pass",

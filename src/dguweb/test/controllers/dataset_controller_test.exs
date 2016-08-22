@@ -52,7 +52,6 @@ defmodule DGUWeb.DatasetControllerTest do
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     publisher = Repo.insert!(@publisher)
-    #upload = Repo.insert!(%Upload{publisher: publisher.name})
     dataset = Repo.insert! %Dataset{name: "test", publisher_id: publisher.id}
 
     conn = put conn, dataset_path(conn, :update, dataset.name), dataset: @invalid_attrs
