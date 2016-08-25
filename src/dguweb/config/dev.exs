@@ -26,6 +26,8 @@ config :dguweb, DGUWeb.Endpoint,
     ]
   ]
 
+# Where is CKAN?
+config :dguweb, ckan: "http://192.168.10.10:8080"
 config :tirexs, :uri, System.get_env("ELASTIC_URI") || "http://192.168.100.100:9200"
 config :dguweb, index: "dgu_dev"
 
