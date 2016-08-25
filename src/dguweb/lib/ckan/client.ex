@@ -37,6 +37,7 @@ defmodule DGUWeb.CKAN.Client do
     {:post, :package_create, %{}, ""},
     {:post, :package_update, %{}, ""},
     {:post, :package_delete, [], ""},
+    {:post, :resource_create, %{}, ""},
   ]
 
   def new(server, api_key \\ nil) do
