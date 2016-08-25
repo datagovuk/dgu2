@@ -33,6 +33,9 @@ config :ex_admin,
     DGUWeb.ExAdmin.DataFile,
   ]
 
+# Where is CKAN?
+config :dguweb, ckan: "https://test.data.gov.uk"
+
 # Where are we storing downloads
 config :dguweb, upload_path: "/tmp", host: "http://127.0.0.1:4000"
 

@@ -48,7 +48,7 @@ defmodule DGUWeb.CKAN.Client do
   ######################################################################
   # Generate functions to call
   ######################################################################
-  for {method, name, args, description} <- functions do
+  for {method, name, _args, description} <- functions do
     @doc """
       "#{description}"
     """
