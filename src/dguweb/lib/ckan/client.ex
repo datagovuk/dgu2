@@ -37,6 +37,7 @@ defmodule DGUWeb.CKAN.Client do
     {:post, :package_create, %{}, ""},
     {:post, :package_update, %{}, ""},
     {:post, :package_delete, [], ""},
+    {:post, :resource_create, %{}, ""},
   ]
 
   def new(server, api_key \\ nil) do
@@ -47,7 +48,7 @@ defmodule DGUWeb.CKAN.Client do
   ######################################################################
   # Generate functions to call
   ######################################################################
-  for {method, name, args, description} <- functions do
+  for {method, name, _args, description} <- functions do
     @doc """
       "#{description}"
     """
