@@ -42,6 +42,5 @@
   "scrivener": {:hex, :scrivener, "2.0.0", "38e59a1c37e989c40a22c019da245a86b257182aee45a074292c9038fab39678", [:mix], []},
   "scrivener_ecto": {:git, "https://github.com/drewolson/scrivener_ecto.git", "dd9b485c05cafafa90724a54c3fde07cc73acd96", []},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.0", "edee20847c42e379bf91261db474ffbe373f8acb56e9079acb6038d4e0bf414f", [:rebar, :make], []},
-  "tirexs": {:hex, :tirexs, "0.8.6", "eb74934f7ab5192321e0582431713a69f481375e227f9fb1171c3a83863dd53d", [:mix], [{:exjsx, "~> 3.2.0", [hex: :exjsx, optional: false]}]},
   "uuid": {:hex, :uuid, "1.1.4", "36c7734e4c8e357f2f67ba57fb61799d60c20a7f817b104896cca64b857e3686", [:mix], []},
   "xain": {:hex, :xain, "0.6.0", "5b61cfe3ffc17904759ee30a699f9e0b1aefd943e996ee4cafea76e5b2f59e3a", [:mix], []}}
