@@ -31,7 +31,6 @@ defmodule DGUWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_session(:current_user, user.id)
-        |> put_session(:current_user_publishers, User.publishers(user))
         |> put_flash(:info, "Logged in")
         |> redirect(to: "/user")
       :error ->

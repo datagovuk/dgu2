@@ -1,16 +1,14 @@
 defmodule DGUWeb.DatasetTest do
   use DGUWeb.ModelCase
 
-  alias DGUWeb.Repo
-  alias DGUWeb.Publisher
   alias DGUWeb.Dataset
 
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    pub = Repo.insert! %Publisher{name: "some content", title: "some content",description: "Description", url: "some content"}
     changeset = Dataset.changeset(%Dataset{}, %{
-      name: "some content", title: "some content", description: "Description", publisher_id: pub.id
+      name: "some content", title: "some content", description: "Description", publisher_id: "naptan",
+      owner_org: "cabinet-office"
     })
     assert changeset.valid?
   end

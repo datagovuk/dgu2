@@ -2,17 +2,13 @@ defmodule DGUWeb.User do
   use DGUWeb.Web, :model
 
   alias DGUWeb.Repo
-  alias DGUWeb.PublisherUser
 
   schema "users" do
     field :username, :string
     field :email, :string
     field :password, :string, virtual: true
     field :crypted_password, :string
-
     field :apikey, :string
-
-    many_to_many :publisher, DGUWeb.Publisher, join_through: PublisherUser
 
     timestamps()
   end
@@ -23,20 +19,8 @@ defmodule DGUWeb.User do
   so we query the join table as well.  One day I hope this is fixed to allow the fields in
   the join table to be retrieved as part of the same call.
   """
-  def publishers(user) do
-      publishers = Repo.all assoc(user, :publisher)
-      memberships = Repo.all(from(p in PublisherUser, where: p.user_id == ^user.id))
-
-      member_map = memberships
-      |> Enum.map(fn x ->
-          {x.publisher_id, x.role}
-      end)
-      |> Enum.into(%{})
-
-      publishers
-      |> Enum.map( fn p ->
-        {p.name, %{role: Map.get(member_map, p.id), title: p.title}}
-      end)
+  def publishers(conn, user) do
+      conn.assigns(:user_publishers)
   end
 
   @doc """

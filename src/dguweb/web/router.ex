@@ -1,13 +1,7 @@
 defmodule DGUWeb.Router do
   use DGUWeb.Web, :router
-  use ExAdmin.Router
 
   alias DGUWeb.Plugs.Authentication
-
-  scope "/admin", ExAdmin do
-    pipe_through :browser
-    admin_routes
-  end
 
   pipeline :browser do
     plug :accepts, ["html", "json"]
