@@ -2,10 +2,8 @@
 
 ## Developer Setup
 
-Currently only Postgres and ElasticSearch are installed inside the VM - this is
-due to issues with virtualbox noticing file changes.  Because it doesn't notice
-file changes, live reloading during development doesn't work, and we like
-live-reloading. For now to develop on the host this means there are two stages.
+This repository currently requires the Virtual Machine specified by https://github.com/datagovuk/dgu_deploy
+so you should use that repository to generate your working environment.
 
 
 ### Virtual Machine Setup
@@ -17,30 +15,7 @@ software installed:
 * Vagrant (vagrantup.com) v1.8.5+
 * Ansible (pip install ansible) v2.1+
 
-To install the development environment you should run the following command:
-
-```
-vagrant up
-```
-
-    NOTE: If you encounter an error related to mapping folders in the host
-    then this is a known bug with the xenial box and you should run the
-    following commands before continuing.
-
-        vagrant ssh
-        sudo apt-get --no-install-recommends install virtualbox-guest-utils
-        exit
-        vagrant reload
-
-This should download the appropriate box, set it up and then provision it
-using the ansible scripts in the deploy directory.  If you wish to re-provision
-at any time you can use the ```vagrant provision``` command to rebuild the VM.
-
-Once the environment is up and running, you can connect to the box with
-
-```
-vagrant ssh
-```
+Follow the instructions at https://github.com/datagovuk/dgu_deploy
 
 
 ### Local machine setup
@@ -91,3 +66,15 @@ mix phoenix.server
 ```
 
 As live-reloading is enabled, any changes you make to ```src/dguweb/web/static/{css,js}``` or ```src/dguweb/web/elm/*.elm``` or ```src/dguweb/web/templates/*.eex``` should be reflected in the browser without reloading or restarting anything.
+
+## Users
+
+Until authentication is addressed you must perform a manual step to set up your users in the prototype.
+
+1. Connect to your new CKAN from the dgu_deploy repository, and register some users and assign to the appropriate organisations.
+
+2. For each user, visit their user profile and obtain their API keys. You may use the UI, or access the public."user" table in the ckan database.
+
+3. In the dguweb_dev database you need to assign these API keys to users who have registered in the prototype front-end. You can do this in the public.users table in the dguweb_dev database.
+
+Once this is complete, when users log in to the prototype the list of organisations they can manage is retrieved and stored against their connection so that user and permitted organisations are available to the prototype.
