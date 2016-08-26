@@ -1,8 +1,6 @@
 defmodule DGUWeb.SearchView do
   use DGUWeb.Web, :view
 
-  alias DGUWeb.User
-
   def render("search.json", %{results: datasets}) do
     datasets
   end
@@ -17,9 +15,5 @@ defmodule DGUWeb.SearchView do
     map_size(publishers) > 0
   end
 
-  def publishers_for_user(nil), do: []
-  def publishers_for_user(user) do
-    User.publishers(user)
-  end
 
 end

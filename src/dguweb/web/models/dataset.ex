@@ -9,10 +9,9 @@ defmodule DGUWeb.Dataset do
     field :title, :string
     field :description, :string
     field :type, :string
+    field :owner_org, :string, virtual: true
 
     belongs_to :theme, DGUWeb.Theme
-    belongs_to :publisher, DGUWeb.Publisher
-    has_many :datafiles, DGUWeb.DataFile
     timestamps()
   end
 
@@ -26,7 +25,7 @@ defmodule DGUWeb.Dataset do
     dataset = show(conn, dataset_name)
 
     r = resource_from_upload(upload_obj)
-    |> Map.put(:package_id, dataset_name)
+    |> Map.put(:owner_org, upload_obj.publisher)
 
     call = conn.assigns[:ckan]
     |> Client.resource_create(r)
@@ -77,14 +76,14 @@ defmodule DGUWeb.Dataset do
   end
 
 
-  @required_fields [:name, :title, :publisher_id, :description]
+  @required_fields [:name, :title, :owner_org, :description]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :title, :description, :type, :publisher_id, :theme_id])
+    |> cast(params, [:name, :title, :description, :type, :owner_org, :theme_id])
     |> validate_required(@required_fields)
   end
 

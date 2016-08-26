@@ -50,12 +50,8 @@ defmodule DGUWeb.UploadController do
   # just uploaded. This data will be posted to :put
   def show(conn, %{"id" => id}) do
     upload = Repo.get!(Upload, id)
-    publisher = Repo.get_by(Publisher, name: upload.publisher)
-
-    # Get the typed datasets for the publisher
-    datasets = Repo.all(from d in Dataset,
-      where: d.publisher_id == ^publisher.id and d.type in ["organogram", "spending"],
-      select: {d.name, d.title})
+    publisher = %{}
+    datasets = []
 
     render(conn, "show.html", upload: upload, publisher: publisher, datasets: datasets)
   end
@@ -99,10 +95,8 @@ defmodule DGUWeb.UploadController do
   def find(conn, %{"id" => upload_id}) do
     upload = Repo.get_by(Upload, id: upload_id)
 
-    publisher = Repo.get_by(Publisher, name: upload.publisher)
-    datasets = Repo.all(from d in Dataset,
-              where: d.publisher_id == ^publisher.id and d.type in ["organogram", "spending"],
-              select: {d.name, d.title, d.description})
+    publisher = %{}
+    datasets = []
 
     conn
     |> render("find.html", upload: upload, datasets: datasets, publisher: publisher)

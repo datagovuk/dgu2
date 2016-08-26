@@ -8,8 +8,7 @@ defmodule DGUWeb.DatasetController do
   alias DGUWeb.Publisher
 
   def index(conn, _params) do
-    datasets = Repo.all(Dataset) |> Repo.preload(:publisher)
-    render(conn, "index.html", datasets: datasets)
+    render(conn, "index.html", datasets: [])
   end
 
   def new(conn, %{"upload"=> upload}=_params) do
@@ -80,10 +79,10 @@ defmodule DGUWeb.DatasetController do
   end
 
   def edit(conn, %{"id" => id}) do
-    dataset = Repo.get_by!(Dataset, [name: id])
+    dataset = Dataset.show(conn, id)
     changeset = Dataset.changeset(dataset)
 
-    publisher = Repo.get(Publisher, dataset.publisher_id)
+    publisher = Publisher.show(conn, dataset.owner_org)
 
     render(conn, "edit.html", dataset: dataset, changeset: changeset,
         themes: get_themes_for_select,
@@ -93,52 +92,10 @@ defmodule DGUWeb.DatasetController do
   end
 
   def update(conn, %{"id" => id, "dataset" => dataset_params}) do
-    dataset = Repo.get_by!(Dataset, name: id)
-    changeset = Dataset.changeset(dataset, dataset_params)
-
-    case Repo.update(changeset) do
-      {:ok, dataset} ->
-        conn
-        |> put_flash(:info, "Dataset updated successfully.")
-        |> redirect(to: dataset_path(conn, :show, dataset.name))
-      {:error, changeset} ->
-        publisher = Repo.get_by(Publisher, id: dataset.publisher_id)
-
-        render(conn, "edit.html", dataset: dataset, changeset: changeset,
-          themes: get_themes_for_select,
-          publisher: publisher,
-          upload: nil
-        )
-    end
   end
 
   def delete(conn, %{"id" => id}) do
-    dataset = Repo.get_by!(Dataset, name: id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(dataset)
-
-    conn
-    |> put_flash(:info, "Dataset deleted successfully.")
-    |> redirect(to: dataset_path(conn, :index))
   end
 
-  ### Temporary actions for generated test csvs ###############################
-
-  def fakecsv(conn, _params) do
-   conn
-    |> put_resp_content_type("text/csv")
-    |> put_resp_header("Content-Disposition",
-                       "attachment; filename=\"fake.csv\"")
-    |> send_resp(200, csv_content)
-  end
-
-  defp csv_content do
-    [['header1', 'header2'],['row1', 'data'],['row2', 'data']]
-    |> CSV.encode
-    |> Enum.to_list
-    |> to_string
-  end
 
 end
