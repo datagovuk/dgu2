@@ -32,7 +32,9 @@ port hitReturn : String -> Cmd msg
 
 
 type alias Flags =
-    { initialSearchQuery: String }
+    { initialSearchQuery : String
+    , placeholder : String
+    }
 
 
 type alias Dataset =
@@ -47,12 +49,13 @@ type alias Model =
     , selectedIndex : Int
     , visible : Bool
     , searchQuery : String
+    , placeholder : String
     }
 
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    ( Model [] -1 False flags.initialSearchQuery, Cmd.none )
+    ( Model [] -1 False flags.initialSearchQuery flags.placeholder, Cmd.none )
 
 
 
@@ -139,11 +142,12 @@ searchApiDecoder =
 
 viewCompletionItem : Int -> Int -> Dataset -> Html Msg
 viewCompletionItem liIdx selectedIdx result =
-    let attribs =
-        if liIdx == selectedIdx then
-            [ class "selected" ]
-        else
-            []
+    let
+        attribs =
+            if liIdx == selectedIdx then
+                [ class "selected" ]
+            else
+                []
     in
         Html.li
             attribs
@@ -165,8 +169,8 @@ viewCompletionMenu model =
         ]
 
 
-viewForm : String -> Html Msg
-viewForm queryString =
+viewForm : String -> String -> Html Msg
+viewForm queryString placeholderString =
     let
         keydownOptions =
             { preventDefault = True, stopPropagation = False }
@@ -191,7 +195,7 @@ viewForm queryString =
             [ id "q"
             , name "q"
             , type' "text"
-            , placeholder "Search for data"
+            , placeholder placeholderString
             , class "form-control search"
             , autocomplete False
             , onInput Lookup
@@ -205,9 +209,9 @@ view : Model -> Html Msg
 view model =
     Html.div []
         (if model.visible && List.length model.datasets > 0 then
-            [ viewForm model.searchQuery
+            [ viewForm model.searchQuery model.placeholder
             , viewCompletionMenu model
             ]
          else
-            [ viewForm model.searchQuery ]
+            [ viewForm model.searchQuery model.placeholder ]
         )
