@@ -26,6 +26,7 @@ defmodule DGUWeb.Dataset do
 
     r = resource_from_upload(upload_obj)
     |> Map.put(:owner_org, upload_obj.publisher)
+    |> Map.put(:package_id, dataset_name)
 
     call = conn.assigns[:ckan]
     |> Client.resource_create(r)
@@ -76,7 +77,7 @@ defmodule DGUWeb.Dataset do
   end
 
 
-  @required_fields [:name, :title, :owner_org, :description]
+  @required_fields [:name, :title, :description]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
