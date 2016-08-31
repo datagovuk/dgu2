@@ -4,7 +4,9 @@
 <div class="grid-row">
     <div class="column-two-thirds">
         <%= if @pagination.total > 0 do %>
-            <p>Showing <%= @offset + 1 %> - <%= @offset + length(@datasets) %> of <%= @pagination.total %> results</p>
+            <p>
+            <%= gettext "Showing %{start} - %{end} of %{total}", start: @offset + 1, end: @offset + length(@datasets), total: @pagination.total %>
+            </p>
 
             <%= for dataset <- @datasets do %>
                 <%= render "dataset_item.html", dataset: dataset, conn: @conn %>
@@ -12,17 +14,19 @@
         <% end %>
 
         <%= if @pagination.page_count > 1 do %>
-            <p class="pagination">Page <%= @page_number %> of <%= @pagination.page_count %>
+
+
+            <p class="pagination"><%= gettext "Page %{current} of %{total}", current: @page_number, total: @pagination.page_count %>
                 -
                 <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
-                    <a href="<%= theme_path(@conn, :show, @theme.name, page: (@page_number - 1)) %>">Previous</a>
+                    <a href="<%= theme_path(@conn, :show, @theme.name, page: (@page_number - 1)) %>"><%= gettext "Previous" %></a>
                 <% end %>
                 <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) and
                     DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
                     -
                 <% end %>
                 <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
-                    <a href="<%= theme_path(@conn, :show, @theme.name,  page: (@page_number + 1)) %>">Next</a>
+                    <a href="<%= theme_path(@conn, :show, @theme.name,  page: (@page_number + 1)) %>"><%= gettext "Next" %></a>
                 <% end %>
             </p>
         <% end %>

@@ -1,4 +1,4 @@
-<h1 class="heading-xlarge">Add data to a new dataset</h1>
+<h1 class="heading-xlarge"><%= gettext "Add data to a new dataset" %></h1>
 
 <%= render "form.html", changeset: @changeset,
                         action: dataset_path(@conn, :create),

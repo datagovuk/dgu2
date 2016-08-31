@@ -5,7 +5,7 @@
 </h1>
 <%= if Map.get(@dataset, :publisher_name) do %>
     <div>
-        Published by:
+        <%= gettext "Published by" %>:
         <a href="<%= publisher_path(@conn, :show, @dataset.publisher_name) %>"><%= @dataset.publisher_title %></a>
     </div>
     <p>
@@ -18,7 +18,7 @@
     </p>
 
     <%= if @dataset.publisher_name != nil && user_in_publisher(@conn, @dataset.publisher_name) do %>
-        <a href="<%= upload_path(@conn, :new, dataset: @dataset.name) %>">Add Data</a>
+        <a href="<%= upload_path(@conn, :new, dataset: @dataset.name) %>"><%= gettext "Add Data" %></a>
     <% end %>
 <% end %>
 

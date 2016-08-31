@@ -84,7 +84,11 @@ Once this is complete, when users log in to the prototype the list of organisati
 
 It's kind of nice to be able to provide translations into languages used in the UK - such as Welsh.
 
-To re-generate the PO files use ```mix gettext.extract --merge```.
+To re-generate the PO files use 
+
+```
+mix gettext.extract --merge
+```
 
 To make something translatable, use ```<%= gettext "My text string" %>```
 
