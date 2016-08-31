@@ -16,7 +16,7 @@ defmodule DGUWeb.DatasetController do
 
     render(conn, "new.html", changeset: changeset,
       themes: get_themes_for_select,
-      publisher: get_publisher_from_upload(upload),
+      publisher: get_publisher_from_upload(conn, upload),
       upload: upload)
   end
 
@@ -26,7 +26,6 @@ defmodule DGUWeb.DatasetController do
 
     case changeset.valid? do
       true ->
-
         ckan_dataset = changeset.changes
         |> Map.delete(:publisher_id)
         |> Map.put(:notes, changeset.changes.description)
@@ -44,7 +43,7 @@ defmodule DGUWeb.DatasetController do
       false ->
         render(conn, "new.html", changeset: changeset,
           themes: get_themes_for_select,
-          publisher: get_publisher_from_upload(upload),
+          publisher: get_publisher_from_upload(conn, upload),
           upload: upload
         )
     end
@@ -58,9 +57,9 @@ defmodule DGUWeb.DatasetController do
     |> Enum.into([])
   end
 
-  defp get_publisher_from_upload(upload) do
+  defp get_publisher_from_upload(conn, upload) do
     up = Repo.get(Upload, upload)
-    Repo.get_by(Publisher, name: up.publisher)
+    Publisher.show(conn, up.publisher)
   end
 
   def show(conn, %{"id" => id}) do
