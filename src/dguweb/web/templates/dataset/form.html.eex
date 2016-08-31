@@ -10,20 +10,35 @@
   <input type="hidden" name="dataset[publisher_id]" value="<%= @publisher.id %>"/>
   <input type="hidden" name="upload" value="<%= @upload %>"/>
 
+
   <div class="form-group">
-    <%= label f, :name, class: "form-label-bold" %>
+    <label class="form-label">Name</label>
+    <p class="form-hint">
+        Please pretend you didn't see this, will be removed soon
+    </p>
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
   </div>
 
+
+
   <div class="form-group">
-    <%= label f, :title, class: "form-label-bold" %>
+    <label class="form-label">Title</label>
+    <p class="form-hint">
+        Titles should be 65 characters or less, including spaces.<br/>
+        Most search engines will shorten titles if they’re longer than this.
+    </p>
     <%= text_input f, :title, class: "form-control" %>
     <%= error_tag f, :title %>
   </div>
 
   <div class="form-group">
-    <%= label f, :description, class: "form-label-bold" %>
+    <label class="form-label">Description</label>
+    <p class="form-hint">
+      A description of what the data contained is this dataset is.<br/>
+      The more detail you give in this field, the easier it will be<br/>
+      for users to work out if this is the data they want.
+    </p>
     <%= textarea f, :description, class: "form-control", rows: 10 %>
     <%= error_tag f, :description %>
   </div>
