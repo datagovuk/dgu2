@@ -1,8 +1,6 @@
 defmodule DGUWeb.Router do
   use DGUWeb.Web, :router
 
-  alias DGUWeb.Plugs.Authentication
-
   pipeline :browser do
     plug :accepts, ["html", "json"]
     plug :fetch_session
@@ -10,7 +8,8 @@ defmodule DGUWeb.Router do
     #plug :protect_from_forgery
     plug :put_secure_browser_headers
 
-    plug Authentication
+    plug DGUWeb.Plugs.Locale
+    plug DGUWeb.Plugs.Authentication
   end
 
   scope "/", DGUWeb do

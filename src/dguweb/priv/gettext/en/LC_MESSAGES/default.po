@@ -1,0 +1,35 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+
+#: web/templates/layout/app.html.eex:88
+msgid "Organisations"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:57
+msgid "Skip to main content"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:89
+msgid "Datasets"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:94
+msgid "Logged in as"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:95
+msgid "Sign out"
+msgstr ""
+
+#: web/templates/dataset/show.html.eex:22
+msgid "Add Data"
+msgstr ""

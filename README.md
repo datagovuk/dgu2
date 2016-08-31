@@ -78,3 +78,15 @@ Until authentication is addressed you must perform a manual step to set up your 
 3. In the dguweb_dev database you need to assign these API keys to users who have registered in the prototype front-end. You can do this in the public.users table in the dguweb_dev database.
 
 Once this is complete, when users log in to the prototype the list of organisations they can manage is retrieved and stored against their connection so that user and permitted organisations are available to the prototype.
+
+
+## Translations
+
+It's kind of nice to be able to provide translations into languages used in the UK - such as Welsh.
+
+To re-generate the PO files use ```mix gettext.extract --merge```.
+
+To make something translatable, use ```<%= gettext "My text string" %>```
+
+You can test for now by passing ```?locale=en``` as a querystring until we provide a proper route.
+
