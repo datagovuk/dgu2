@@ -54,7 +54,7 @@
 
   <div id="skiplink-container">
     <div>
-      <a href="#content" class="skiplink">Skip to main content</a>
+      <a href="#content" class="skiplink"><%= gettext "Skip to main content" %></a>
     </div>
   </div>
 
@@ -85,13 +85,14 @@
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/publisher">Organisations</a></li>
+      <li><a href="/publisher"><%= gettext "Organisations" %></a></li>
+      <li><a href="/search"><%= gettext "Datasets" %></a></li>
     </ul>
   </nav>
   <%= if logged_in?(@conn) do %>
     <ul class="login-info">
-      <li>Logged in as <a href="<%= user_path(@conn, :index) %>"><%= @conn.assigns[:current_user].username %></a></li>
-      <li><%= link "Sign out", to: session_path(@conn, :logout) %></li>
+      <li><%= gettext "Logged in as" %> <a href="<%= user_path(@conn, :index) %>"><%= @conn.assigns[:current_user].username %></a></li>
+      <li><%= link gettext("Sign out"), to: session_path(@conn, :logout) %></li>
     </ul>
   <% end %>
 </div>
