@@ -34,7 +34,10 @@ defmodule DGUWeb.SearchController do
         (other * 10) - 10
     end
 
-    response = Dataset.search(conn, URI.encode(querystring), [rows: 10, start: offset])
+    fq_dict = params_to_fq(params)
+    fq = fq_dict |> Enum.map(fn {k, v} -> "#{k}:#{URI.encode(v)}" end) |> Enum.join(" ")
+
+    response = Dataset.search(conn, URI.encode(querystring), [rows: 10, start: offset, fq: fq])
     pagination = Pagination.create(response.count)
 
     datasets = response.results
@@ -44,14 +47,23 @@ defmodule DGUWeb.SearchController do
          title: dataset.title,
          description: dataset.notes,
          publisher_name: dataset.organization.name,
-         publisher_title: dataset.organization.title
+         publisher_title: dataset.organization.title,
+         resource_formats: dataset.resources |> Enum.map(fn x-> x.format end) |> Enum.uniq(),
        }
     end)
 
+    querystring = if querystring == "*:*", do: "", else: querystring
 
     render conn, :search, query: querystring, results: datasets,
-      pagination: pagination, offset: offset, page_number: page_number
+      pagination: pagination, offset: offset, page_number: page_number,
+      fq_dict: fq_dict
   end
+
+  defp params_to_fq(params) do
+    fqlist = ["theme-primary", "res_format"]
+    Map.take(params, fqlist)
+  end
+  defp params_to_fq(nil), do: nil
 
 
   defp get_page_number(params) do

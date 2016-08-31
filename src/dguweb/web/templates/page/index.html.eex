@@ -20,11 +20,74 @@
 <h1 class="heading-small">Browse by theme</h1>
 <hr/>
 
+ <div class="grid-row"/>
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Business%20%26%20Economy">Business and economy</a></h1>
+          <p>Small businesses, industry, imports, exports and trade</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Crime%20%26%20Justice">Crime and justice</a></h1>
+          <p>Courts, police, prisons, offenders, borders and immigration</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Defence">Defence</a></h1>
+    <p>Armed forces, health and safety, search and rescue</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Education">Education</a></h1>
+          <p>Students, training, qualifications and the National Curriculum</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Environment">Environment</a></h1>
+          <p>Weather, flooding, rivers, air quality, geology and agriculture</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Government">Government</a></h1>
+          <p>Staff numbers and pay, local councillors and department business plans</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Government%20Spending">Government spending</a></h1>
+          <p>Includes all payments by government departments over £25,000</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Health">Health</a></h1>
+          <p>Includes smoking, drugs, alcohol, medicine performance and hospitals</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Mapping">Mapping</a></h1>
+          <p>Addresses, boundaries, land ownership, aerial photographs, seabed and land terrain</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Society">Society</a></h1>
+          <p>Employment, benefits, household finances, poverty and population</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Towns%20%26%20Cities">Towns and cities</a></h1>
+          <p>Includes housing, urban planning, leisure, waste and energy consumption</p>
+  </div>
+
+  <div class="column-one-third">
+    <h1 class="heading-small"><a href="/search?theme-primary=Transport">Transport</a></h1>
+          <p>Airports, roads, freight, electric vehicles, parking, buses and footpaths</p>
+   </div>
+
+</div>
+
 
 <%= for row <- Enum.chunk(@themes, 3) do %>
   <div class="grid-row">
   <%= for theme <- row do %>
-  <div class="column-one-third">
+
     <h1 class="heading-small"><a href="<%= theme_path(@conn, :show, theme.name) %>"><%= theme.title %></a></h1>
     <p><%= theme.description %></p>
   </div>

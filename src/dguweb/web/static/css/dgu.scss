@@ -111,3 +111,13 @@ $dgu-green: #8bc658;
     padding-top: 1.5em;
   }
 }
+
+div.pill {
+font-size: small;
+  display: inline;
+  margin: 0 10 0 10;
+  padding: 3px 6px 3px 6px;
+  background-color: #eee;
+  border: solid 2px #ddd;
+  border-radius: 8px;
+}

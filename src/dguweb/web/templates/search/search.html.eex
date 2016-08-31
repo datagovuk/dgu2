@@ -4,6 +4,11 @@
         <input id="q" name="q" type="text" placeholder="Search for data" class="form-control search" autocomplete="off" value="<%= @query %>"/>
     </div>
     </fieldset>
+
+    <%= for {k, v} <- @fq_dict do %>
+        <input type="hidden" name="<%= k %>" value="<%= v %>"/>
+    <% end %>
+
 </form>
 
 
