@@ -32,8 +32,9 @@ port hitReturn : String -> Cmd msg
 
 
 type alias Flags =
-    { initialSearchQuery: String
-    , placeholder: String }
+    { initialSearchQuery : String
+    , placeholder : String
+    }
 
 
 type alias Dataset =
@@ -48,7 +49,7 @@ type alias Model =
     , selectedIndex : Int
     , visible : Bool
     , searchQuery : String
-    , placeholder: String
+    , placeholder : String
     }
 
 
@@ -141,11 +142,12 @@ searchApiDecoder =
 
 viewCompletionItem : Int -> Int -> Dataset -> Html Msg
 viewCompletionItem liIdx selectedIdx result =
-    let attribs =
-        if liIdx == selectedIdx then
-            [ class "selected" ]
-        else
-            []
+    let
+        attribs =
+            if liIdx == selectedIdx then
+                [ class "selected" ]
+            else
+                []
     in
         Html.li
             attribs
@@ -211,5 +213,5 @@ view model =
             , viewCompletionMenu model
             ]
          else
-            [ viewForm model.searchQuery model.placeholder]
+            [ viewForm model.searchQuery model.placeholder ]
         )
