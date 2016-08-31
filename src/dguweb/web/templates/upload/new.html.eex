@@ -1,16 +1,16 @@
 <h1 class="heading-medium">
-    Adding data
+    <%= gettext "Adding data" %>
 </h1>
 
 <p>
     <%= if @dataset do %>
-        Adding to dataset: '<%= @dataset.title %>'
+        <%= gettext "Adding to dataset" %>: '<%= @dataset.title %>'
     <% end %>
 </p>
 
 <p>
-    You must give your data a title and summary. This will make it easier
-    for users to find it on data.gov.uk.
+    <%= gettext "You must give your data a title and summary. This will make it easier
+    for users to find it on data.gov.uk." %>
 </p>
 
 

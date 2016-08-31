@@ -77,14 +77,14 @@
 <div class="phase-banner-alpha">
     <p>
       <strong class="phase-tag">Prototype</strong>
-      <span>This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+      <span><%= raw gettext "This is a new service – your <a href='#'>feedback</a> will help us to improve it." %></span>
     </p>
 </div>
 
 <div class="login-bar">
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>
+      <li><a href="/"><%= gettext "Home" %></a></li>
       <li><a href="/publisher"><%= gettext "Organisations" %></a></li>
       <li><a href="/search"><%= gettext "Datasets" %></a></li>
     </ul>
@@ -106,8 +106,8 @@
       <div class="footer-links">
         <%= if not logged_in?(@conn) do %>
           <ul>
-            <li><%= link "Sign in",  to: session_path(@conn, :login_view) %></li>
-            <li><%= link "Register", to: session_path(@conn, :new) %></li>
+            <li><%= link gettext("Sign in"),  to: session_path(@conn, :login_view) %></li>
+            <li><%= link gettext("Register"), to: session_path(@conn, :new) %></li>
           </ul>
         <% end %>
       </div>

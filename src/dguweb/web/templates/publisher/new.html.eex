@@ -1,6 +1,6 @@
-<h1 class="heading-xlarge">Add an organisation</h1>
+<h1 class="heading-xlarge"><%= gettext "Add an organisation" %></h1>
 
 <%= render "form.html", changeset: @changeset,
                         action: publisher_path(@conn, :create) %>
 
-<%= link "Back", to: publisher_path(@conn, :index) %>
+<%= link gettext("Back"), to: publisher_path(@conn, :index) %>

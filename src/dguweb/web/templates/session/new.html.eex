@@ -4,31 +4,31 @@
   <%= if f.errors != [] do %>
     <div class="error-summary">
       <h1 class="heading-medium error-summary-heading">
-        Oops, something went wrong! Please check the errors below.
+        <%= gettext "Oops, something went wrong! Please check the errors below." %>
       </h1>
     </div>
   <% end %>
 
   <div class="form-group">
-    <label class="form-label">Username</label>
+    <label class="form-label"><%= gettext "Username" %></label>
     <%= text_input f, :username, class: "form-control" %>
     <%= error_tag f, :username %>
   </div>
 
 
   <div class="form-group">
-    <label class="form-label">Email</label>
+    <label class="form-label"><%= gettext "Email" %></label>
     <%= email_input f, :email, class: "form-control" %>
     <%= error_tag f, :email %>
   </div>
 
   <div class="form-group">
-    <label class="form-label">Password</label>
+    <label class="form-label"><%= gettext "Password" %></label>
     <%= password_input f, :password, class: "form-control" %>
     <%= error_tag f, :password %>
   </div>
 
   <div class="form-group">
-    <%= submit "Signup", class: "btn btn-primary" %>
+    <%= submit gettext("Signup"), class: "btn btn-primary" %>
   </div>
 <% end %>

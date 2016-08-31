@@ -1,4 +1,4 @@
-<h1 class="heading-xlarge">Datasets</h1>
+<h1 class="heading-xlarge"><%= gettext "Datasets" %></h1>
 
 <div class="grid-row">
   <div class="column-two-thirds">
@@ -15,12 +15,12 @@
           <td>
             <%= dataset.title %> <br/>
             <small><%= dataset.publisher.title %></small>
-            
+
           </td>
           <td>
-            <%= link "Show", to: dataset_path(@conn, :show, dataset.name), class: "btn btn-default btn-xs" %>
-            <%= link "Edit", to: dataset_path(@conn, :edit, dataset.name), class: "btn btn-default btn-xs" %>
-            <%= link "Delete", to: dataset_path(@conn, :delete, dataset.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+            <%= link gettext("Show"), to: dataset_path(@conn, :show, dataset.name), class: "btn btn-default btn-xs" %>
+            <%= link gettext("Edit"), to: dataset_path(@conn, :edit, dataset.name), class: "btn btn-default btn-xs" %>
+            <%= link gettext("Delete"), to: dataset_path(@conn, :delete, dataset.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
           </td>
         </tr>
     <% end %>

@@ -1,9 +1,9 @@
-<h2>Listing themes</h2>
+<h2><%= gettext "Listing themes" %></h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Theme</th>
+      <th><%= gettext "Theme" %></th>
       <th></th>
     </tr>
   </thead>

@@ -6,11 +6,11 @@
 
   <div class="column-two-thirds">
     <%= if Map.get(@dataset, "theme-primary") do %>
-        <div>Theme: <%= Map.get(@dataset, "theme-primary") %></div>
+        <div><%= gettext "Theme" %>: <%= Map.get(@dataset, "theme-primary") %></div>
     <% end %>
 
     <%= if @dataset.organization do  %>
-        <div>Published by: <a href="<%= publisher_path(@conn, :show, @dataset.organization.name) %>"><%= @dataset.organization.title %></a></div>
+        <div><%= gettext "Published by" %>: <a href="<%= publisher_path(@conn, :show, @dataset.organization.name) %>"><%= @dataset.organization.title %></a></div>
     <br/>
     <% end %>
 
@@ -31,7 +31,7 @@
 
 <div class="grid-row">
 
-    <h1 class="heading-large">Files</h1>
+    <h1 class="heading-large"><%= gettext "Files" %></h1>
 
     <%= for file <- @dataset.resources do %>
     <div class="datafile">
@@ -41,9 +41,9 @@
         <% end %>
 
         <div><%= file.description %></div>
-        <div>Downloaded <%= :random.uniform(50) %> times</div>
+        <div><%= gettext "Downloaded %{count} times", count: :random.uniform(50) %></div>
         <div>
-            <a href="<%= file.url %>">Download <%= file.format %></a>
+            <a href="<%= file.url %>"><%= gettext "Download" %> <%= file.format %></a>
         </div>
 
     </div>

@@ -2,26 +2,26 @@
   <%= if @changeset.action do %>
     <div class="error-summary">
      <h1 class="heading-medium error-summary-heading">
-        Oops, something went wrong! Please check the errors below.
+        <%= gettext "Oops, something went wrong! Please check the errors below." %>
       </h1>
     </div>
   <% end %>
 
   <div class="form-group">
-    <label class="form-label">Title</label>
+    <label class="form-label"><%= gettext "Title" %></label>
     <p class="form-hint">
-        Titles should be 65 characters or less, including spaces.<br/>
-        Most search engines will shorten titles if they’re longer than this.
+        <%= gettext "Titles should be 65 characters or less, including spaces."%><br/>
+        <%= gettext "Most search engines will shorten titles if they’re longer than this." %>
     </p>
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">
-    <label class="form-label">Summary</label>
+    <label class="form-label"><%= gettext "Summary" %></label>
     <p class="form-hint">
-      The first sentence of the summary will appear in search results.<br/>
-      It should be 140 characters or less.
+      <%= gettext "The first sentence of the summary will appear in search results." %><br/>
+      <%= gettext "It should be 140 characters or less." %>
     </p>
     <%= textarea f, :description, class: "form-control" %>
     <%= error_tag f, :description %>
@@ -32,21 +32,21 @@
   </div>
 
   <div class="form-group">
-    <label class="form-label">Upload a file</label>
+    <label class="form-label"><%= gettext "Upload a file" %></label>
     <p class="form-hint">
-      Files should be less than 100 petabytes
+      <%= gettext "Files should be less than 100 petabytes" %>
     </p>
     <%= file_input f, :file, class: "form-control" %>
     <%= error_tag f, :file %>
   </div>
 
   <div class="form-group">
-  or
+  <%= gettext "or" %>
   </div>
 
   <div class="form-group">
-    <label class="form-label">Add a URL</label>
-    <p class="form-hint">Make sure your URL starts with "http(s)://“</p>
+    <label class="form-label"><%= gettext "Add a URL" %></label>
+    <p class="form-hint"><%= gettext "Make sure your URL starts with 'http(s)://'" %></p>
 
     <%= text_input f, :url, class: "form-control" %>
     <%= error_tag f, :url %>
@@ -56,6 +56,6 @@
   <input type="hidden" name="upload[dataset]" value="<%= if @dataset, do: @dataset.name  %>"/>
 
   <div class="form-group">
-    <%= submit "Upload", class: "button" %>
+    <%= submit gettext("Upload"), class: "button" %>
   </div>
 <% end %>

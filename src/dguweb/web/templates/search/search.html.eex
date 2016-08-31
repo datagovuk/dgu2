@@ -1,7 +1,7 @@
 <form id="search-form" action="/search" method="GET">
     <fieldset>
     <div id="search-box">
-        <input id="q" name="q" type="text" placeholder="Search for data" class="form-control search" autocomplete="off" value="<%= @query %>"/>
+        <input id="q" name="q" type="text" placeholder='<%= gettext "Search for data" %>' class="form-control search" autocomplete="off" value="<%= @query %>"/>
     </div>
     </fieldset>
 
@@ -12,34 +12,35 @@
 </form>
 
 
-<h1 class="heading-medium">Search results</h1>
+<h1 class="heading-medium"><%= gettext "Search results" %></h1>
 
 <div class="grid-row">
     <div class="column-two-thirds">
         <%= if @pagination.total > 0 do %>
-            <p>Showing <%= @offset + 1 %> - <%= @offset + length(@results) %> of <%= @pagination.total %> results</p>
+        <p><%= gettext "Showing %{start} - %{end} of %{total} results", start: @offset + 1, end: @offset + length(@results), total: @pagination.total %></p>
 
             <%= for dataset <- @results do %>
                 <%= render "dataset_item.html", dataset: dataset, conn: @conn %>
             <% end %>
         <% else %>
             <%= if @query != "" do %>
-                <p>Search returned 0 results</p>
+                <p><%= gettext "Search returned 0 results" %></p>
             <% end %>
         <% end %>
 
         <%= if @pagination.page_count > 1 do %>
-            <p class="pagination">Page <%= @page_number %> of <%= @pagination.page_count %>
+
+            <p class="pagination"><%= gettext "Page %{current} of %{total}", current: @page_number, total: @pagination.page_count %>
                 -
                 <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
-                    <a href="<%= search_path(@conn, :search, q: @query, page: (@page_number - 1)) %>">Previous</a>
+                    <a href="<%= search_path(@conn, :search, q: @query, page: (@page_number - 1)) %>"><%= gettext "Previous" %></a>
                 <% end %>
                 <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) and
                     DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
                     -
                 <% end %>
                 <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
-                    <a href="<%= search_path(@conn, :search, q: @query, page: (@page_number + 1)) %>">Next</a>
+                    <a href="<%= search_path(@conn, :search, q: @query, page: (@page_number + 1)) %>"><%= gettext "Next" %></a>
                 <% end %>
             </p>
         <% end %>

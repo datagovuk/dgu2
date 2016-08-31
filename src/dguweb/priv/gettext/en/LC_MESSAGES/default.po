@@ -10,7 +10,8 @@ msgid ""
 msgstr ""
 "Language: en\n"
 
-#: web/templates/layout/app.html.eex:88
+#: web/templates/layout/app.html.eex:88 web/templates/publisher/index.html.eex:1
+#: web/templates/user/index.html.eex:6
 msgid "Organisations"
 msgstr ""
 
@@ -18,7 +19,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:89
+#: web/templates/dataset/index.html.eex:1 web/templates/layout/app.html.eex:89
+#: web/templates/publisher/show.html.eex:17
 msgid "Datasets"
 msgstr ""
 
@@ -31,5 +33,372 @@ msgid "Sign out"
 msgstr ""
 
 #: web/templates/dataset/show.html.eex:22
+#: web/templates/publisher/show.html.eex:13
+#: web/templates/search/dataset_item.html.eex:21
+#: web/templates/theme/dataset_item.html.eex:13
 msgid "Add Data"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:87
+msgid "Home"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:80
+msgid "This is a new service – your <a href='#'>feedback</a> will help us to improve it."
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:38
+msgid "A description of what the data contained is this dataset is."
+msgstr ""
+
+#: web/templates/upload/show.html.eex:33
+msgid "A new dataset"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:48
+msgid "Add a URL"
+msgstr ""
+
+#: web/templates/publisher/new.html.eex:1
+msgid "Add an organisation"
+msgstr ""
+
+#: web/templates/publisher/show.html.eex:28
+msgid "Add data"
+msgstr ""
+
+#: web/templates/dataset/new.html.eex:1
+msgid "Add data to a new dataset"
+msgstr ""
+
+#: web/templates/upload/new.html.eex:2
+msgid "Adding data"
+msgstr ""
+
+#: web/templates/upload/new.html.eex:7
+msgid "Adding to dataset"
+msgstr ""
+
+#: web/templates/page/index.html.eex:66
+msgid "Addresses, boundaries, land ownership, aerial photographs, seabed and land terrain"
+msgstr ""
+
+#: web/templates/page/index.html.eex:81
+msgid "Airports, roads, freight, electric vehicles, parking, buses and footpaths"
+msgstr ""
+
+#: web/templates/upload/show.html.eex:29
+msgid "Another dataset"
+msgstr ""
+
+#: web/templates/page/index.html.eex:36
+msgid "Armed forces, health and safety, search and rescue"
+msgstr ""
+
+#: web/templates/dataset/edit.html.eex:9 web/templates/publisher/edit.html.eex:6
+#: web/templates/publisher/new.html.eex:6 web/templates/upload/edit.html.eex:6
+msgid "Back"
+msgstr ""
+
+#: web/templates/page/index.html.eex:20
+msgid "Browse by theme"
+msgstr ""
+
+#: web/templates/page/index.html.eex:25
+msgid "Business and economy"
+msgstr ""
+
+#: web/templates/upload/find.html.eex:26
+msgid "Cancel"
+msgstr ""
+
+#: web/templates/upload/show.html.eex:4
+msgid "Choose dataset"
+msgstr ""
+
+#: web/templates/page/index.html.eex:31
+msgid "Courts, police, prisons, offenders, borders and immigration"
+msgstr ""
+
+#: web/templates/page/index.html.eex:30
+msgid "Crime and justice"
+msgstr ""
+
+#: web/templates/page/index.html.eex:35
+msgid "Defence"
+msgstr ""
+
+#: web/templates/dataset/index.html.eex:23
+msgid "Delete"
+msgstr ""
+
+#: web/templates/dataset/show.html.eex:46
+msgid "Download"
+msgstr ""
+
+#: web/templates/dataset/show.html.eex:44
+msgid "Downloaded %{count} times"
+msgstr ""
+
+#: web/templates/dataset/index.html.eex:22
+#: web/templates/publisher/index.html.eex:18
+msgid "Edit"
+msgstr ""
+
+#: web/templates/publisher/edit.html.eex:1
+msgid "Edit %{publisher}"
+msgstr ""
+
+#: web/templates/dataset/edit.html.eex:1
+msgid "Edit dataset"
+msgstr ""
+
+#: web/templates/upload/edit.html.eex:1
+msgid "Edit upload"
+msgstr ""
+
+#: web/templates/page/index.html.eex:40
+msgid "Education"
+msgstr ""
+
+#: web/templates/session/new.html.eex:20
+msgid "Email"
+msgstr ""
+
+#: web/templates/page/index.html.eex:71
+msgid "Employment, benefits, household finances, poverty and population"
+msgstr ""
+
+#: web/templates/dataset/show.html.eex:34
+msgid "Files"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:37
+msgid "Files should be less than 100 petabytes"
+msgstr ""
+
+#: web/templates/page/index.html.eex:11
+msgid "Find data published by government departments and agencies,\n    public bodies and local authorities. You can use this data to learn\n    more about how government works, carry out research or build\n    applications and services."
+msgstr ""
+
+#: web/templates/page/index.html.eex:50
+msgid "Government"
+msgstr ""
+
+#: web/templates/page/index.html.eex:55
+msgid "Government spending"
+msgstr ""
+
+#: web/templates/page/index.html.eex:60
+msgid "Health"
+msgstr ""
+
+#: web/templates/page/index.html.eex:56
+msgid "Includes all payments by government departments over £25,000"
+msgstr ""
+
+#: web/templates/page/index.html.eex:76
+msgid "Includes housing, urban planning, leisure, waste and energy consumption"
+msgstr ""
+
+#: web/templates/page/index.html.eex:61
+msgid "Includes smoking, drugs, alcohol, medicine performance and hospitals"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:24
+msgid "It should be 140 characters or less."
+msgstr ""
+
+#: web/templates/theme/index.html.eex:1
+msgid "Listing themes"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:49
+msgid "Make sure your URL starts with 'http(s)://'"
+msgstr ""
+
+#: web/templates/page/index.html.eex:65
+msgid "Mapping"
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:29 web/templates/upload/form.html.eex:14
+msgid "Most search engines will shorten titles if they’re longer than this."
+msgstr ""
+
+#: web/templates/publisher/show.html.eex:45
+#: web/templates/search/search.html.eex:43 web/templates/theme/show.html.eex:29
+#: web/templates/upload/show.html.eex:49
+msgid "Next"
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:5 web/templates/publisher/form.html.eex:5
+#: web/templates/session/new.html.eex:7 web/templates/upload/form.html.eex:5
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+#: web/templates/search/search.html.eex:33 web/templates/theme/show.html.eex:19
+msgid "Page %{current} of %{total}"
+msgstr ""
+
+#: web/templates/session/login.html.eex:11 web/templates/session/new.html.eex:26
+msgid "Password"
+msgstr ""
+
+#: web/templates/publisher/show.html.eex:38
+#: web/templates/search/search.html.eex:36 web/templates/theme/show.html.eex:22
+msgid "Previous"
+msgstr ""
+
+#: web/templates/dataset/show.html.eex:13
+#: web/templates/search/dataset_item.html.eex:8
+#: web/templates/theme/dataset_item.html.eex:8
+msgid "Published by"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:110
+msgid "Register"
+msgstr ""
+
+#: web/templates/upload/find.html.eex:27
+msgid "Save"
+msgstr ""
+
+#: web/templates/search/search.html.eex:15
+msgid "Search results"
+msgstr ""
+
+#: web/templates/search/search.html.eex:27
+msgid "Search returned 0 results"
+msgstr ""
+
+#: web/templates/dataset/index.html.eex:21
+msgid "Show"
+msgstr ""
+
+#: web/templates/publisher/show.html.eex:19 web/templates/theme/show.html.eex:8
+msgid "Showing %{start} - %{end} of %{total}"
+msgstr ""
+
+#: web/templates/search/search.html.eex:20
+msgid "Showing %{start} - %{end} of %{total} results"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:109 web/templates/session/login.html.eex:1
+#: web/templates/session/login.html.eex:16
+msgid "Sign in"
+msgstr ""
+
+#: web/templates/session/new.html.eex:32
+msgid "Signup"
+msgstr ""
+
+#: web/templates/page/index.html.eex:26
+msgid "Small businesses, industry, imports, exports and trade"
+msgstr ""
+
+#: web/templates/page/index.html.eex:70
+msgid "Society"
+msgstr ""
+
+#: web/templates/page/index.html.eex:51
+msgid "Staff numbers and pay, local councillors and department business plans"
+msgstr ""
+
+#: web/templates/page/index.html.eex:41
+msgid "Students, training, qualifications and the National Curriculum"
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:48
+#: web/templates/publisher/form.html.eex:93
+msgid "Submit"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:21
+msgid "Summary"
+msgstr ""
+
+#: web/templates/user/index.html.eex:22
+msgid "Tasks"
+msgstr ""
+
+#: web/templates/upload/show.html.eex:39
+msgid "The file you are uploading suggests that the data might belong to\n        one of the following datasets"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:23
+msgid "The first sentence of the summary will appear in search results."
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:39
+msgid "The more detail you give in this field, the easier it will be"
+msgstr ""
+
+#: web/templates/dataset/show.html.eex:9 web/templates/theme/index.html.eex:6
+msgid "Theme"
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:26
+#: web/templates/publisher/index.html.eex:6
+#: web/templates/upload/form.html.eex:11
+msgid "Title"
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:28 web/templates/upload/form.html.eex:13
+msgid "Titles should be 65 characters or less, including spaces."
+msgstr ""
+
+#: web/templates/page/index.html.eex:75
+msgid "Towns and cities"
+msgstr ""
+
+#: web/templates/page/index.html.eex:80
+msgid "Transport"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:59
+msgid "Upload"
+msgstr ""
+
+#: web/templates/upload/form.html.eex:35
+msgid "Upload a file"
+msgstr ""
+
+#: web/templates/session/login.html.eex:6 web/templates/session/new.html.eex:13
+msgid "Username"
+msgstr ""
+
+#: web/templates/page/index.html.eex:46
+msgid "Weather, flooding, rivers, air quality, geology and agriculture"
+msgstr ""
+
+#: web/templates/upload/find.html.eex:11 web/templates/upload/show.html.eex:16
+msgid "Where would you like to add these files"
+msgstr ""
+
+#: web/templates/upload/find.html.eex:4
+msgid "Which dataset would you like to use?"
+msgstr ""
+
+#: web/templates/user/index.html.eex:9
+msgid "You are not a member of any organisation"
+msgstr ""
+
+#: web/templates/upload/show.html.eex:8
+msgid "You can add your data to an existing dataset, or create a new one."
+msgstr ""
+
+#: web/templates/upload/new.html.eex:12
+msgid "You must give your data a title and summary. This will make it easier\n    for users to find it on data.gov.uk."
+msgstr ""
+
+#: web/templates/dataset/form.html.eex:40
+msgid "for users to work out if this is the data they want."
+msgstr ""
+
+#: web/templates/upload/form.html.eex:44
+msgid "or"
+msgstr ""
+
+#: web/templates/page/index.html.eex:7 web/templates/search/search.html.eex:4
+msgid "Search for data"
 msgstr ""

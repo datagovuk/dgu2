@@ -2,7 +2,7 @@
   <%= if @changeset.action do %>
     <div class="error-summary">
       <h1 class="heading-medium error-summary-heading">
-        Oops, something went wrong! Please check the errors below.
+        <%= gettext "Oops, something went wrong! Please check the errors below." %>
       </h1>
     </div>
   <% end %>
@@ -23,10 +23,10 @@
 
 
   <div class="form-group">
-    <label class="form-label">Title</label>
+    <label class="form-label"><%= gettext "Title" %></label>
     <p class="form-hint">
-        Titles should be 65 characters or less, including spaces.<br/>
-        Most search engines will shorten titles if they’re longer than this.
+        <%= gettext "Titles should be 65 characters or less, including spaces." %><br/>
+        <%= gettext "Most search engines will shorten titles if they’re longer than this." %>
     </p>
     <%= text_input f, :title, class: "form-control" %>
     <%= error_tag f, :title %>
@@ -35,9 +35,9 @@
   <div class="form-group">
     <label class="form-label">Description</label>
     <p class="form-hint">
-      A description of what the data contained is this dataset is.<br/>
-      The more detail you give in this field, the easier it will be<br/>
-      for users to work out if this is the data they want.
+      <%= gettext "A description of what the data contained is this dataset is." %><br/>
+      <%= gettext "The more detail you give in this field, the easier it will be" %><br/>
+      <%= gettext "for users to work out if this is the data they want." %>
     </p>
     <%= textarea f, :description, class: "form-control", rows: 10 %>
     <%= error_tag f, :description %>
@@ -45,6 +45,6 @@
 
 
   <div class="form-group">
-    <%= submit "Submit", class: "button" %>
+    <%= submit gettext("Submit"), class: "button" %>
   </div>
 <% end %>

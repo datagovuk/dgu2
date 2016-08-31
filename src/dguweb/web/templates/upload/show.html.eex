@@ -1,11 +1,11 @@
 
 
 <h1 class="heading-xlarge">
-  Choose dataset
+  <%= gettext "Choose dataset" %>
 </h1>
 
 <p>
-  You can add your data to an existing dataset, or create a new one.
+  <%= gettext "You can add your data to an existing dataset, or create a new one." %>
 </p>
 
 <div class="grid-row">
@@ -13,7 +13,7 @@
 
     <form action="<%= upload_path(@conn, :put, @upload.id) %>" method="POST">
       <fieldset>
-        <legend class="visuallyhidden">Where would you like to add these files</legend>
+        <legend class="visuallyhidden"><%= gettext "Where would you like to add these files" %></legend>
         <div class="form-group">
 
           <%= for {dataset_name, dataset_title} <- @datasets do %>
@@ -26,18 +26,18 @@
 
           <label class="block-label" for="id_existing">
             <input id="id_existing" type="radio" name="add_to" value="existing"/>
-            Another dataset
+            <%= gettext "Another dataset" %>
           </label>
           <label class="block-label" for="id_new">
             <input id="id_new" type="radio" name="add_to" value="new"/>
-            A new dataset
+            <%= gettext "A new dataset" %>
           </label>
         </div>
       </fieldset>
 
       <p>
-        The file you are uploading suggests that the data might belong to
-        one of the following datasets:
+        <%= gettext "The file you are uploading suggests that the data might belong to
+        one of the following datasets" %>:
       </p>
       <div class="form-group">
         <label class="block-label" for="id_magic">
@@ -46,7 +46,7 @@
         </label>
       </div>
       <div class="form-group">
-        <input type="submit" class="button" value="Next"/>
+        <input type="submit" class="button" value='<%= gettext "Next" %>'/>
       </div>
     </form>
   </div>
