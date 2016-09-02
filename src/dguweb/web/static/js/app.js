@@ -26,9 +26,13 @@ const searchBoxElement = document.querySelector('#search-box');
 if (searchBoxElement) {
   var searchBox = searchBoxElement.querySelector('input')
   var searchQuery = searchBox.value;
+  var placeholder = searchBox.getAttribute('placeholder');
   searchBoxElement.innerHTML = '';
   const searchBox =
-    Elm.SearchBox.embed(searchBoxElement, { initialSearchQuery: searchQuery, placeholder: searchBox.placeholder });
+    Elm.SearchBox.embed(
+      searchBoxElement,
+      { initialSearchQuery: searchQuery, placeholder: placeholder }
+    );
 
   // called when return key hit in the form
   searchBox.ports.hitReturn.subscribe(selector => {
