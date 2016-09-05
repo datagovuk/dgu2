@@ -12,15 +12,33 @@
         <div class="form-group">
 
 
-      <%= for {dataset_name, dataset_title, dataset_description} <- @datasets do %>
+      <%= for dataset <- @datasets do %>
         <label class="block-label" for="id_organogram">
-            <input type="radio" name="add_to" value="dataset:<%= dataset_name %>"/>
-            <div class="bold"><%= dataset_title %></div>
-            <%= dataset_description %>
+            <input type="radio" name="add_to" value="dataset:<%= dataset.name %>"/>
+            <div class="bold"><%= dataset.title %></div>
+            <%= truncate_text dataset.notes %>
          </label>
       <% end %>
         </div>
       </fieldset>
+
+      <%= if @pagination.page_count > 1 do %>
+            <p class="pagination">
+                <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) do %>
+                    <a href="<%= upload_path(@conn, :find, @upload.id,  page: (@page_number - 1)) %>"><%= gettext "Previous" %></a>
+                <% end %>
+
+                Page <%= @page_number %> of <%= @pagination.page_count %>
+                <%= if DGUWeb.Util.Pagination.has_previous(@pagination, @page_number) and
+                    DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+                    -
+                <% end %>
+                <%= if DGUWeb.Util.Pagination.has_next(@pagination, @page_number) do %>
+                    <a href="<%= upload_path(@conn, :find, @upload.id,  page: (@page_number + 1)) %>"><%= gettext "Next" %></a>
+                <% end %>
+            </p>
+        <% end %>
+
 
       <div class="form-group">
         <a href="<%= upload_path(@conn, :show, @upload.id) %>" class="button" type="submit"><%= gettext "Cancel" %></a>
@@ -31,4 +49,5 @@
   <div class="column-one-third">
   &nbsp;
   </div>
+
 </div>
