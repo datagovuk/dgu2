@@ -1,8 +1,6 @@
 defmodule DGUWeb.User do
   use DGUWeb.Web, :model
 
-  alias DGUWeb.Repo
-
   schema "users" do
     field :username, :string
     field :email, :string
@@ -19,7 +17,7 @@ defmodule DGUWeb.User do
   so we query the join table as well.  One day I hope this is fixed to allow the fields in
   the join table to be retrieved as part of the same call.
   """
-  def publishers(conn, user) do
+  def publishers(conn, _user) do
       conn.assigns(:user_publishers)
   end
 

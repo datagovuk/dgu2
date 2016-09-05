@@ -1,7 +1,7 @@
 defmodule DGUWeb.PublisherController do
   use DGUWeb.Web, :controller
 
-  alias DGUWeb.{Repo, Publisher, Dataset}
+  alias DGUWeb.{Publisher, Dataset}
   alias DGUWeb.Util.Pagination
 
   def index(conn, _params) do
@@ -51,17 +51,16 @@ defmodule DGUWeb.PublisherController do
     params |> Map.get("page", "1") |> String.to_integer
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, %{"id" => _id}) do
     render(conn, "edit.html", publisher: nil, changeset: %{})
   end
 
-  def update(conn, %{"id" => id, "publisher" => publisher_params}) do
+  def update(conn, %{"id" => _id, "publisher" => _publisher_params}) do
     render(conn, "edit.html", publisher: %{}, changeset: %{})
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => _id}) do
     conn
-    |> put_flash(:info, "Publisher deleted successfully.")
     |> redirect(to: publisher_path(conn, :index))
   end
 end

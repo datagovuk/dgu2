@@ -22,8 +22,6 @@ defmodule DGUWeb.Dataset do
   end
 
   def add_resource(conn, dataset_name, upload_obj) do
-    dataset = show(conn, dataset_name)
-
     r = resource_from_upload(upload_obj)
     |> Map.put(:owner_org, upload_obj.publisher)
     |> Map.put(:package_id, dataset_name)

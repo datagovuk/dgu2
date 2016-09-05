@@ -90,10 +90,11 @@ defmodule DGUWeb.DatasetController do
       )
   end
 
-  def update(conn, %{"id" => id, "dataset" => dataset_params}) do
+
+  def update(_conn, %{"id" => _id, "dataset" => _dataset_params}) do
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(_conn, %{"id" => _id}) do
   end
 
 

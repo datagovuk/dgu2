@@ -59,11 +59,11 @@ defmodule DGUWeb.SearchController do
       fq_dict: fq_dict
   end
 
+  defp params_to_fq(nil), do: nil
   defp params_to_fq(params) do
     fqlist = ["theme-primary", "res_format"]
     Map.take(params, fqlist)
   end
-  defp params_to_fq(nil), do: nil
 
 
   defp get_page_number(params) do
