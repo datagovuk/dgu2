@@ -41,7 +41,7 @@
         <% end %>
 
         <div><%= file.description %></div>
-        <div><%= gettext "Downloaded %{count} times", count: :random.uniform(50) %></div>
+        <div><%= gettext "Downloaded %{count} times", count: :rand.uniform(50) %></div>
         <div>
             <a href="<%= file.url %>"><%= gettext "Download" %> <%= file.format %></a>
         </div>
