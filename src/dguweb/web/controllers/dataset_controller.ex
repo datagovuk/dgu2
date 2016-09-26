@@ -74,7 +74,34 @@ defmodule DGUWeb.DatasetController do
   end
 
   def show_dataset(conn, dataset) do
-    render(conn, "show.html", dataset: dataset)
+    is_organogram = dataset.title
+      |> String.downcase
+      |> String.contains?("organogram")
+
+    render_dataset(conn, dataset, is_organogram)
+  end
+
+  def render_dataset(conn, dataset, true) do
+    # Junior for now
+    url = dataset.resources
+    |> Enum.find(fn x-> String.contains?(x.description, "Junior") end)
+    |> Map.get(:url)
+
+    response = HTTPotion.get url, [timeout: 20_000]
+
+    # Convert the string into a stream for CSV decoding
+    {:ok, out} = StringIO.open( response.body )
+    stream = out |> IO.binstream(:line)
+
+    rows = CSV.decode(stream) |> Enum.into([])
+
+    render(conn, "show.html", dataset: dataset,
+      organogram_header: hd(rows),
+      organogram_data: tl(rows))
+  end
+
+  def render_dataset(conn, dataset, _) do
+    render(conn, "show.html", dataset: dataset, organogram_data: nil)
   end
 
   def edit(conn, %{"id" => id}) do
