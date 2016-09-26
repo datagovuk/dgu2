@@ -21,6 +21,7 @@ defmodule DGUWeb.PublisherController do
   def show(conn, %{"id" => id}=params) do
     publisher = Publisher.show(conn, id)
     page_number = get_page_number(params)
+
     show_publisher(conn, publisher, page_number)
   end
 
@@ -39,11 +40,13 @@ defmodule DGUWeb.PublisherController do
         ((other * 10) - 10)
     end
 
+    broken = DGUWeb.Report.broken_links(conn, publisher.name)
+
     response = Dataset.search(conn, "", [fq: "organization:#{publisher.name}", rows: 10, start: offset])
     pagination = Pagination.create(response.count)
 
     render(conn, "show.html", publisher: publisher, datasets: response.results,
-      pagination: pagination, page_number: page_number, offset: offset)
+      pagination: pagination, page_number: page_number, offset: offset, broken: broken)
   end
 
 

@@ -14,6 +14,11 @@
             </p>
         <% end %>
 
+        <h2 class="heading-large">Statistics</h2>
+        <p>
+          <%= @broken.broken_resource_count %> out of <%= @broken.resource_count %> links in <%= @broken.broken_package_count %> datasets are broken.
+        </p>
+
         <h2 class="heading-large"><%= gettext "Datasets" %></h2>
         <p>
 <%= gettext "Showing %{start} - %{end} of %{total}", start: @offset + 1, end: @offset + length(@datasets), total: @pagination.total%>
@@ -30,6 +35,7 @@
               </li>
             <% end %>
         </ul>
+
 
         <%= if @pagination.page_count > 1 do %>
             <p class="pagination">Page <%= @page_number %> of <%= @pagination.page_count %>
