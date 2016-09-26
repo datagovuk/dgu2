@@ -27,7 +27,11 @@
     <hr/>
 </div>
 
-
+<%= if @organogram_data do %>
+<div class="grid-row" style="overflow-x: scroll;">
+    <%= render "organogram_table.html", organogram_data: @organogram_data, type: "Junior Posts", organogram_header: @organogram_header %>
+</div>
+<%= end %>
 
 <div class="grid-row">
 
