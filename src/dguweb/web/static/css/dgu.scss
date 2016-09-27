@@ -121,3 +121,10 @@ font-size: small;
   border: solid 2px #ddd;
   border-radius: 8px;
 }
+
+.organogram-table-wrapper {
+  overflow-x: scroll;
+  table th {
+    vertical-align: bottom;
+  }
+}

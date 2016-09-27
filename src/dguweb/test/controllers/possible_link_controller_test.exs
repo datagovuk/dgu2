@@ -7,7 +7,7 @@ defmodule DGUWeb.PossibleLinkControllerTest do
 
   test "shows chosen resource", %{conn: conn} do
     conn = get conn, possible_link_path(conn, :show, "cabinet-office")
-    assert html_response(conn, 200) =~ "Show possible link"
+    assert html_response(conn, 200) =~ "Data links"
   end
 
 
