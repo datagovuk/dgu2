@@ -31,6 +31,8 @@ defmodule DGUWeb.CKAN.Client do
     {:get, :user_list, [], ""},
     {:get, :package_search, [], ""},
 
+    {:get, :report_data_get, [], ""},
+
     # Requires an authed user
     {:get, :organization_list_for_user, [], ""},
 

@@ -27,7 +27,8 @@ config :dguweb, DGUWeb.Endpoint,
   ]
 
 # Where is CKAN?
-config :dguweb, ckan: "http://192.168.10.10:8080"
+#config :dguweb, ckan: "http://192.168.10.10:8080"
+config :dguweb, ckan: "https://test.data.gov.uk"
 config :dguweb, index: "dgu_dev"
 
 # Do not include metadata nor timestamps in development logs
