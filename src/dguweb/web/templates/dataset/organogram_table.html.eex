@@ -11,7 +11,7 @@
   <thead>
     <tr>
       <%= for header <- @organogram_header do %>
-        <th><%= header %></th>
+        <th scope="col"><%= header %></th>
       <%= end %>
     </tr>
   </thead>
@@ -19,7 +19,11 @@
     <%= for row <- @organogram_data do %>
       <tr>
         <%= for cell <- row do %>
-          <td><%= cell %></td>
+          <%= if is_number_string(cell) do %>
+            <td class="numeric"><%= to_currency(cell) %></td>
+          <%= else %>
+            <td><%= cell %></td>
+          <%= end %>
         <%= end %>
       </tr>
     <%= end %>
