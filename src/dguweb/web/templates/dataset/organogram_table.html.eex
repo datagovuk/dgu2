@@ -1,0 +1,27 @@
+<h1 id="organogram" class="heading-large">Organogram - <%= @type %> Posts</h1>
+
+<%= if @type == "Junior" do %>
+    <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "senior") %>#organogram">Show Senior Posts</a>
+<%= else %>
+        <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "junior") %>#organogram">Show Junior Posts</a>
+<%= end %>
+
+
+<table>
+    <thead>
+        <tr>
+            <%= for header <- @organogram_header do %>
+            <th><%= header %></th>
+            <%= end %>
+        </tr>
+    </thead>
+    <tbody>
+        <%= for row <- @organogram_data do %>
+        <tr>
+            <%= for cell <- row do %>
+            <td><%= cell %></td>
+            <%= end %>
+        </tr>
+        <%= end %>
+    </tbody>
+</table>

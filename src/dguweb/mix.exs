@@ -47,7 +47,7 @@ defmodule DGUWeb.Mixfile do
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
      {:comeonin, "~> 2.5"},
-     {:csv, "~> 1.4.0"},
+     {:csv, "~> 1.4.2"},
      {:uuid, "~> 1.1" },
      {:cachex, "~> 1.2"},
      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.2"},
