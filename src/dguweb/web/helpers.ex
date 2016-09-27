@@ -5,4 +5,14 @@ defmodule DGUWeb.TemplateHelpers do
   # chars <> "..."
   def truncate_text(text), do: DGUWeb.Util.Truncation.truncate(text)
 
+  def strip_url_name(url) do
+    url
+      |> String.split("/")
+      |> Enum.reverse
+      |> hd
+      |> URI.decode
+      |> String.replace("-", " ")
+      |> String.replace("_", " ")
+  end
+
 end

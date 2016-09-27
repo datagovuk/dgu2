@@ -19,20 +19,20 @@ defmodule DGUWeb.Router do
 
     get "/search", SearchController, :search
 
+    resources "/possible-links", PossibleLinkController, only: [:show, :delete]
     resources "/publisher", PublisherController
     resources "/theme", ThemeController
     resources "/dataset", DatasetController
     resources "/session", SessionController, only: [:new, :create]
     resources "/upload", UploadController, only: [:new, :create, :show]
+
     post "/upload/:id/put", UploadController, :put
-    get "/upload/:id/find", UploadController, :find
-
-    get "/download/:path",  DownloadController, :download
-
-    get    "/login",  SessionController, :login_view
-    post   "/login",  SessionController, :login
-    get "/logout", SessionController, :logout
-    get "/user", UserController, :index
+    get  "/upload/:id/find", UploadController, :find
+    get  "/download/:path",  DownloadController, :download
+    get  "/login",  SessionController, :login_view
+    post "/login",  SessionController, :login
+    get  "/logout", SessionController, :logout
+    get  "/user", UserController, :index
 
     get "/fakecsv", DatasetController, :fakecsv
   end
