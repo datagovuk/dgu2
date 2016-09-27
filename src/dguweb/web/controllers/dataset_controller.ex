@@ -97,11 +97,21 @@ defmodule DGUWeb.DatasetController do
         url = Map.get(url_map, :url)
         response = HTTPotion.get url, [timeout: 20_000]
 
-        # Convert the string into a stream for CSV decoding
-        {:ok, out} = StringIO.open( response.body )
-        stream = out |> IO.binstream(:line)
+        filename = "/tmp/#{UUID.uuid4}.csv"
+        File.write(filename, response.body)
 
-        r = CSV.decode(stream) |> Enum.into([])
+        out_filename = "/tmp/#{UUID.uuid4}.csv"
+        output = :os.cmd(to_char_list "iconv -f ISO-8859-1 -t UTF-8 #{filename} > #{out_filename}")
+        File.rm(filename)
+
+        # Convert the string into a stream for CSV decoding
+        r = out_filename
+        |> File.stream!
+        |> CSV.decode
+        |> Enum.into([])
+
+        File.rm(out_filename)
+
         {hd(r), tl(r)}
     end
 
