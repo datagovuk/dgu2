@@ -59,7 +59,7 @@
         <div class="grid-row">
           <div class="column-two-thirds">
             <div class="data">
-              <h2 class="bold-xxlarge"><a href="#datasets"><%= @possible %></a></h2>
+              <h2 class="bold-xxlarge"><a href="<%= possible_link_path(@conn, :show, @publisher.name) %>"><%= @possible %></a></h2>
               <p class="bold-xsmall"><%= gettext("Possible Open Data resources found on website") %></p>
             </div>
           </div>

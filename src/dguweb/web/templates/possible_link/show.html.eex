@@ -1,0 +1,41 @@
+<h1 class="heading-xlarge">Data links</h1>
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+        <p>
+        The list below shows links that have been found on the organisation's website, and may, or may not be Open Data.
+        </p>
+    </div>
+</div>
+
+<div class="grid-row">
+    <table>
+        <thead>
+            <th>URL</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <%= for pl <- @possible_links do %>
+            <tr>
+                <td>
+                    <a href="<%= pl.url %>" target="_blank">
+                        <%= pl.url |> strip_url_name |> truncate_text %>
+                    </a>
+                </td>
+                <td class="font-xsmall">
+                    <a href="">Add to dataset</a>
+                    <a href="">New dataset</a>
+                    <a href="">Remove</a>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+        <br/>
+        <a class="button" href="<%= publisher_path(@conn, :show, @publisher.name) %>" role="button">Back to '<%= @publisher.title %>'</a>
+    </div>
+</div>

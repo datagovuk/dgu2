@@ -6,8 +6,6 @@ defmodule DGUWeb.TemplateHelpers do
   def truncate_text(text), do: DGUWeb.Util.Truncation.truncate(text)
 
   def is_number_string(val) do
-    IO.puts "hello world"
-    IO.puts val
     case Float.parse(val) do
       :error -> false
       {_, ""} -> true
@@ -21,6 +19,16 @@ defmodule DGUWeb.TemplateHelpers do
     else
       ""
     end
+  end
+
+  def strip_url_name(url) do
+    url
+      |> String.split("/")
+      |> Enum.reverse
+      |> hd
+      |> URI.decode
+      |> String.replace("-", " ")
+      |> String.replace("_", " ")
   end
 
 end

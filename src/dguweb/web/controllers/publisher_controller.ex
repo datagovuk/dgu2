@@ -44,7 +44,6 @@ defmodule DGUWeb.PublisherController do
          select: count(p.id),
          where: p.publisher_name == ^publisher.name
     possible = Repo.one(query)
-    IO.inspect possible
 
     broken = DGUWeb.Report.broken_links(conn, publisher.name)
 
