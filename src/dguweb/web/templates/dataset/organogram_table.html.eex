@@ -1,27 +1,31 @@
 <h1 id="organogram" class="heading-large">Organogram - <%= @type %> Posts</h1>
 
 <%= if @type == "Junior" do %>
-    <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "senior") %>#organogram">Show Senior Posts</a>
+  <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "senior") %>#organogram">Show Senior Posts</a>
 <%= else %>
-        <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "junior") %>#organogram">Show Junior Posts</a>
+  <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "junior") %>#organogram">Show Junior Posts</a>
 <%= end %>
 
 
 <table>
-    <thead>
-        <tr>
-            <%= for header <- @organogram_header do %>
-            <th><%= header %></th>
-            <%= end %>
-        </tr>
-    </thead>
-    <tbody>
-        <%= for row <- @organogram_data do %>
-        <tr>
-            <%= for cell <- row do %>
+  <thead>
+    <tr>
+      <%= for header <- @organogram_header do %>
+        <th scope="col"><%= header %></th>
+      <%= end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for row <- @organogram_data do %>
+      <tr>
+        <%= for cell <- row do %>
+          <%= if is_number_string(cell) do %>
+            <td class="numeric"><%= to_currency(cell) %></td>
+          <%= else %>
             <td><%= cell %></td>
-            <%= end %>
-        </tr>
+          <%= end %>
         <%= end %>
-    </tbody>
+      </tr>
+    <%= end %>
+  </tbody>
 </table>
