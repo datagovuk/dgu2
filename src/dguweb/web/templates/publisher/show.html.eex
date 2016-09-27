@@ -14,12 +14,59 @@
             </p>
         <% end %>
 
-        <h2 class="heading-large">Statistics</h2>
-        <p>
-          <%= @broken.broken_resource_count %> out of <%= @broken.resource_count %> links in <%= @broken.broken_package_count %> datasets are broken.
-        </p>
+        <h2 class="heading-large"><%= gettext("Statistics") %></h2>
 
-        <h2 class="heading-large"><%= gettext "Datasets" %></h2>
+        <div class="grid-row">
+          <div class="column-one-third">
+            <div class="data">
+              <h2 class="bold-xxlarge"><a href="#datasets"><%= @broken.package_count %></a></h2>
+              <p class="bold-xsmall"><%= gettext("Datasets") %></p>
+            </div>
+          </div>
+
+          <div class="column-one-third">
+            <div class="data">
+              <h2 class="bold-xxlarge"><a href="#datasets"><%= @broken.resource_count %></a></h2>
+              <p class="bold-xsmall"><%= gettext("Links") %></p>
+            </div>
+          </div>
+
+          <div class="column-one-third">
+            <div class="data">
+              <h2 class="bold-xxlarge"><a href="#datasets"><%= @broken.broken_resource_count %></a></h2>
+              <p class="bold-xsmall"><%= gettext("Broken Links") %></p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="grid-row">
+          <div class="column-one-half">
+            <div class="data">
+              <h2 class="bold-xxlarge"><a href="#datasets"><%= :rand.uniform(50) %></a></h2>
+              <p class="bold-xsmall"><%= gettext("Appeared in search results (30 days)") %></p>
+            </div>
+          </div>
+
+          <div class="column-one-half">
+            <div class="data">
+              <h2 class="bold-xxlarge"><a href="#datasets"><%= :rand.uniform(10) %></a></h2>
+              <p class="bold-xsmall"><%= gettext("Appeared in search results (7 days)") %></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-row">
+          <div class="column-two-thirds">
+            <div class="data">
+              <h2 class="bold-xxlarge"><a href="#datasets"><%= @possible %></a></h2>
+              <p class="bold-xsmall"><%= gettext("Possible Open Data resources found on website") %></p>
+            </div>
+          </div>
+        </div>
+
+
+        <h2 id="datasets" class="heading-large"><%= gettext "Datasets" %></h2>
         <p>
 <%= gettext "Showing %{start} - %{end} of %{total}", start: @offset + 1, end: @offset + length(@datasets), total: @pagination.total%>
         <ul class="dataset-list">

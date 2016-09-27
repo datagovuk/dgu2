@@ -1,7 +1,7 @@
 defmodule DGUWeb.PublisherController do
   use DGUWeb.Web, :controller
 
-  alias DGUWeb.{Publisher, Dataset}
+  alias DGUWeb.{Publisher, Dataset, PossibleLink}
   alias DGUWeb.Util.Pagination
 
   def index(conn, _params) do
@@ -40,13 +40,20 @@ defmodule DGUWeb.PublisherController do
         ((other * 10) - 10)
     end
 
+    query= from p in PossibleLink,
+         select: count(p.id),
+         where: p.publisher_name == ^publisher.name
+    possible = Repo.one(query)
+    IO.inspect possible
+
     broken = DGUWeb.Report.broken_links(conn, publisher.name)
 
     response = Dataset.search(conn, "", [fq: "organization:#{publisher.name}", rows: 10, start: offset])
     pagination = Pagination.create(response.count)
 
     render(conn, "show.html", publisher: publisher, datasets: response.results,
-      pagination: pagination, page_number: page_number, offset: offset, broken: broken)
+      pagination: pagination, page_number: page_number, offset: offset, broken: broken,
+      possible: possible)
   end
 
 

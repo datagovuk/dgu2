@@ -3,7 +3,7 @@ defmodule DGUWeb.Report do
   alias DGUWeb.CKAN.Client
 
   def broken_links(conn, publisher_shortname) do
-    results = conn.assigns[:ckan]
+    conn.assigns[:ckan]
     |> Client.report_data_get(id: "broken-links")
     |> Map.get(:result)
     |> hd
