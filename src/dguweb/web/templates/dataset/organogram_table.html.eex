@@ -1,4 +1,11 @@
-<h1 class="heading-large">Organogram - <%= @type %></h1>
+<h1 id="organogram" class="heading-large">Organogram - <%= @type %> Posts</h1>
+
+<%= if @type == "Junior" do %>
+    <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "senior") %>#organogram">Show Senior Posts</a>
+<%= else %>
+        <a href="<%= dataset_path(@conn, :show, @dataset.name, organogram: "junior") %>#organogram">Show Junior Posts</a>
+<%= end %>
+
 
 <table>
     <thead>
