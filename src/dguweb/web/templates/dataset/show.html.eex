@@ -1,56 +1,54 @@
 <h1 class="heading-xlarge">
-    <%= @dataset.title %>
+  <%= @dataset.title %>
 </h1>
 
 <div class="grid-row">
 
   <div class="column-two-thirds">
     <%= if Map.get(@dataset, "theme-primary") do %>
-        <div><%= gettext "Theme" %>: <%= Map.get(@dataset, "theme-primary") %></div>
+      <div><%= gettext "Theme" %>: <%= Map.get(@dataset, "theme-primary") %></div>
     <% end %>
 
     <%= if @dataset.organization do  %>
-        <div><%= gettext "Published by" %>: <a href="<%= publisher_path(@conn, :show, @dataset.organization.name) %>"><%= @dataset.organization.title %></a></div>
-    <br/>
+      <div><%= gettext "Published by" %>: <a href="<%= publisher_path(@conn, :show, @dataset.organization.name) %>"><%= @dataset.organization.title %></a></div>
+      <br/>
     <% end %>
 
     <p><%= raw @dataset.notes %></p>
-    </div>
+  </div>
 
-    <div class="column-one-third">
-       <%= if @dataset.organization && user_in_publisher(@conn, @dataset.organization.name) do %>
-            <a class="button" href="/upload/new?dataset=<%= @dataset.name %>"><%= gettext "Add Data" %></a>
-            <br/> <br/>
-            <hr/>
-        <% end %>
-    </div>
+  <div class="column-one-third">
+    <%= if @dataset.organization && user_in_publisher(@conn, @dataset.organization.name) do %>
+      <a class="button" href="/upload/new?dataset=<%= @dataset.name %>"><%= gettext "Add Data" %></a>
+      <br/> <br/>
+      <hr/>
+    <% end %>
+  </div>
 </div>
 
 <%= if @organogram_data do %>
-    <%= if length(@dataset.resources) > 0 do %>
-        <p><a href="#files">Raw files</a></p>
-    <% end %>
-    <div class="organogram-table-wrapper">
-        <%= render "organogram_table.html", organogram_data: @organogram_data, type: @organogram_type, organogram_header: @organogram_header, dataset: @dataset, conn: @conn %>
-    </div>
+  <%= if length(@dataset.resources) > 0 do %>
+    <p><a href="#files">Raw files</a></p>
+  <% end %>
+  <div class="organogram-table-wrapper">
+    <%= render "organogram_table.html", organogram_data: @organogram_data, type: @organogram_type, organogram_header: @organogram_header, dataset: @dataset, conn: @conn %>
+  </div>
 <% end %>
 
 <%= if length(@dataset.resources) > 0 do %>
-    <h1 id="files" class="heading-large"><%= gettext "Files" %></h1>
+  <h1 id="files" class="heading-large"><%= gettext "Files" %></h1>
 
-    <%= for file <- @dataset.resources do %>
+  <%= for file <- @dataset.resources do %>
     <div class="datafile">
+      <%= if Map.get(file, "name") do %>
+        <div class="bold"><%= Map.get(file, "name") %></small></div>
+      <% end %>
 
-        <%= if Map.get(file, "name") do %>
-            <div class="bold"><%= Map.get(file, "name") %></small></div>
-        <% end %>
-
-        <div><%= file.description %></div>
-        <div><%= gettext "Downloaded %{count} times", count: :rand.uniform(50) %></div>
-        <div>
-            <a href="<%= file.url %>"><%= gettext "Download" %> <%= file.format %></a>
-        </div>
-
+      <div><%= file.description %></div>
+      <div><%= gettext "Downloaded %{count} times", count: :rand.uniform(50) %></div>
+      <div>
+        <a href="<%= file.url %>"><%= gettext "Download" %> <%= file.format %></a>
+      </div>
     </div>
-    <% end %>
+  <% end %>
 <% end %>

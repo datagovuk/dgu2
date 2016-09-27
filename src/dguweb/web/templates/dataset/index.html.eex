@@ -10,24 +10,22 @@
         </tr>
       </thead>
       <tbody>
-    <%= for dataset <- @datasets do %>
-        <tr>
-          <td>
-            <%= dataset.title %> <br/>
-            <small><%= dataset.publisher.title %></small>
+        <%= for dataset <- @datasets do %>
+          <tr>
+            <td>
+              <%= dataset.title %> <br/>
+              <small><%= dataset.publisher.title %></small>
 
-          </td>
-          <td>
-            <%= link gettext("Show"), to: dataset_path(@conn, :show, dataset.name), class: "btn btn-default btn-xs" %>
-            <%= link gettext("Edit"), to: dataset_path(@conn, :edit, dataset.name), class: "btn btn-default btn-xs" %>
-            <%= link gettext("Delete"), to: dataset_path(@conn, :delete, dataset.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-          </td>
-        </tr>
-    <% end %>
+            </td>
+            <td>
+              <%= link gettext("Show"), to: dataset_path(@conn, :show, dataset.name), class: "btn btn-default btn-xs" %>
+              <%= link gettext("Edit"), to: dataset_path(@conn, :edit, dataset.name), class: "btn btn-default btn-xs" %>
+              <%= link gettext("Delete"), to: dataset_path(@conn, :delete, dataset.name), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
-  <div class="column-one-third">
-  &nbsp;
-  </div>
+  <div class="column-one-third">&nbsp;</div>
 </div>
